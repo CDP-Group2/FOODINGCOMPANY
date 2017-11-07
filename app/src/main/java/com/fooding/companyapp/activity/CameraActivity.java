@@ -79,7 +79,9 @@ public class CameraActivity extends AppCompatActivity {
                 }
 
                 lastText = result.getText();
-                barcodeView.setStatusText(result.getText());
+                Intent intent=new Intent(CameraActivity.this, SendOutQRActivity.class);
+                intent.putExtra("Code",result.getText());
+                startActivity(intent);
             }
 
             @Override
