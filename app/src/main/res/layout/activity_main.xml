@@ -6,13 +6,14 @@
     android:layout_height="match_parent"
     tools:context=".activity.MainActivity">
 
+
     <Button
-        android:id="@+id/tomy_page"
+        android:id="@+id/tomypage"
         android:layout_width="236dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/tofilter"
-        android:layout_alignStart="@+id/tofilter"
-        android:text="mypage"
+        android:layout_above="@+id/tomakerecipe"
+        android:layout_alignStart="@+id/tomakerecipe"
+        android:text="My Page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -24,30 +25,13 @@
         tools:layout_constraintTop_creator="1" />
 
     <Button
-        android:id="@+id/tofilter"
-        android:layout_width="236dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/tocamera"
-        android:layout_alignStart="@+id/tocamera"
-        android:text="filter"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.802"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
-
-    <Button
-        android:id="@+id/tocamera"
+        android:id="@+id/tomakerecipe"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="47dp"
-        android:text="camera"
+        android:text="Make Recipe"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

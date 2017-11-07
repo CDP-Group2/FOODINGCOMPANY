@@ -11,12 +11,12 @@ import com.fooding.companyapp.data.Food;
 import java.util.Iterator;
 import java.util.Map;
 
-public class MyPageActivity extends AppCompatActivity {
+public class MakeRecipeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_my_page);
+        setContentView(R.layout.activity_make_recipe);
 
         Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
         Map<String, String> ttt=food.getIngredient();

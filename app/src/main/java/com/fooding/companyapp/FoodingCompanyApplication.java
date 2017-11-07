@@ -6,8 +6,8 @@ import com.fooding.companyapp.data.Food;
 import com.fooding.companyapp.data.User;
 
 
-public class FoodingApplication extends Application {
-    private static FoodingApplication instance;
+public class FoodingCompanyApplication extends Application {
+    private static FoodingCompanyApplication instance;
     private User user;
     private Food currentFood;
 
@@ -17,7 +17,7 @@ public class FoodingApplication extends Application {
         instance = this;
     }
 
-    public static FoodingApplication getInstance() {
+    public static FoodingCompanyApplication getInstance() {
         return instance;
     }
 
