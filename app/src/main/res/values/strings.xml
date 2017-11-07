@@ -1,0 +1,24 @@
+<resources>
+    <string name="app_name">Fooding</string>
+    <string name="title_activity_study__pronounce_">Study_Pronounce_Activity</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="study_item1">발음</string>
+    <string name="study_item2">단어</string>
+    <string name="study_item3">문장</string>
+    <string name="study_item4">대화</string>
+    <string name="pronounce_1">1성</string>
+    <string name="pronounce_2">2성</string>
+    <string name="pronounce_3">3성</string>
+    <string name="pronounce_4">4성</string>
+    <string name="menu_study">공부하러가기</string>
+    <string name="date">2일차</string>
+    <string name="date_blank">%d일차</string>
+    <string name="hint_id">아이디</string>
+    <string name="hint_pw">비밀번호</string>
+    <string name="login_text">로그인</string>
+    <string name="login_failed">로그인 실패</string>
+    <string name="need_id">아이디를 입력하세요</string>
+    <string name="need_password">비밀번호를 입력하세요</string>
+    <string name="login_success">로그인에 성공하였습니다.</string>
+</resources>
