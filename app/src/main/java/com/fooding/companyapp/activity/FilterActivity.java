@@ -8,12 +8,15 @@ import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 import com.fooding.companyapp.data.Food;
 
+import butterknife.ButterKnife;
+
 public class FilterActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_filter);
+        ButterKnife.bind(this);
 
         Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
         Toast.makeText(this, food.getName().toString(), Toast.LENGTH_SHORT).show();

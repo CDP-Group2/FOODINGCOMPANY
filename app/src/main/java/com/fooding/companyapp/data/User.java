@@ -1,10 +1,13 @@
 package com.fooding.companyapp.data;
 
 
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 public class User {
-    static private int type;
-    static private String name;
+    private int key;
+    private String name;
+    private Map<String, String> recipe = new LinkedHashMap<String, String>();
 
     public String getName() {
         return name;
@@ -14,11 +17,18 @@ public class User {
         this.name = name;
     }
 
-    public int getType() {
-        return type;
+    public Map<String, String> getRecipe(){ return recipe; }
+
+    public void setRecipe(Map<String, String> nRecipe){
+        this.recipe=new LinkedHashMap<String,String>();
+        this.recipe.putAll(nRecipe);
     }
 
-    public void setType(int type) {
-        this.type = type;
+    public int getKey() {
+        return key;
+    }
+
+    public void setKey(int key) {
+        this.key = key;
     }
 }
