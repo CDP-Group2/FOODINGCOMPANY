@@ -55,19 +55,20 @@ public class SendOutQRActivity extends AppCompatActivity {
                     // result of the request.
                 }
             }
+            else sharebitmap();
         }
-        else
-        {
-            if(bitmap!=null) {
-                Intent share = new Intent(Intent.ACTION_SEND);
-                share.setType("image/png");
-                share.addCategory(Intent.CATEGORY_DEFAULT);
-                String path = MediaStore.Images.Media.insertImage(getContentResolver(),
-                        bitmap, "image", null);
-                Uri imageUri =  Uri.parse(path);
-                share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                startActivity(Intent.createChooser(share, "Share"));
-            }
+        else sharebitmap();
+    }
+    private void sharebitmap(){
+        if(bitmap!=null) {
+            Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("image/png");
+            share.addCategory(Intent.CATEGORY_DEFAULT);
+            String path = MediaStore.Images.Media.insertImage(getContentResolver(),
+                    bitmap, "image", null);
+            Uri imageUri =  Uri.parse(path);
+            share.putExtra(Intent.EXTRA_STREAM, imageUri);
+            startActivity(Intent.createChooser(share, "Share"));
         }
     }
     @Override
@@ -120,16 +121,7 @@ public class SendOutQRActivity extends AppCompatActivity {
                if (grantResults.length > 0
                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
 
-                   if(bitmap!=null) {
-                       Intent share = new Intent(Intent.ACTION_SEND);
-                       share.setType("image/png");
-                       share.addCategory(Intent.CATEGORY_DEFAULT);
-                       String path = MediaStore.Images.Media.insertImage(getContentResolver(),
-                               bitmap, "image", null);
-                       Uri imageUri =  Uri.parse(path);
-                       share.putExtra(Intent.EXTRA_STREAM, imageUri);
-                       startActivity(Intent.createChooser(share, "Share"));
-                   }
+                   sharebitmap();
                } else {
                    // permission denied, boo! Disable the
                    // functionality that depends on this permission.

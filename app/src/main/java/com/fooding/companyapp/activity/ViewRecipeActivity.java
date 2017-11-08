@@ -54,7 +54,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
         sendoutbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewRecipeActivity.this, SendOutQRActivity.class));
+                Intent intent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
+                intent.putExtra("Code","http://google.co.kr");
+                startActivity(intent);
                 finish();
             }
         });
