@@ -19,6 +19,7 @@ public class Food {
     public Map<String, String> getIngredient(){ return ingredient; }
 
     public void setIngredient(Map<String, String> nIngredient){
+        this.ingredient=new LinkedHashMap<String,String>();
         this.ingredient.putAll(nIngredient);
     }
 

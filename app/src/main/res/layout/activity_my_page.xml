@@ -16,4 +16,22 @@
         android:layout_centerHorizontal="true"
         android:text="My Page" />
 
+
+    <TextView
+        android:id="@+id/companyName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_centerHorizontal="true"
+        android:ems="10"
+        android:text="" />
+
+    <ListView
+        android:id="@+id/recipeList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/companyName"
+        android:layout_centerHorizontal="true"
+        android:scrollbars="vertical" />
+
 </RelativeLayout>

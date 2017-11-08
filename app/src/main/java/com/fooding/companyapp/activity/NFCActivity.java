@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.fooding.companyapp.FoodingApplication;
+import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 import com.fooding.companyapp.data.Food;
 
@@ -37,14 +37,14 @@ public class NFCActivity extends AppCompatActivity {
          ********************/
         //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
 
-        FoodingApplication app = FoodingApplication.getInstance();
+        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
         Food food=new Food();
         String temp="오뚜기 케챱";
         food.setName(temp);
         app.setCurrentFood(food);
 
         //위처럼 food 정보 저장한다음 서버로 ㄲ 하는 작업 시
-        //Food food = FoodingApplication.getInstance().getCurrentFood();
+        //Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
         //처럼 food 정보 가져올 수 있다
 
         my_pagebutton.setOnClickListener(new View.OnClickListener(){
