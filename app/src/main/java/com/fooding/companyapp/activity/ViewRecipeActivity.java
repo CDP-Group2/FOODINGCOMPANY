@@ -55,13 +55,12 @@ public class ViewRecipeActivity extends AppCompatActivity {
         toSendOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
-                intent.putExtra("Code","123");
+                Intent intent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
+                intent.putExtra("Code","http://google.co.kr");
                 startActivity(intent);
                 finish();
             }
         });
-
         toHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -22,7 +22,28 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentStart="true"
+        android:layout_above="@+id/share_button"
         android:layout_below="@+id/title" />
+
+
+    <Button
+        android:id="@+id/share_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@id/save_button"
+        android:layout_marginBottom="11dp"
+        android:text="share" />
+
+    <Button
+        android:id="@+id/save_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="11dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imageView"
+        android:text="save" />
 
     <Button
         android:id="@+id/toHomeButton"
