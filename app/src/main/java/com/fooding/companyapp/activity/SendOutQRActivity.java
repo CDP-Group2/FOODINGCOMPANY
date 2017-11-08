@@ -74,7 +74,6 @@ public class SendOutQRActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_out_qr);
-        setContentView(R.layout.activity_send_out_qr);
         ButterKnife.bind(this);
         //intent로 원문 받아오기 - food로 받아와도 됨
         String codeString = getIntent().getStringExtra("Code");
