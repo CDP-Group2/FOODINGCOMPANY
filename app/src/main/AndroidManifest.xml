@@ -46,7 +46,8 @@
         <activity android:name=".activity.SendOutQRActivity" />
         <activity android:name=".activity.MakeRecipeActivity" />
         <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.TempActivity"></activity>
+        <activity android:name=".activity.TempActivity" />
+        <activity android:name=".activity.SearchActivity"></activity>
     </application>
 
 </manifest>

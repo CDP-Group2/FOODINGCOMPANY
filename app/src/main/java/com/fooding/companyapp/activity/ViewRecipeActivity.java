@@ -22,9 +22,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class ViewRecipeActivity extends AppCompatActivity {
-    @BindView(R.id.sendout) Button sendoutbutton;
-    @BindView(R.id.title) TextView title;
-    @BindView(R.id.recipeName) TextView recipeName;
+    @BindView(R.id.toSendOutButton) Button toSendOutBtn;
+    @BindView(R.id.toHomeButton) Button toHomeBtn;
+    @BindView(R.id.title) TextView titleText;
+    @BindView(R.id.recipeName) TextView recipeNameText;
     @BindView(R.id.ingredientList) ListView ingredientList;
 
     @Override
@@ -42,7 +43,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
         ingredientList.setAdapter(adapter);
 
-        recipeName.setText(rName);
+        recipeNameText.setText(rName);
 
         Iterator<String> iterator = FoodIngredients.keySet().iterator();
         while(iterator.hasNext()){
@@ -51,10 +52,20 @@ public class ViewRecipeActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
 
-        sendoutbutton.setOnClickListener(new View.OnClickListener() {
+        toSendOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ViewRecipeActivity.this, SendOutQRActivity.class));
+                Intent intent=new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
+                intent.putExtra("Code","123");
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        toHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewRecipeActivity.this, MainActivity.class));
                 finish();
             }
         });

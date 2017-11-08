@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activity.MyPageActivity">
+    tools:context=".activity.SearchActivity">
 
     <TextView
         android:id="@+id/title"
@@ -14,32 +14,33 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="My Page" />
+        android:text="Search" />
 
-
-    <TextView
-        android:id="@+id/companyName"
+    <EditText
+        android:id="@+id/searchText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/title"
         android:layout_centerHorizontal="true"
         android:ems="10"
+        android:inputType="textPersonName"
         android:text="" />
 
-    <ListView
-        android:id="@+id/recipeList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/companyName"
-        android:layout_centerHorizontal="true"
-        android:scrollbars="vertical" />
-
     <Button
-        android:id="@+id/toHomeButton"
+        android:id="@+id/addButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Home" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="add" />
+
+    <ListView
+        android:id="@+id/resultList"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/searchText"
+        android:layout_centerHorizontal="true"
+        android:choiceMode="singleChoice"
+        android:scrollbars="vertical" />
 
 </RelativeLayout>

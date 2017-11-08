@@ -23,9 +23,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MyPageActivity extends AppCompatActivity {
-    @BindView(R.id.title) TextView title;
-    @BindView(R.id.companyName) TextView companyName;
+    @BindView(R.id.title) TextView titleText;
+    @BindView(R.id.companyName) TextView companyNameText;
     @BindView(R.id.recipeList) ListView recipeList;
+    @BindView(R.id.toHomeButton) Button toHomeBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +42,7 @@ public class MyPageActivity extends AppCompatActivity {
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recipes) ;
         recipeList.setAdapter(adapter);
 
-        companyName.setText(user.getName());
+        companyNameText.setText(user.getName());
 
         Iterator<String> iterator = CompanyRecipes.keySet().iterator();
         while(iterator.hasNext()){
@@ -50,5 +51,12 @@ public class MyPageActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
 
+        toHomeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MyPageActivity.this, MainActivity.class));
+                finish();
+            }
+        });
     }
 }

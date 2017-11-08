@@ -1,5 +1,6 @@
 package com.fooding.companyapp.activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -31,11 +32,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 
 public class MakeRecipeActivity extends AppCompatActivity {
-    @BindView(R.id.addButton) Button addButton;
-    @BindView(R.id.deleteButton) Button deleteButton;
-    @BindView(R.id.makeButton) Button makeButton;
+    @BindView(R.id.addButton) Button addBtn;
+    @BindView(R.id.deleteButton) Button deleteBtn;
+    @BindView(R.id.makeButton) Button makeBtn;
     @BindView(R.id.ingredientList) ListView ingredientList;
-    @BindView(R.id.recipeName) EditText recipeName;
+    @BindView(R.id.recipeName) EditText recipeNameText;
+    final Integer ADD_INGREDIENT = 1;
+    public ArrayList<String> ingredients;
+    public ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,21 +47,19 @@ public class MakeRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_make_recipe);
         ButterKnife.bind(this);
 
-        final ArrayList<String> ingredients = new ArrayList<String>();
-        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, ingredients) ;
+        ingredients = new ArrayList<String>();
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, ingredients) ;
         ingredientList.setAdapter(adapter);
 
-        addButton.setOnClickListener(new View.OnClickListener() {
+        addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int count;
-                count = adapter.getCount();
-                ingredients.add("LIST" + Integer.toString(count + 1));
-                adapter.notifyDataSetChanged();
+                startActivityForResult(new Intent(MakeRecipeActivity.this, CameraActivity.class),ADD_INGREDIENT);
+
             }
         });
 
-        deleteButton.setOnClickListener(new View.OnClickListener() {
+        deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 int count, checked ;
@@ -73,12 +75,12 @@ public class MakeRecipeActivity extends AppCompatActivity {
             }
         });
 
-        makeButton.setOnClickListener(new View.OnClickListener() {
+        makeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
                 Food food=new Food();
-                food.setName(recipeName.getText().toString());
+                food.setName(recipeNameText.getText().toString());
                 Map<String, String> ttt=new LinkedHashMap<String, String>();
                 int count;
                 count=adapter.getCount();
@@ -130,18 +132,20 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-/*
-        Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-        Map<String, String> ttt=food.getIngredient();
-        String temp="";
-        Iterator<String> iterator = ttt.keySet().iterator();
-        while(iterator.hasNext()){
-            String key=iterator.next();
-            temp+=ttt.get(key);
-        }
-        Toast.makeText(this, food.getName().toString() + temp, Toast.LENGTH_SHORT).show();
-        */
-        //사용방법은 카메라 액티비티 참고
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == 1) {
+            if(resultCode == Activity.RESULT_OK){
+                String addIngredient=data.getStringExtra("addIngredient");
+                ingredients.add(addIngredient);
+                adapter.notifyDataSetChanged();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //만약 반환값이 없을 경우의 코드를 여기에 작성하세요.
+            }
+        }
+    }//onActivityResult
 }

@@ -1,6 +1,8 @@
 package com.fooding.companyapp;
 
 
+import com.fooding.companyapp.data.model.Ingredient;
+
 import org.json.JSONArray;
 
 import java.util.ArrayList;
@@ -15,7 +17,7 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
-    public static final String API_URL = "http://poerty.co.kr/";
+    public static final String API_URL = "http://poerty.co.kr/fooding/";
 
     //음식 key 가지고 해당 음식 재료 정보 가져오기
     @GET("/httpget.php")
@@ -34,7 +36,7 @@ public interface APIService {
     @GET("dogs/{name}")
     Call<ResponseBody>getName(@Path("name") String testpath, @Query("query") String testquery);
 
-    //5
-    @PUT("dogs/{name}")
-    Call<ResponseBody>putName(@Path("name") String testpath);
+    //auto complete search
+    @GET("searchIngredient.php")
+    Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);
 }

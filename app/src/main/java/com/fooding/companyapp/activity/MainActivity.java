@@ -17,8 +17,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MainActivity extends AppCompatActivity {
-    @BindView(R.id.tomakerecipe) Button toMakeRecipeButton;
-    @BindView(R.id.tomypage) Button toMyPageButton;
+    @BindView(R.id.toMakeRecipeButton) Button toMakeRecipeBtn;
+    @BindView(R.id.toMyPageButton) Button toMyPageBtn;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -37,14 +38,14 @@ public class MainActivity extends AppCompatActivity {
         food.setIngredient(ttt);
         app.setCurrentFood(food);
 
-        toMakeRecipeButton.setOnClickListener(new View.OnClickListener() {
+        toMakeRecipeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, MakeRecipeActivity.class));
             }
         });
 
-        toMyPageButton.setOnClickListener(new View.OnClickListener() {
+        toMyPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, MyPageActivity.class));

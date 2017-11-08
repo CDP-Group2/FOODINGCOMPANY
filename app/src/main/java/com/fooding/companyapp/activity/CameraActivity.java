@@ -1,6 +1,7 @@
 package com.fooding.companyapp.activity;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -26,18 +27,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class CameraActivity extends AppCompatActivity {
-    @BindView(R.id.my_page)
-    Button my_pagebutton;
-    private DecoratedBarcodeView barcodeView;
-    @BindView(R.id.filter)
-    Button filterbutton;
-    @BindView(R.id.NFC)
-    Button nfcbutton;
-    @BindView(R.id.viewrecipe)
-    Button viewrecipebutton;
-    @BindView(R.id.title)
-    TextView title;
+    @BindView(R.id.NFC) Button nfcbutton;
+    @BindView(R.id.toSearchButton) Button toSearchBtn;
+    @BindView(R.id.title) TextView title;
 
+    private DecoratedBarcodeView barcodeView;
     private String lastText;
 
     //callback when barcode scanned
@@ -79,45 +73,15 @@ public class CameraActivity extends AppCompatActivity {
                 }
 
                 lastText = result.getText();
-                Intent intent=new Intent(CameraActivity.this, SendOutQRActivity.class);
-                intent.putExtra("Code",result.getText());
-                startActivity(intent);
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("addIngredient","fromCamera : " +lastText);
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
 
             @Override
             public void possibleResultPoints(List<ResultPoint> resultPoints) {
-            }
-        });
-        //****************
-        //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
-
-        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
-        Food food=new Food();
-        String temp="오뚜기 케챱";
-        food.setName(temp);
-        Map<String, String> ttt=new LinkedHashMap<String, String>();
-        ttt.put("a123","ketchap1");
-        ttt.put("b123","ketchap2");
-        ttt.put("c123","ketchap3");
-        food.setIngredient(ttt);
-        app.setCurrentFood(food);
-
-        //위처럼 food 정보 저장한다음 서버로 ㄲ 하는 작업 시
-        //Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-        //처럼 food 정보 가져올 수 있다
-
-        my_pagebutton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent=new Intent(CameraActivity.this, MyPageActivity.class);
-                //intent.putExtra("date",Integer.parseInt(date.getText().toString().replaceAll("[^0-9]", "")));
-                startActivity(intent);
-            }
-        });
-
-        filterbutton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, FilterActivity.class));
             }
         });
 
@@ -129,10 +93,11 @@ public class CameraActivity extends AppCompatActivity {
             }
         });
 
-        viewrecipebutton.setOnClickListener(new View.OnClickListener() {
+
+        toSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, ViewRecipeActivity.class));
+                startActivity(new Intent(CameraActivity.this, SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
                 finish();
             }
         });

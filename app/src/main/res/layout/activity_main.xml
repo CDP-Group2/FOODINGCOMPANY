@@ -8,11 +8,11 @@
 
 
     <Button
-        android:id="@+id/tomypage"
+        android:id="@+id/toMyPageButton"
         android:layout_width="236dp"
         android:layout_height="50dp"
-        android:layout_above="@+id/tomakerecipe"
-        android:layout_alignStart="@+id/tomakerecipe"
+        android:layout_above="@+id/toMakeRecipeButton"
+        android:layout_alignStart="@+id/toMakeRecipeButton"
         android:text="My Page"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -25,7 +25,7 @@
         tools:layout_constraintTop_creator="1" />
 
     <Button
-        android:id="@+id/tomakerecipe"
+        android:id="@+id/toMakeRecipeButton"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"

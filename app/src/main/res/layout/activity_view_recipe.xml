@@ -7,7 +7,7 @@
     tools:context=".activity.ViewRecipeActivity">
 
     <Button
-        android:id="@+id/sendout"
+        android:id="@+id/toSendOutButton"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
@@ -47,9 +47,17 @@
         android:id="@+id/ingredientList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/sendout"
+        android:layout_above="@+id/toSendOutButton"
         android:layout_below="@+id/recipeName"
         android:layout_centerHorizontal="true"
         android:scrollbars="vertical" />
+
+    <Button
+        android:id="@+id/toHomeButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:text="Home" />
 
 </RelativeLayout>

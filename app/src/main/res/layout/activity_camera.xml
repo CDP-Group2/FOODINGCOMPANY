@@ -10,35 +10,18 @@
         android:id="@+id/barcode_scanner"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_above="@+id/my_page"
+        android:layout_above="@+id/toSearchButton"
         android:layout_below="@+id/title">
 
     </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
     <Button
-        android:id="@+id/my_page"
-        android:layout_width="236dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/filter"
-        android:layout_alignStart="@+id/filter"
-        android:text="mypage"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.802"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
-
-    <Button
-        android:id="@+id/filter"
+        android:id="@+id/toSearchButton"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:text="filter"
+        android:text="검색을 통한 추가"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
@@ -67,14 +50,5 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
         android:text="NFC" />
-
-    <Button
-        android:id="@+id/viewrecipe"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/my_page"
-        android:layout_alignEnd="@+id/my_page"
-        android:layout_alignStart="@+id/my_page"
-        android:text="viewrecipe" />
 
 </RelativeLayout>
