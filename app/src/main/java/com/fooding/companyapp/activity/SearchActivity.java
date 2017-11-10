@@ -90,8 +90,7 @@ public class SearchActivity extends AppCompatActivity {
                             for(int i=0;i<response.body().size();i++){
                                 results.add(response.body().get(i).getName());
                             }
-                            adapter.notifyDataSetChanged();
-                            Log.i("Test1", response.body().get(0).getName());
+                            if(response.body().size()!=0) adapter.notifyDataSetChanged();
                         } else{
                             Log.i("Test1", "fail");
                         }
