@@ -57,7 +57,9 @@ public class SendOutQRActivity extends AppCompatActivity {
                     bitmap, "image", null);
             Uri imageUri =  Uri.parse(path);
             share.putExtra(Intent.EXTRA_STREAM, imageUri);
+            sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse(path)));
             startActivity(Intent.createChooser(share, "Share"));
+
         }
     }
     @OnClick(R.id.save_button) void QRcode_Save() {
