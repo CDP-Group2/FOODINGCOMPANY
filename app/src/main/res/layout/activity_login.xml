@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="313dp"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="16dp">
+        android:layout_margin="16dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
 
         <ImageView
             android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:src="@mipmap/login_logo"
-            android:layout_marginBottom="16dp"
-            android:scaleType="fitCenter"/>
+            android:layout_height="150dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/login_logo" />
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -24,6 +27,8 @@
                 android:id="@+id/login_id_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:inputType="textPersonName"
                 android:hint="@string/hint_id" />
 
         </android.support.design.widget.TextInputLayout>
@@ -36,17 +41,20 @@
                 android:id="@+id/login_pw_edittext"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                android:hint="@string/hint_pw" />
+                android:layout_marginBottom="20dp"
+                android:hint="@string/hint_pw"
+                android:inputType="textPassword" />
 
         </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/login_button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="bottom"
-            android:text="@string/login_text"/>
+            android:layout_width="wrap_content"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="@color/colorPrimary"
+            android:text="@string/login_text" />
 
     </LinearLayout>
 

@@ -8,10 +8,12 @@
 
     <Button
         android:id="@+id/toSendOutButton"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_width="236dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="10dp"
         android:text="sendout"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
@@ -36,10 +38,15 @@
 
     <TextView
         android:id="@+id/recipeName"
+        android:textSize="23dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_below="@+id/toHomeButton"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp"
         android:layout_centerHorizontal="true"
+        android:textAlignment="center"
+        android:textColor="@color/colorAccent"
         android:ems="10"
         android:text="" />
 
@@ -54,10 +61,13 @@
 
     <Button
         android:id="@+id/toHomeButton"
+        android:backgroundTint="@color/colorPrimary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
         android:text="Home" />
 
 </RelativeLayout>

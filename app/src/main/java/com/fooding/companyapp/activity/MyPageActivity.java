@@ -23,7 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MyPageActivity extends AppCompatActivity {
-    @BindView(R.id.title) TextView titleText;
+//    @BindView(R.id.title) TextView titleText;
     @BindView(R.id.companyName) TextView companyNameText;
     @BindView(R.id.recipeList) ListView recipeList;
     @BindView(R.id.toHomeButton) Button toHomeBtn;
