@@ -136,7 +136,8 @@ public class CameraActivity extends AppCompatActivity {
         toSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
+                startActivity(new Intent(CameraActivity.this,
+                        SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
                 finish();
             }
         });

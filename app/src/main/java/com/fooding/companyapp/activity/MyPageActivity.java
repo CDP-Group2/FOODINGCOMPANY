@@ -18,6 +18,7 @@ import com.fooding.companyapp.data.User;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -37,6 +38,18 @@ public class MyPageActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        Food food=new Food();
+        String temp="오뚜기 케챱";
+        food.setName(temp);
+        Map<String, String> ttt=new LinkedHashMap<String, String>();
+        ttt.put("a123","ketchap1");
+        ttt.put("b123","ketchap2");
+        ttt.put("c123","ketchap3");
+        food.setIngredient(ttt);
+        app.setCurrentFood(food);
+
+//        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        app = FoodingCompanyApplication.getInstance();
         User user = app.getUser();
         Map<String, String> CompanyRecipes = user.getRecipe();
 
