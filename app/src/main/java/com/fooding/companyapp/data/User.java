@@ -5,9 +5,10 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class User {
-    private int key;
+    private String key;
     private String name;
     private Map<String, String> recipe = new LinkedHashMap<String, String>();
+
 
     public String getName() {
         return name;
@@ -24,11 +25,11 @@ public class User {
         this.recipe.putAll(nRecipe);
     }
 
-    public int getKey() {
+    public String getKey() {
         return key;
     }
 
-    public void setKey(int key) {
+    public void setKey(String key) {
         this.key = key;
     }
 }
