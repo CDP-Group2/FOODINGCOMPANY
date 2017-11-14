@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,8 @@ public class MyPageActivity extends AppCompatActivity {
 //    @BindView(R.id.title) TextView titleText;
     @BindView(R.id.companyName) TextView companyNameText;
     @BindView(R.id.recipeList) ListView recipeList;
-    @BindView(R.id.toHomeButton) Button toHomeBtn;
+    @BindView(R.id.viewRecipeList) Button viewRecipeList;
+    @BindView(R.id.addRecipe) Button addRecipe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,11 +53,19 @@ public class MyPageActivity extends AppCompatActivity {
         }
         adapter.notifyDataSetChanged();
 
-        toHomeBtn.setOnClickListener(new View.OnClickListener() {
+        viewRecipeList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MyPageActivity.this, MainActivity.class));
-                finish();
+                startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
+//                finish();
+            }
+        });
+
+        addRecipe.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MyPageActivity.this, MakeRecipeActivity.class));
+//                finish();
             }
         });
     }
