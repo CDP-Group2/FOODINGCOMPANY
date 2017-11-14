@@ -9,10 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class Recipe {
 
-    @SerializedName("ID")
+    @SerializedName("RID")
     @Expose
     private String id;
-    @SerializedName("NAME")
+    @SerializedName("RNAME")
     @Expose
     private String name;
 

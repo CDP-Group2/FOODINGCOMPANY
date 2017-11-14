@@ -114,7 +114,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try{
-                            Log.i("Test1", response.body().string());
+/                            Log.i("Test1", response.body().string());
                         } catch(IOException e){
                             Log.i("Test1", "fail");
                             e.printStackTrace();
