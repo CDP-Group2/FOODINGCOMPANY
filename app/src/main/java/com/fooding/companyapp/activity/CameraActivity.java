@@ -44,6 +44,7 @@ public class CameraActivity extends AppCompatActivity {
     private String lastText;
 
     public String results;
+    public String resultsID;
 
     //callback when barcode scanned
 
@@ -99,7 +100,17 @@ public class CameraActivity extends AppCompatActivity {
                     public void onResponse(Call<Ingredient> call, Response<Ingredient> response) {
                         if(response.isSuccessful()) {
                             // results = "";
-                            results = response.body().getName();
+                            Log.i("foo","foo");
+                            Ingredient temp = response.body();
+                            results = temp.getName();
+                            resultsID = temp.getId();
+
+                            Intent returnIntent = new Intent();
+                            // returnIntent.putExtra("addIngredient","fromCamera : " +lastText);
+                            returnIntent.putExtra("addIngredient",results.toString());
+                            returnIntent.putExtra("addIngredientID",resultsID.toString());
+                            setResult(Activity.RESULT_OK,returnIntent);
+                            finish();
                         } else {
                             Log.i("Get Ingredient Info", "Fail");
                         }
@@ -112,11 +123,7 @@ public class CameraActivity extends AppCompatActivity {
                     }
                 });
 
-                Intent returnIntent = new Intent();
-                // returnIntent.putExtra("addIngredient","fromCamera : " +lastText);
-                returnIntent.putExtra("addIngredient",lastText);
-                setResult(Activity.RESULT_OK,returnIntent);
-                finish();
+
             }
 
             @Override
