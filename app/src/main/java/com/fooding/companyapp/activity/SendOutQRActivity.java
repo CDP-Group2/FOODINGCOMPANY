@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.HttpConnection;
 import com.fooding.companyapp.R;
 import com.google.zxing.BarcodeFormat;
@@ -97,6 +98,7 @@ public class SendOutQRActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         //intent로 원문 받아오기 - food로 받아와도 됨
         String codeString = getIntent().getStringExtra("Code");
+        codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getName();
         /////////
         //writer 셋업
         QRCodeWriter barcodeWriter = new QRCodeWriter();

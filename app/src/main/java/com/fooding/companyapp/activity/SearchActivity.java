@@ -46,6 +46,7 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.addButton) Button addBtn;
 
     public ArrayList<String> results;
+    public ArrayList<String> resultsID;
     public ArrayAdapter adapter;
 
     @Override
@@ -55,6 +56,7 @@ public class SearchActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         results = new ArrayList<String>();
+        resultsID = new ArrayList<String>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, results) ;
         resultList.setAdapter(adapter);
 
@@ -89,6 +91,7 @@ public class SearchActivity extends AppCompatActivity {
                             results.clear();
                             for(int i=0;i<response.body().size();i++){
                                 results.add(response.body().get(i).getName());
+                                resultsID.add(response.body().get(i).getId());
                             }
                             if(response.body().size()!=0) adapter.notifyDataSetChanged();
                         } else{
@@ -124,7 +127,8 @@ public class SearchActivity extends AppCompatActivity {
                     if (checked > -1 && checked < count) {
 
                         Intent returnIntent = new Intent();
-                        returnIntent.putExtra("addIngredient","fromSearch : "+results.get(checked).toString());
+                        returnIntent.putExtra("addIngredient",results.get(checked).toString());
+                        returnIntent.putExtra("addIngredientID",resultsID.get(checked).toString());
                         setResult(Activity.RESULT_OK,returnIntent);
                         finish();
                     }

@@ -7,13 +7,16 @@ import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.fooding.companyapp.APIService;
 import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 import com.fooding.companyapp.data.Food;
+import com.fooding.companyapp.data.model.Ingredient;
 import com.google.zxing.ResultPoint;
 import com.journeyapps.barcodescanner.BarcodeCallback;
 import com.journeyapps.barcodescanner.BarcodeResult;
@@ -25,6 +28,12 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CameraActivity extends AppCompatActivity {
     @BindView(R.id.NFC) Button nfcbutton;
@@ -33,6 +42,8 @@ public class CameraActivity extends AppCompatActivity {
 
     private DecoratedBarcodeView barcodeView;
     private String lastText;
+
+    public String results;
 
     //callback when barcode scanned
 
@@ -74,8 +85,36 @@ public class CameraActivity extends AppCompatActivity {
 
                 lastText = result.getText();
 
+                Retrofit retrofit;
+                APIService apiService;
+
+                retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                apiService = retrofit.create(APIService.class);
+
+                // String serialNumber = result.getText();
+                String serialNumber = lastText;
+                Call<Ingredient> comment = apiService.getIngredientInfo(serialNumber);
+                comment.enqueue(new Callback<Ingredient>() {
+                    @Override
+                    public void onResponse(Call<Ingredient> call, Response<Ingredient> response) {
+                        if(response.isSuccessful()) {
+                            // results = "";
+                            results = response.body().getName();
+                        } else {
+                            Log.i("Get Ingredient Info", "Fail");
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Ingredient> call, Throwable t) {
+                        Log.i("Get Ingredient Info", "On Failure");
+                        t.printStackTrace();
+                    }
+                });
+
                 Intent returnIntent = new Intent();
-                returnIntent.putExtra("addIngredient","fromCamera : " +lastText);
+                // returnIntent.putExtra("addIngredient","fromCamera : " +lastText);
+                returnIntent.putExtra("addIngredient",lastText);
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
             }
@@ -97,7 +136,8 @@ public class CameraActivity extends AppCompatActivity {
         toSearchBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
+                startActivity(new Intent(CameraActivity.this,
+                        SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
                 finish();
             }
         });

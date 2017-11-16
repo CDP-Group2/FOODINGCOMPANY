@@ -6,40 +6,86 @@
     android:layout_height="match_parent"
     tools:context=".activity.MyPageActivity">
 
+    <!-- my page
     <TextView
         android:id="@+id/title"
         android:layout_margin="8dp"
         android:textSize="23dp"
+        android:textColor="#66000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="My Page" />
+        android:text="My Page" /> -->
 
 
     <TextView
         android:id="@+id/companyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/title"
+        android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
         android:ems="10"
-        android:text="" />
+        android:text=""
+        android:textAlignment="center"
+        android:textColor="#000000"
+        android:textSize="23dp" />
 
     <ListView
         android:id="@+id/recipeList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/companyName"
+        android:layout_width="320dp"
+        android:layout_height="200dp"
+        android:layout_below="@+id/recentRecipe"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:scrollbars="vertical" />
 
     <Button
-        android:id="@+id/toHomeButton"
-        android:layout_width="wrap_content"
+        android:id="@+id/viewRecipeList"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/recipeList"
+        android:layout_marginTop="20dp"
+        android:backgroundTint="@color/button_default"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:text="내 레시피 보기" />
+
+    <Button
+        android:id="@+id/addRecipe"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/recipeList"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="84dp"
+        android:paddingTop="20dp"
+        android:paddingBottom="20dp"
+        android:backgroundTint="@color/button_default"
+        android:text="레시피 새로 추가하기" />
+
+    <TextView
+        android:id="@+id/recentRecipe"
+        android:textColor="@color/colorPrimary"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/companyName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:text="최근 생성한 레시피"
+        android:textSize="15dp" />
+
+    <ImageButton
+        android:id="@+id/settings"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:background="#ffffff"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:text="Home" />
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="15dp"
+        android:scaleType="fitXY"
+        app:srcCompat="@mipmap/settings" />
 
 </RelativeLayout>

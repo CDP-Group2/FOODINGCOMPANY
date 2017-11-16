@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
             //로그인 성공
 
             User user = new User();
-            user.setKey(123);
+            user.setKey("123");
             user.setName("한상훈");
             Map<String, String> recipeList= new LinkedHashMap<String, String>();
             recipeList.put("d23","ketchap");

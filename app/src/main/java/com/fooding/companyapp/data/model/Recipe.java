@@ -1,16 +1,18 @@
 package com.fooding.companyapp.data.model;
 
-import android.util.Log;
-
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class Ingredient {
+/**
+ * Created by hansanghoon on 2017. 11. 14..
+ */
 
-    @SerializedName("IID")
+public class Recipe {
+
+    @SerializedName("RID")
     @Expose
     private String id;
-    @SerializedName("NAME")
+    @SerializedName("RNAME")
     @Expose
     private String name;
 
