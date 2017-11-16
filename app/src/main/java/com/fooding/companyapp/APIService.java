@@ -28,7 +28,7 @@ public interface APIService {
     Call<Ingredient>getIngredientInfo(@Query("key") String key);
 
     //사업자명과 음식 이름과 재료들 가지고 레시피 생성하기
-    @POST("makeRecipe.php")
+    @POST("makeRecipee.php")
     Call<ResponseBody> makeRecipe(@Query("companyID") String companyID, @Query("recipeName") String recipeName, @Query("ingredientList[]") ArrayList<String> ingredientList);
 
     //사업자번호로 해당 사업자 레시피 리스트 가져오기

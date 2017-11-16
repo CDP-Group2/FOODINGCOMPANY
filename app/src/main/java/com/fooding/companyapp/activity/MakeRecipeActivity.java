@@ -39,7 +39,10 @@ public class MakeRecipeActivity extends AppCompatActivity {
     @BindView(R.id.recipeName) EditText recipeNameText;
     final Integer ADD_INGREDIENT = 1;
     public ArrayList<String> ingredients;
+    public ArrayList<String> ingredientsID;
     public ArrayAdapter adapter;
+    private Food food;
+    private FoodingCompanyApplication app;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +51,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         ingredients = new ArrayList<String>();
+        ingredientsID = new ArrayList<String>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, ingredients) ;
         ingredientList.setAdapter(adapter);
 
@@ -78,19 +82,21 @@ public class MakeRecipeActivity extends AppCompatActivity {
         makeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
-                Food food=new Food();
+                app = FoodingCompanyApplication.getInstance();
+                food=new Food();
                 food.setName(recipeNameText.getText().toString());
                 Map<String, String> ttt=new LinkedHashMap<String, String>();
+                Map<String, String> ppp=new LinkedHashMap<String, String>();
                 int count;
                 count=adapter.getCount();
                 for(int i=0;i<count;i++){
-                    ttt.put("S"+Integer.toString(i),ingredients.get(i));
+                    ttt.put(Integer.toString(i),ingredients.get(i));
+                    ppp.put(Integer.toString(i),ingredientsID.get(i));
                 }
 
                 food.setIngredient(ttt);
-                app.setCurrentFood(food);
 
+                app.setCurrentFood(food);
 
                 Retrofit retrofit;
                 APIService apiService;
@@ -104,17 +110,22 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 Iterator<String> iterator = ingredients.keySet().iterator();
                 while(iterator.hasNext()){
                     String key=iterator.next();
-                    tmp.add(key);
+                    tmp.add(ppp.get(key));
+                    Log.i("key",ingredients.get(key));
                 }
 
                 Log.i("lenof tmp", Integer.toString(tmp.size()));
 
-                Call<ResponseBody> comment = apiService.makeRecipe("1", "ket", tmp);
+                Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try{
-/                            Log.i("Test1", response.body().string());
+                            String temp = response.body().string();
+                            Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
+                            Log.i("string temp",temp);
+                            food.setName(temp);
+                            FoodingCompanyApplication.getInstance().setCurrentFood(food);
                         } catch(IOException e){
                             Log.i("Test1", "fail");
                             e.printStackTrace();
@@ -140,7 +151,10 @@ public class MakeRecipeActivity extends AppCompatActivity {
         if (requestCode == 1) {
             if(resultCode == Activity.RESULT_OK){
                 String addIngredient=data.getStringExtra("addIngredient");
+                String addIngredientID=data.getStringExtra("addIngredientID");
+                Log.i("dqwdwq",addIngredient);
                 ingredients.add(addIngredient);
+                ingredientsID.add(addIngredientID);
                 adapter.notifyDataSetChanged();
             }
             if (resultCode == Activity.RESULT_CANCELED) {

@@ -114,7 +114,7 @@ public class CameraActivity extends AppCompatActivity {
 
                 Intent returnIntent = new Intent();
                 // returnIntent.putExtra("addIngredient","fromCamera : " +lastText);
-                returnIntent.putExtra("addIngredient","fromCamera : " +results);
+                returnIntent.putExtra("addIngredient",lastText);
                 setResult(Activity.RESULT_OK,returnIntent);
                 finish();
             }

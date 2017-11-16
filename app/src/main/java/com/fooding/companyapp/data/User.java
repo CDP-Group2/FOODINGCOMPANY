@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class User {
     private String key;
-    
+
     private String name;
     private Map<String, String> recipe = new LinkedHashMap<String, String>();
 
