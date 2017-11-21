@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.v4.content.FileProvider;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -51,14 +52,27 @@ public class SendOutQRActivity extends AppCompatActivity {
     @BindView(R.id.toHomeButton) Button toHomeBtn;
     @OnClick(R.id.share_button) void QRcode_Share() {
         if(bitmap!=null) {
-            Intent share = new Intent(Intent.ACTION_SEND);
-            share.setType("image/png");
-            share.addCategory(Intent.CATEGORY_DEFAULT);
-            String path = MediaStore.Images.Media.insertImage(getContentResolver(),
-                    bitmap, "image", null);
-            Uri imageUri =  Uri.parse(path);
-            share.putExtra(Intent.EXTRA_STREAM, imageUri);
-            startActivity(Intent.createChooser(share, "Share"));
+            try {
+
+                File cachePath = new File(getCacheDir(), "images");
+                cachePath.mkdirs(); // don't forget to make the directory
+                FileOutputStream stream = new FileOutputStream(cachePath + "/image.png"); // overwrites this image every time
+                bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+                stream.close();
+
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            File imagePath = new File(getCacheDir(), "images");
+            File newFile = new File(imagePath, "image.png");
+            Uri contentUri = FileProvider.getUriForFile(this, "com.fooding.companyapp.fileprovider", newFile);
+            if (contentUri != null) {
+                Intent shareIntent = new Intent(Intent.ACTION_SEND);
+                shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION); // temp permission for receiving app to read this file
+                shareIntent.setDataAndType(contentUri, getContentResolver().getType(contentUri));
+                shareIntent.putExtra(Intent.EXTRA_STREAM, contentUri);
+                startActivity(Intent.createChooser(shareIntent, "Choose an app"));
+            }
         }
     }
     @OnClick(R.id.save_button) void QRcode_Save() {
