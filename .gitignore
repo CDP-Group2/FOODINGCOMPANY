@@ -8,3 +8,9 @@
 /captures
 .externalNativeBuild
 *.bin
+.gradle/4.1/javaCompile/taskJars.bin
+*.bin
+.gradle/4.1/javaCompile/javaCompile.lock
+*.bin
+*.lock
+*.bin
