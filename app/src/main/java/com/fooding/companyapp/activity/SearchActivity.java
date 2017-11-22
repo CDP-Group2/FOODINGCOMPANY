@@ -89,6 +89,7 @@ public class SearchActivity extends AppCompatActivity {
                     public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
                         if(response.isSuccessful()){
                             results.clear();
+                            resultsID.clear();
                             for(int i=0;i<response.body().size();i++){
                                 results.add(response.body().get(i).getName());
                                 resultsID.add(response.body().get(i).getId());

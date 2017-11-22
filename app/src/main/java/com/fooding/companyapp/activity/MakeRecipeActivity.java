@@ -86,12 +86,10 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 food=new Food();
                 food.setName(recipeNameText.getText().toString());
                 Map<String, String> ttt=new LinkedHashMap<String, String>();
-                Map<String, String> ppp=new LinkedHashMap<String, String>();
                 int count;
                 count=adapter.getCount();
                 for(int i=0;i<count;i++){
-                    ttt.put(Integer.toString(i),ingredients.get(i));
-                    ppp.put(Integer.toString(i),ingredientsID.get(i));
+                    ttt.put(ingredientsID.get(i),ingredients.get(i));
                 }
 
                 food.setIngredient(ttt);
@@ -110,7 +108,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 Iterator<String> iterator = ingredients.keySet().iterator();
                 while(iterator.hasNext()){
                     String key=iterator.next();
-                    tmp.add(ppp.get(key));
+                    tmp.add(key);
                     Log.i("key",ingredients.get(key));
                 }
 

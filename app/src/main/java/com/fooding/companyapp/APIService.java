@@ -3,8 +3,7 @@ package com.fooding.companyapp;
 
 import com.fooding.companyapp.data.model.Ingredient;
 import com.fooding.companyapp.data.model.Recipe;
-
-import org.json.JSONArray;
+import com.fooding.companyapp.data.model.UserLogin;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +12,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
-import retrofit2.http.PUT;
-import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface APIService {
@@ -32,13 +29,13 @@ public interface APIService {
     Call<ResponseBody> makeRecipe(@Query("companyID") String companyID, @Query("recipeName") String recipeName, @Query("ingredientList[]") ArrayList<String> ingredientList);
 
     //사업자번호로 해당 사업자 레시피 리스트 가져오기
-    @GET("getRecipe.php")
+    @GET("getRecipe2.php")
     Call<List<Recipe>>getRecipe(@Query("companyID") String companyID);
 
     //로그인
     //추후
-    @GET("dogs/{name}")
-    Call<ResponseBody>getName(@Path("name") String testpath, @Query("query") String testquery);
+    @GET("doLogin.php")
+    Call<UserLogin>doLogin(@Query("ID") String ID, @Query("password") String password);
 
     //auto complete search
     @GET("searchIngredient.php")
