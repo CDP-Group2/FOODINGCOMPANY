@@ -33,6 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyPageActivity extends AppCompatActivity {
 //    @BindView(R.id.title) TextView titleText;
@@ -52,13 +53,19 @@ public class MyPageActivity extends AppCompatActivity {
         APIService apiService;
         final Map<String, String> tempRecipes = new LinkedHashMap<String, String>();
 
-        retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
+        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        user = app.getUser();
+
+        retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
         apiService = retrofit.create(APIService.class);
 
-        Call<List<Recipe>> comment = apiService.getRecipe(user.getKey());
+        String companyID = user.getKey();
+        Log.i("companyID",companyID);
+        Call<List<Recipe>> comment = apiService.getRecipe(companyID);
         comment.enqueue(new Callback<List<Recipe>>() {
             @Override
             public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+                Log.i("num",Integer.toString((response.body().size())));
                 for(int i=0; i< response.body().size();i++){
                     tempRecipes.put(response.body().get(i).getId(), response.body().get(i).getId());
                 }
@@ -75,8 +82,6 @@ public class MyPageActivity extends AppCompatActivity {
         });
 
 
-        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
-        user = app.getUser();
         Map<String, String> CompanyRecipes = user.getRecipe();
 
         final ArrayList<String> recipes = new ArrayList<String>();
