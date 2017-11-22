@@ -150,7 +150,6 @@ public class MakeRecipeActivity extends AppCompatActivity {
             if(resultCode == Activity.RESULT_OK){
                 String addIngredient=data.getStringExtra("addIngredient");
                 String addIngredientID=data.getStringExtra("addIngredientID");
-                Log.i("dqwdwq",addIngredient);
                 ingredients.add(addIngredient);
                 ingredientsID.add(addIngredientID);
                 adapter.notifyDataSetChanged();

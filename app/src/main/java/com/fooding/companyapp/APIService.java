@@ -21,7 +21,7 @@ public interface APIService {
     @GET("getIngredient.php")
     Call<List<Ingredient>>getIngredient(@Query("key") String key);
 
-    @GET("getIngredientInfo.php")
+    @GET("Ingredientsid.php")
     Call<Ingredient>getIngredientInfo(@Query("key") String key);
 
     //사업자명과 음식 이름과 재료들 가지고 레시피 생성하기
