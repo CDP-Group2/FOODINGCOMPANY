@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="313dp"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="20dp"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/login_logo" />
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/companyname_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/hint_cname"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/login_id_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:inputType="textPersonName"
+                android:hint="@string/hint_id" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/login_pw_edittext"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:hint="@string/hint_pw"
+                android:inputType="textPassword" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="150dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="20dp"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp"
+            android:backgroundTint="@color/button_default"
+            android:text="회 원 가 입" />
+
+    </LinearLayout>
+
+</LinearLayout>

@@ -37,6 +37,9 @@ public interface APIService {
     @GET("doLogin.php")
     Call<UserLogin>doLogin(@Query("ID") String ID, @Query("password") String password);
 
+    @GET("doRegister.php")
+    Call<ResponseBody>doRegister(@Query("CNAME") String CNAME, @Query("ID") String ID, @Query("password") String password);
+
     //auto complete search
     @GET("searchIngredient.php")
     Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);

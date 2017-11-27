@@ -14,11 +14,15 @@
     <string name="menu_study">공부하러가기</string>
     <string name="date">2일차</string>
     <string name="date_blank">%d일차</string>
+    <string name="hint_cname">사업자이름</string>
     <string name="hint_id">아이디</string>
     <string name="hint_pw">비밀번호</string>
     <string name="login_text">로그인</string>
     <string name="login_failed">로그인 실패</string>
+    <string name="register_success">회원가입에 성공하였습니다 로그인해주세요.</string>
+    <string name="register_failed">이미 존재하는 아이디입니다</string>
     <string name="need_id">아이디를 입력하세요</string>
+    <string name="need_cname">사업자명을 입력하세요</string>
     <string name="need_password">비밀번호를 입력하세요</string>
     <string name="login_success">로그인에 성공하였습니다.</string>
 </resources>

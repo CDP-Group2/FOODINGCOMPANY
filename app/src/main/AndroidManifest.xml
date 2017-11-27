@@ -63,7 +63,8 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <activity android:name=".activity.SettingsActivity" />
+        <activity android:name=".activity.RegisterActivity"></activity>
     </application>
 
 </manifest>

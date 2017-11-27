@@ -30,6 +30,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class LoginActivity extends Activity {
     @BindView(R.id.login_button) Button login_button;
+    @BindView(R.id.register_button) Button register_button;
     @BindView(R.id.login_id_edittext) EditText id_text;
     @BindView(R.id.login_pw_edittext) EditText pw_text;
 
@@ -49,6 +50,13 @@ public class LoginActivity extends Activity {
                 pw = pw_text.getText().toString();
                 //로그인 체크
                 loginCheck(id, pw);
+            }
+        });
+
+        register_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
         });
     }
