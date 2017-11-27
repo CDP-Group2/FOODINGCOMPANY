@@ -1,62 +1,81 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/cameraActivity"
     tools:context=".activity.CameraActivity">
+
+    <TextView
+        android:id="@+id/fooding"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:text="FOODING"
+        android:textColor="#111"
+        android:textSize="30dp"
+        android:layout_marginTop="@dimen/menu_bar_margin"
+        android:layout_centerHorizontal="true"/>
 
     <com.journeyapps.barcodescanner.DecoratedBarcodeView
         android:id="@+id/barcode_scanner"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_above="@+id/toSearchButton"
-        android:layout_below="@+id/title">
+        android:layout_height="wrap_content"
+        android:layout_above="@id/menu"
+        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_below="@id/NFC">
 
     </com.journeyapps.barcodescanner.DecoratedBarcodeView>
 
-    <Button
-        android:id="@+id/toSearchButton"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_width="236dp"
-        android:layout_height="50dp"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:text="검색을 통한 추가"
-        android:layout_marginBottom="10dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.802"
-        tools:layout_constraintBottom_creator="1"
-        tools:layout_constraintLeft_creator="1"
-        tools:layout_constraintRight_creator="1"
-        tools:layout_constraintTop_creator="1" />
-
-
-    <TextView
-        android:id="@+id/title"
-        android:layout_margin="8dp"
-        android:textSize="23dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#66000000"
-        android:text="QR CAMERA" />
-
-    <Button
+    <ImageButton
         android:id="@+id/NFC"
-        android:backgroundTint="@color/colorPrimary"
-        android:layout_width="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:padding="10dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:scaleType="centerInside"
+        android:adjustViewBounds="true"
+        android:src="@mipmap/nfc"
+        android:background="@color/transparent"/>
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/barcode_scanner"
-        android:layout_alignRight="@id/barcode_scanner"
-        android:layout_marginTop="4dp"
-        android:layout_marginRight="5dp"
-        android:text="NFC" />
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/setting"
+            android:src="@mipmap/settings" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/search"
+            android:src="@mipmap/search" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/camera"
+            android:src="@mipmap/camera_color" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/recentlyViewed"
+            android:src="@mipmap/list" />
+    </LinearLayout>
 
 </RelativeLayout>

@@ -10,6 +10,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.fooding.companyapp.APIService;
@@ -36,9 +37,8 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CameraActivity extends AppCompatActivity {
-    @BindView(R.id.NFC) Button nfcbutton;
-    @BindView(R.id.toSearchButton) Button toSearchBtn;
-    @BindView(R.id.title) TextView title;
+    @BindView(R.id.NFC) ImageButton nfcbutton;
+    @BindView(R.id.search) ImageButton toSearchBtn;
 
     private DecoratedBarcodeView barcodeView;
     private String lastText;

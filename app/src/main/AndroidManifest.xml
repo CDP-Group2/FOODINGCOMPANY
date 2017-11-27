@@ -1,11 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.fooding.companyapp">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.NFC" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <uses-feature
         android:name="android.hardware.camera"
@@ -36,6 +35,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -46,19 +46,24 @@
         <activity android:name=".activity.NFCActivity" />
         <activity android:name=".activity.ViewRecipeActivity" />
         <activity android:name=".activity.SendOutQRActivity" />
-        <activity android:name=".activity.MakeRecipeActivity" android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".activity.MakeRecipeActivity"
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.TempActivity" />
-        <activity android:name=".activity.SearchActivity"></activity>
+        <activity android:name=".activity.SearchActivity" />
+
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.fooding.companyapp.fileprovider"
-            android:grantUriPermissions="true"
-            android:exported="false">
+            android:exported="false"
+            android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_provider_paths" />
         </provider>
+
+        <activity android:name=".activity.SettingsActivity"></activity>
     </application>
 
 </manifest>

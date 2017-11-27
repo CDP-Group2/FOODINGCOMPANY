@@ -1,18 +1,25 @@
 package com.fooding.companyapp.activity;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.CursorAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
@@ -43,7 +50,13 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.resultList) ListView resultList;
     @BindView(R.id.searchText) EditText searchText;
-    @BindView(R.id.addButton) Button addBtn;
+    @BindView(R.id.addButton) ImageButton addBtn;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.setting) ImageButton settingBtn;
+    @BindView(R.id.search) ImageButton searchBtn;
+    @BindView(R.id.camera) ImageButton cameraBtn;
+    @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.JsonTextview) TextView debuggingView; //debugging purpose
 
     public ArrayList<String> results;
     public ArrayList<String> resultsID;
@@ -54,6 +67,55 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         ButterKnife.bind(this);
+
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences fontSP = app.getMyPref();
+
+        final String pathT = fontSP.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        title.setTypeface(font);
+        debuggingView.setTypeface(font);
+
+        final String pathK = fontSP.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        searchText.setTypeface(fontK);
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(fontSP.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.searchActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+            searchText.setBackgroundResource(R.drawable.edit_text_border_white);
+            searchText.setHintTextColor(Color.parseColor("#ececec"));
+            searchText.setTextColor(Color.parseColor("#ffffff"));
+            debuggingView.setTextColor(Color.parseColor("#ffffff"));
+
+            // change buttons
+            searchBtn.setImageResource(R.mipmap.search_white);
+            cameraBtn.setImageResource(R.mipmap.camera_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+            addBtn.setImageResource(R.mipmap.add_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            // listview divider/separator
+            /*resultListView.setDivider(new ColorDrawable(0xF0ECECEC));
+            resultListView.setDividerHeight(1);*/
+        }
+        /*************************************************************************************************************/
 
         results = new ArrayList<String>();
         resultsID = new ArrayList<String>();
@@ -90,13 +152,27 @@ public class SearchActivity extends AppCompatActivity {
                         if(response.isSuccessful()){
                             results.clear();
                             resultsID.clear();
+                            Log.i("size : ",response.body().toString());
+                            if(response.body().toString()=="fail") {
+                                debuggingView.setVisibility(View.VISIBLE);
+                                resultList.setVisibility(View.INVISIBLE);
+                            }
+                            else {
+                                debuggingView.setVisibility(View.INVISIBLE);
+                                resultList.setVisibility(View.VISIBLE);
+                            }
                             for(int i=0;i<response.body().size();i++){
                                 results.add(response.body().get(i).getName());
                                 resultsID.add(response.body().get(i).getId());
                             }
                             if(response.body().size()!=0) adapter.notifyDataSetChanged();
                         } else{
+                            results.clear();
+                            resultsID.clear();
+                            adapter.notifyDataSetChanged();
                             Log.i("Test1", "fail");
+                            debuggingView.setVisibility(View.VISIBLE);
+                            resultList.setVisibility(View.INVISIBLE);
                         }
                     }
 
@@ -104,6 +180,11 @@ public class SearchActivity extends AppCompatActivity {
                     public void onFailure(Call<List<Ingredient>> call, Throwable t) {
                         Log.i("Test1", "onfailure");
                         t.printStackTrace();
+                        results.clear();
+                        resultsID.clear();
+                        adapter.notifyDataSetChanged();
+                        debuggingView.setVisibility(View.VISIBLE);
+                        resultList.setVisibility(View.INVISIBLE);
                     }
                 });
 
@@ -116,6 +197,20 @@ public class SearchActivity extends AppCompatActivity {
         };
 
         searchText.addTextChangedListener(watcher);
+
+        searchText.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View view, int i, KeyEvent keyEvent) {
+                // 엔터키 눌렀을 시 감지
+                if((keyEvent.getAction() == keyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(searchText.getWindowToken(), 0);   // hide keyboard
+
+                    return true;
+                }
+                return false;
+            }
+        });
 
 
         addBtn.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +229,14 @@ public class SearchActivity extends AppCompatActivity {
                         finish();
                     }
                 }
+            }
+        });
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SearchActivity.this, SettingsActivity.class));
+                finish();
             }
         });
     }
