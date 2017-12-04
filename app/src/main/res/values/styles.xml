@@ -47,4 +47,8 @@
         <item name="android:background">#111</item>
     </style>
 
+    <style name="ThemeWithCorners" parent="android:Theme.Dialog">
+        <item name="android:windowBackground">@drawable/section_white</item>
+    </style>
+
 </resources>

@@ -64,7 +64,11 @@
         </provider>
 
         <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity android:name=".activity.RegisterActivity" />
+        <activity
+            android:name=".activity.amountPopupActivity"
+            android:theme="@style/ThemeWithCorners">
+        </activity>
     </application>
 
 </manifest>
