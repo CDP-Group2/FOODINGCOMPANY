@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:android="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -45,6 +45,65 @@
         <item name="android:layout_alignParentTop">true</item>
         <item name="android:layout_marginTop">68dp</item>
         <item name="android:background">#111</item>
+    </style>
+
+    <style name="sign_up_bar">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">#c5c5c5</item>
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginBottom">5dp</item>
+        <item name="android:layout_marginLeft">0dp</item>
+        <item name="android:layout_marginRight">0dp</item>
+    </style>
+
+    <style name="registration">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:layout_weight">1.5</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#c0000000</item>
+    </style>
+
+    <style name="registration.editText">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColorHint">#bbbbbb</item>
+        <item name="android:textColor">#111</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="my_page_title">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">12dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:textColor">#c0000000</item>
+    </style>
+
+    <style name="my_page_content">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">3</item>
+        <item name="android:background">@null</item>
+        <item name="android:paddingTop">10dp</item>
+        <item name="android:paddingBottom">10dp</item>
+        <item name="android:textColor">#111</item>
+        <item name="android:textSize">15dp</item>
+    </style>
+
+    <style name="switchCompatStyle">
+        <item name="colorControlActivated">@color/myBlue</item>
+        <!--<item name="colorSwitchThumbNormal">@color/gray</item>-->
+        <!--<item name="trackTint">@color/gray</item>-->
     </style>
 
 </resources>

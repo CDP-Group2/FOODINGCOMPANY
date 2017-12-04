@@ -32,26 +32,49 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".activity.SplashActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            android:theme="@style/AppTheme">
+
+            <!-- android:theme="@style/Theme.AppCompat.Light.NoActionBar"> -->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.MainActivity" />
-        <activity android:name=".activity.CameraActivity" />
-        <activity android:name=".activity.MyPageActivity" />
-        <activity android:name=".activity.FilterActivity" />
-        <activity android:name=".activity.NFCActivity" />
-        <activity android:name=".activity.ViewRecipeActivity" />
-        <activity android:name=".activity.SendOutQRActivity" />
+        <activity
+            android:name=".activity.MainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.CameraActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.MyPageActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.FilterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.NFCActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.ViewRecipeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SendOutQRActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".activity.MakeRecipeActivity"
+            android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-        <activity android:name=".activity.LoginActivity" />
-        <activity android:name=".activity.TempActivity" />
-        <activity android:name=".activity.SearchActivity" />
+        <activity
+            android:name=".activity.LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.TempActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.SearchActivity"
+            android:screenOrientation="portrait" />
 
         <provider
             android:name="android.support.v4.content.FileProvider"
@@ -63,8 +86,13 @@
                 android:resource="@xml/file_provider_paths" />
         </provider>
 
-        <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.RegisterActivity"></activity>
+        <activity
+            android:name=".activity.SettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activity.RegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MyRecipeActivity"></activity>
     </application>
 
 </manifest>

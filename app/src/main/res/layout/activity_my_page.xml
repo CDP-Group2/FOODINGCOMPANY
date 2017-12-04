@@ -6,20 +6,246 @@
     android:layout_height="match_parent"
     tools:context=".activity.MyPageActivity">
 
-    <!-- my page
     <TextView
         android:id="@+id/title"
-        android:layout_margin="8dp"
-        android:textSize="23dp"
-        android:textColor="#66000000"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="My Page" /> -->
+        android:layout_marginTop="14dp"
+        android:textColor="#111"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:text="My page" />
+
+    <View
+        android:id="@+id/title_bar"
+        style="@style/title_bar" />
+
+    <LinearLayout
+        android:id="@+id/tabs"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="30dp"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/myInfoTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-2dp"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="16dp"
+                android:textColor="@color/myBlue"
+                android:background="@null"
+                android:text="내 정보"/>
+
+            <View
+                android:id="@+id/myInfoView"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="@color/myBlue" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/recentRecipeTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="-2dp"
+                android:layout_weight="1"
+                android:background="@null"
+                android:text="최근 생성 레시피"
+                android:textAlignment="center"
+                android:textColor="#5c5c5c"
+                android:textSize="16dp" />
+
+            <View
+                android:id="@+id/recentRecipeView"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_weight="1"
+                android:background="#5c5c5c" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/myInformation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="60dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/tabs"
+        android:orientation="vertical">
 
 
-    <TextView
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text1-1"
+                    style="@style/my_page_title"
+                    android:text="사업자명" />
+
+                <TextView
+                    android:id="@+id/text1-2"
+                    style="@style/my_page_content"
+                    android:text="사업자명" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text2-1"
+                    style="@style/my_page_title"
+                    android:text="아이디" />
+
+                <TextView
+                    android:id="@+id/text2-2"
+                    style="@style/my_page_content"
+                    android:text="아이디" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text3-1"
+                    style="@style/my_page_title"
+                    android:text="이메일" />
+
+                <TextView
+                    android:id="@+id/text3-2"
+                    style="@style/my_page_content"
+                    android:textColor="#c5c5c5"
+                    android:text="미등록" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text4-1"
+                    style="@style/my_page_title"
+                    android:text="주소" />
+
+                <TextView
+                    android:id="@+id/text4-2"
+                    style="@style/my_page_content"
+                    android:textColor="#c5c5c5"
+                    android:text="미등록" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="0dp"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="8"
+                    android:textColor="@color/myBlue"
+                    android:textAllCaps="true"
+                    android:text=""/>
+
+                <Button
+                    android:id="@+id/edit"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="2"
+                    android:textColor="#5c5c5c"
+                    android:background="@null"
+                    android:textSize="12dp"
+                    android:text="수정하기"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/recentRecipe"
+        android:visibility="invisible"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="80dp"
+        android:layout_marginTop="25dp"
+        android:layout_below="@id/tabs"
+        android:layout_above="@id/menu_bar"
+        android:layout_marginBottom="30dp"
+        android:orientation="vertical">
+
+        <ListView
+            android:id="@+id/recipeList"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+
+
+    <!--<TextView
         android:id="@+id/companyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -30,9 +256,9 @@
         android:text=""
         android:textAlignment="center"
         android:textColor="#000000"
-        android:textSize="23dp" />
+        android:textSize="23dp" />-->
 
-    <ListView
+    <!--<ListView
         android:id="@+id/recipeList"
         android:layout_width="320dp"
         android:layout_height="200dp"
@@ -41,51 +267,54 @@
         android:layout_marginTop="10dp"
         android:scrollbars="vertical" />
 
-    <Button
-        android:id="@+id/viewRecipeList"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/recipeList"
-        android:layout_marginTop="20dp"
-        android:backgroundTint="@color/button_default"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:text="내 레시피 보기" />
-
-    <Button
-        android:id="@+id/addRecipe"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/recipeList"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="84dp"
-        android:paddingTop="20dp"
-        android:paddingBottom="20dp"
-        android:backgroundTint="@color/button_default"
-        android:text="레시피 새로 추가하기" />
-
     <TextView
         android:id="@+id/recentRecipe"
         android:textColor="@color/colorPrimary"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/companyName"
+        android:layout_below="@id/myInformation"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="25dp"
         android:text="최근 생성한 레시피"
-        android:textSize="15dp" />
+        android:textSize="15dp" />-->
 
-    <ImageButton
-        android:id="@+id/settings"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:background="#ffffff"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="15dp"
-        android:layout_marginRight="15dp"
-        android:scaleType="fitXY"
-        app:srcCompat="@mipmap/settings" />
+    <View
+        android:id="@+id/menu_bar"
+        style="@style/menu_bar" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/setting"
+            android:src="@mipmap/settings" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/makeMenu"
+            android:src="@mipmap/compose" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/viewRecipe"
+            android:src="@mipmap/recipe" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/myPage"
+            android:src="@mipmap/user_color" />
+    </LinearLayout>
 
 </RelativeLayout>

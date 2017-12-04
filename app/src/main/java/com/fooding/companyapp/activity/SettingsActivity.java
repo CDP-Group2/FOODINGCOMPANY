@@ -2,6 +2,7 @@ package com.fooding.companyapp.activity;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -10,6 +11,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.SwitchCompat;
 import android.util.Log;
 import android.util.Range;
 import android.view.View;
@@ -43,9 +45,9 @@ public class SettingsActivity extends AppCompatActivity {
     @BindView(R.id.textBoldnessTitle) TextView textBoldnessTitle;
     @BindView(R.id.textSizeTitle) TextView textSizeTitle;
     @BindView(R.id.etcTitle) TextView etcTitle;
-    @BindView(R.id.filter) ImageButton filterBtn;
-    @BindView(R.id.camera) ImageButton cameraBtn;
-    @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.makeMenu) ImageButton makeMenuBtn;
+    @BindView(R.id.viewRecipe) ImageButton viewRecipeBtn;
+    @BindView(R.id.myPage) ImageButton myPageBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -125,9 +127,9 @@ public class SettingsActivity extends AppCompatActivity {
             etcTitle.setTextColor(Color.parseColor("#ffffff"));
 
             // change buttons
-            filterBtn.setImageResource(R.mipmap.filter_white);
-            cameraBtn.setImageResource(R.mipmap.camera_white);
-            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+            makeMenuBtn.setImageResource(R.mipmap.compose_white);
+            viewRecipeBtn.setImageResource(R.mipmap.recipe_white);
+            myPageBtn.setImageResource(R.mipmap.user_white);
 
             // change dividing lines
             View tmp = findViewById(R.id.title_bar);
@@ -192,8 +194,17 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Switch themeSwitch = (Switch)findViewById(R.id.themeSwitch);
+        SwitchCompat themeSwitch = (SwitchCompat)findViewById(R.id.themeSwitch);
         themeSwitch.setChecked(myPref.getBoolean("theme", false));
+        int[][] states = new int[][] {
+                new int[] {-android.R.attr.state_checked},
+                new int[] {android.R.attr.state_checked},
+        };
+        int[] trackColors = new int[] {
+                getResources().getColor(R.color.gray),
+                getResources().getColor(R.color.myBlueAlpha),
+        };
+        themeSwitch.setTrackTintList(new ColorStateList(states, trackColors));
 
         themeSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -212,8 +223,9 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        Switch translationSwitch = (Switch) findViewById(R.id.translationSwitch);
+        final SwitchCompat translationSwitch = (SwitchCompat) findViewById(R.id.translationSwitch);
         translationSwitch.setChecked(myPref.getBoolean("translation", false));
+        translationSwitch.setTrackTintList(new ColorStateList(states, trackColors));
 
         translationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
@@ -225,14 +237,28 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-
-        cameraBtn.setOnClickListener(new View.OnClickListener() {
+        makeMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, CameraActivity.class));
+                startActivity(new Intent(SettingsActivity.this, MakeRecipeActivity.class));
                 finish();
             }
         });
 
+        viewRecipeBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this, ViewRecipeActivity.class));
+                finish();
+            }
+        });
+
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SettingsActivity.this, MyPageActivity.class));
+                finish();
+            }
+        });
     }
 }
