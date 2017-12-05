@@ -3,7 +3,9 @@ package com.fooding.companyapp.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -37,8 +39,10 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class CameraActivity extends AppCompatActivity {
+    @BindView(R.id.fooding) TextView title;
     @BindView(R.id.NFC) ImageButton nfcbutton;
     @BindView(R.id.search) ImageButton toSearchBtn;
+    @BindView(R.id.btn1) TextView btn1;
 
     private DecoratedBarcodeView barcodeView;
     private String lastText;
@@ -54,6 +58,21 @@ public class CameraActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_camera);
         ButterKnife.bind(this);
+
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences myPref = app.getMyPref();
+        // Toast.makeText(getApplicationContext(), fontSP.getString("titleFont", "none"), Toast.LENGTH_SHORT).show();
+        final String path = myPref.getString("titleFont", "none");
+        // Toast.makeText(getApplicationContext(), path, Toast.LENGTH_SHORT).show();
+
+        Typeface font = Typeface.createFromAsset(getAssets(), path);
+        title.setTypeface(font);
+        final String pathK = myPref.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        btn1.setTypeface(fontK);
+        /*************************************************************************************************************/
 
         //set barcode instant****************
         // camera permission for marshmellow
@@ -76,6 +95,7 @@ public class CameraActivity extends AppCompatActivity {
             }
         }
         barcodeView = (DecoratedBarcodeView) findViewById(R.id.barcode_scanner);
+        barcodeView.setStatusText("");
         barcodeView.decodeContinuous(new BarcodeCallback() {
             @Override
             public void barcodeResult(BarcodeResult result) {
@@ -141,6 +161,15 @@ public class CameraActivity extends AppCompatActivity {
 
 
         toSearchBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(CameraActivity.this,
+                        SearchActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
+                finish();
+            }
+        });
+
+        btn1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(CameraActivity.this,

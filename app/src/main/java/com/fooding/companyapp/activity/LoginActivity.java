@@ -2,11 +2,17 @@ package com.fooding.companyapp.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.PorterDuff;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.fooding.companyapp.APIService;
@@ -14,6 +20,8 @@ import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 import com.fooding.companyapp.data.User;
 import com.fooding.companyapp.data.model.UserLogin;
+
+import org.w3c.dom.Text;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -33,7 +41,7 @@ public class LoginActivity extends Activity {
     @BindView(R.id.register_button) Button register_button;
     @BindView(R.id.login_id_edittext) EditText id_text;
     @BindView(R.id.login_pw_edittext) EditText pw_text;
-
+    @BindView(R.id.title) TextView title;
     private String id;
     private String pw;
 
@@ -43,11 +51,47 @@ public class LoginActivity extends Activity {
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
 
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences myPref = app.getMyPref();
+
+        final String pathT = myPref.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        title.setTypeface(font);
+        final String pathK = myPref.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        final String pathKB = myPref.getString("boldKoreanFont", "none");
+        Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
+        id_text.setTypeface(fontK);
+        pw_text.setTypeface(fontK);
+        ((TextInputLayout) findViewById(R.id.login_id)).setTypeface(fontK);
+        ((TextInputLayout) findViewById(R.id.login_pw)).setTypeface(fontK);
+        login_button.setTypeface(fontKB);
+        register_button.setTypeface(fontKB);
+        /*************************************************************************************************************/
+
+        SharedPreferences loginPref = getSharedPreferences("settings", MODE_PRIVATE);
+        if(loginPref.getBoolean("auto_login", false)) {
+            id = loginPref.getString("id", null);
+            pw = loginPref.getString("password", null);
+
+            loginCheck(id, pw);
+        }
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 id = id_text.getText().toString();
                 pw = pw_text.getText().toString();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putString("id", id);
+                editor.putString("password", pw);
+                editor.apply();
+
                 //로그인 체크
                 loginCheck(id, pw);
             }
@@ -99,7 +143,8 @@ public class LoginActivity extends Activity {
                         FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
                         app.setUser(user);
 
-                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+//                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
+                        startActivity(new Intent(LoginActivity.this, MyPageActivity.class));
                         finish();
                     }
                 } else{

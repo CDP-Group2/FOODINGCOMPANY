@@ -8,49 +8,149 @@
 
     <TextView
         android:id="@+id/title"
-        android:layout_margin="8dp"
-        android:textSize="23dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:text="SendOut(Email)" />
+        android:layout_marginTop="14dp"
+        android:textColor="#111"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:text="send out" />
 
-    <ImageView
-        android:id="@+id/QRView"
-        android:layout_margin="30dp"
+    <View
+        android:id="@+id/title_bar"
+        style="@style/title_bar" />
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/share_button"
-        android:layout_below="@+id/title" />
-
-
-    <Button
-        android:id="@+id/share_button"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@id/save_button"
-        android:layout_marginBottom="11dp"
-        android:text="share" />
-
-    <Button
-        android:id="@+id/save_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="11dp"
+        android:orientation="vertical"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imageView"
-        android:text="save" />
+        android:layout_marginLeft="60dp"
+        android:layout_below="@id/title_bar"
+        android:layout_above="@id/menu_bar"
+        android:layout_marginBottom="25dp"
+        android:layout_marginTop="30dp" >
 
-    <Button
-        android:id="@+id/toHomeButton"
-        android:layout_width="wrap_content"
+        <TextView
+            android:id="@+id/recipeName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:textColor="@color/myBlue"
+            android:textAllCaps="true"
+            android:layout_marginBottom="20dp"
+            android:text="recipe name"/>
+
+        <ImageView
+            android:id="@+id/QRView"
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="5" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageButton
+                    style="@style/icons"
+                    android:id="@+id/save_button"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/download"/>
+
+                <TextView
+                    android:id="@+id/downloadCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/myBlack"
+                    android:text="다운로드"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <ImageButton
+                    style="@style/icons"
+                    android:id="@+id/share_button"
+                    android:layout_height="40dp"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/next"/>
+
+                <TextView
+                    android:id="@+id/shareCaption"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="7dp"
+                    android:textColor="@color/myBlack"
+                    android:text="공유하기" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/menu_bar"
+        style="@style/menu_bar" />
+
+    <LinearLayout
+        android:id="@+id/menu"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:text="Home" />
+        android:orientation="horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/setting"
+            android:src="@mipmap/settings" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/makeMenu"
+            android:src="@mipmap/compose" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/myPage"
+            android:src="@mipmap/user" />
+
+        <ImageButton
+            style="@style/icons"
+            android:layout_height="@dimen/menu_icon_size"
+            android:id="@+id/logout"
+            android:src="@mipmap/exit" />
+
+    </LinearLayout>
 
 </RelativeLayout>

@@ -1,67 +1,229 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="14dp"
+        android:textColor="#111"
+        android:textAllCaps="true"
+        android:textSize="30dp"
+        android:text="fooding" />
+
+    <View
+        android:id="@+id/title_bar"
+        style="@style/title_bar" />
+
     <LinearLayout
-        android:layout_width="313dp"
-        android:layout_height="match_parent"
-        android:layout_margin="16dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@id/title_bar"
+        android:layout_centerHorizontal="true"
         android:orientation="vertical">
 
-        <ImageView
+        <!--<ImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:layout_marginBottom="10dp"
             android:layout_marginTop="20dp"
             android:scaleType="fitCenter"
-            android:src="@mipmap/login_logo" />
+            android:src="@mipmap/login_logo" />-->
 
-        <android.support.design.widget.TextInputLayout
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/companyname_edittext"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/hint_cname"
-                android:inputType="textPassword" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-        </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:id="@+id/text1"
+                    style="@style/registration"
+                    android:text="아이디 *" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/login_id_edittext"
+                    style="@style/registration.editText"
+                    android:inputType="textPersonName"
+                    android:hint="영문/숫자 조합 6~16자" />
 
-            <EditText
-                android:id="@+id/login_id_edittext"
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:inputType="textPersonName"
-                android:hint="@string/hint_id" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-        </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:id="@+id/text2"
+                    style="@style/registration"
+                    android:text="사업자명 *" />
 
-        <android.support.design.widget.TextInputLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <EditText
+                    android:id="@+id/companyname_edittext"
+                    style="@style/registration.editText"
+                    android:inputType="textPersonName"
+                    android:hint="1~10자"/>
 
-            <EditText
-                android:id="@+id/login_pw_edittext"
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="20dp"
-                android:hint="@string/hint_pw"
-                android:inputType="textPassword" />
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
-        </android.support.design.widget.TextInputLayout>
+                <TextView
+                    android:id="@+id/text3"
+                    style="@style/registration"
+                    android:text="영문명" />
 
-        <Button
+                <EditText
+                    android:id="@+id/companyname_english"
+                    style="@style/registration.editText"
+                    android:inputType="textPersonName"
+                    android:hint="사업자 영문명" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#c5c5c5"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text4"
+                    style="@style/registration"
+                    android:text="비밀번호 *" />
+
+                <EditText
+                    android:id="@+id/login_pw_edittext"
+                    style="@style/registration.editText"
+                    android:inputType="textPassword"
+                    android:hint="영문/숫자 조합 6~16자" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text5"
+                    style="@style/registration"
+                    android:layout_gravity="center_vertical"
+                    android:text="비밀번호 재입력 *" />
+
+                <EditText
+                    android:id="@+id/login_pw_check"
+                    style="@style/registration.editText"
+                    android:inputType="textPassword"
+                    android:hint="비밀번호 재입력"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="20dp"
+            android:background="#c5c5c5"
+            android:layout_marginTop="15dp"
+            android:layout_marginBottom="15dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="0dp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text6"
+                    style="@style/registration"
+                    android:text="이메일" />
+
+                <EditText
+                    android:id="@+id/email"
+                    style="@style/registration.editText"
+                    android:inputType="textEmailAddress"
+                    android:hint="이메일 주소" />
+
+            </LinearLayout>
+
+            <View
+                style="@style/sign_up_bar" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/text7"
+                    style="@style/registration"
+                    android:text="주소" />
+
+                <EditText
+                    android:id="@+id/address"
+                    style="@style/registration.editText"
+                    android:inputType="textPersonName"
+                    android:hint="사업자 주소 입력"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!--<Button
             android:id="@+id/submit_button"
             android:layout_width="150dp"
             android:layout_height="55dp"
@@ -70,8 +232,19 @@
             android:paddingTop="10dp"
             android:paddingBottom="10dp"
             android:backgroundTint="@color/button_default"
+            android:text="회 원 가 입" />-->
+
+        <Button
+            android:id="@+id/submit_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_marginTop="25dp"
+            android:background="@drawable/sign_up"
+            android:textColor="@color/myBlue"
             android:text="회 원 가 입" />
 
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>
