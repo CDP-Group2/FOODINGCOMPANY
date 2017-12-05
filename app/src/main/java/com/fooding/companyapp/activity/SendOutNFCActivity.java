@@ -47,6 +47,7 @@ public class SendOutNFCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_send_out_nfc);
         ButterKnife.bind(this);
         code = getIntent().getStringExtra("code");
+        code = "R"+code;
         /****************
          *******************************
          ********************/
