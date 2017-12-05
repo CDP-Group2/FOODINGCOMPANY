@@ -21,6 +21,8 @@
     <string name="login_failed">로그인 실패</string>
     <string name="register_success">회원가입에 성공하였습니다 로그인해주세요.</string>
     <string name="register_failed">이미 존재하는 아이디입니다</string>
+    <string name="modify_success">정보 수정 완료</string>
+    <string name="modify_failed">정보 수정에 실패하였습니다</string>
     <string name="need_id">아이디를 입력하세요</string>
     <string name="need_cname">사업자명을 입력하세요</string>
     <string name="need_password">비밀번호를 입력하세요</string>

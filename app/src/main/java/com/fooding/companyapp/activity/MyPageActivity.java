@@ -39,6 +39,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -243,6 +244,8 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
+
+
         recentTitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -263,7 +266,13 @@ public class MyPageActivity extends AppCompatActivity {
                 finish();
             }
         });
-
+        editBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MyPageActivity.this, EditActivity.class));
+                finish();
+            }
+        });
         makeMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
