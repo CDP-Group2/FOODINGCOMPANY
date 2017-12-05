@@ -128,7 +128,32 @@ public class MyPageActivity extends AppCompatActivity {
                 Map<String, String> CompanyRecipes = user.getRecipe();
 
                 final ArrayList<String> recipes = new ArrayList<String>();
-                final ArrayAdapter adapter = new ArrayAdapter(MyPageActivity.this, android.R.layout.simple_list_item_1, recipes) ;
+                final ArrayAdapter adapter = new ArrayAdapter(MyPageActivity.this, android.R.layout.simple_list_item_1, recipes) {
+                    @NonNull
+                    @Override
+                    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                        View view = super.getView(position, convertView, parent);
+                        TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                        textView.setTextColor(getResources().getColor(R.color.myBlack));
+
+                        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+                        SharedPreferences myPref = app.getMyPref();
+
+                        final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
+                        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+                        textView.setTypeface(font);
+
+                        final Integer fontSize = myPref.getInt("fontSize", 16);
+                        textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                        if(myPref.getBoolean("theme", false)) { // dark theme
+                            textView.setTextColor(Color.parseColor("#ffffff"));
+                        }
+
+                        return view;
+                    }
+                };
                 recipeList.setAdapter(adapter);
 
                 text1_2.setText(user.getName());
@@ -261,6 +286,9 @@ public class MyPageActivity extends AppCompatActivity {
                 editor.putString("id", null);
                 editor.putString("password", null);
                 editor.apply();
+
+                startActivity(new Intent(MyPageActivity.this, LoginActivity.class));
+                finish();
             }
         });
 

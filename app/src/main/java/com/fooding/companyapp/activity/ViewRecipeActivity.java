@@ -1,12 +1,21 @@
 package com.fooding.companyapp.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.util.SparseBooleanArray;
+import android.util.TypedValue;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,10 +33,15 @@ import butterknife.ButterKnife;
 
 public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.toSendOutButton) Button toSendOutBtn;
+    @BindView(R.id.editBtn) Button editBtn;
 //    @BindView(R.id.toHomeButton) Button toHomeBtn;
     @BindView(R.id.title) TextView titleText;
 //    @BindView(R.id.recipeName) TextView recipeNameText;
     @BindView(R.id.ingredientList) ListView ingredientList;
+    @BindView(R.id.setting) ImageButton settingBtn;
+    @BindView(R.id.myPage) ImageButton myPageBtn;
+    @BindView(R.id.logout) ImageButton logoutBtn;
+    @BindView(R.id.makeMenu) ImageButton makeMenuBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,13 +49,66 @@ public class ViewRecipeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_recipe);
         ButterKnife.bind(this);
 
-        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences myPref = app.getMyPref();
+
+        final String pathT = myPref.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        titleText.setTypeface(font);
+
+        final String pathK = myPref.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        final String pathKB = myPref.getString("boldKoreanFont", "none");
+        Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
+
+        toSendOutBtn.setTypeface(fontKB);
+        editBtn.setTypeface(fontKB);
+        /*************************************************************************************************************/
+
+//        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
         Food food = app.getCurrentFood();
         String rName=food.getName();
         Map<String, String> FoodIngredients = food.getIngredient();
 
         final ArrayList<String> ingredients = new ArrayList<String>();
-        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
+        final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(getResources().getColor(R.color.myBlack));
+//                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+                SharedPreferences myPref = app.getMyPref();
+
+                final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+                textView.setTypeface(font);
+
+                final Integer fontSize = myPref.getInt("fontSize", 16);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+                    SparseBooleanArray checked = ingredientList.getCheckedItemPositions();
+                    for(int i = 0; i < checked.size(); i++) {
+                        int key = checked.keyAt(i);
+                        boolean value = checked.get(key);
+                        if(value && position == key)
+                            textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                    }
+                }
+
+                return view;
+            }
+        };
         ingredientList.setAdapter(adapter);
 
 //        recipeNameText.setText(rName);
@@ -73,5 +140,48 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 finish();
             }
         });*/
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewRecipeActivity.this, SettingsActivity.class));
+//                finish();
+            }
+        });
+
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewRecipeActivity.this, MyPageActivity.class));
+//                finish();
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
+                Toast.makeText(ViewRecipeActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("auto_login", false);
+                editor.putString("id", null);
+                editor.putString("password", null);
+                editor.apply();
+
+                startActivity(new Intent(ViewRecipeActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
+        makeMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(ViewRecipeActivity.this, MakeRecipeActivity.class));
+                finish();
+            }
+        });
     }
 }
