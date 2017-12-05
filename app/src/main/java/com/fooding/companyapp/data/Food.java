@@ -15,12 +15,15 @@ public class Food {
     public String getName() {
         return name;
     }
-    public String getID() {return id;}
     public void setName(String name) {
         this.name = name;
         Log.i("setName",name);
     }
-    public void setId(String id) {this.id =id;}
+    public void setID(String id){
+        this.id = id;
+    }
+    public String getID(){ return id; }
+
     public Map<String, String> getIngredient(){ return ingredient; }
     public Map<String, Integer> getIngredientAmount(){ return ingredientAmount; }
 

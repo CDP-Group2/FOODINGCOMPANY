@@ -359,7 +359,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         try{
                             Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-                            food.setId(response.body().string());
+                            food.setID(response.body().string());
                             FoodingCompanyApplication.getInstance().setCurrentFood(food);
                         }
                         catch (IOException e) {}
