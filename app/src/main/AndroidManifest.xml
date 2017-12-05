@@ -63,6 +63,9 @@
             android:name=".activity.SendOutQRActivity"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".activity.SendOutNFCActivity"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".activity.MakeRecipeActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
