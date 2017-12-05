@@ -106,7 +106,42 @@ public class MakeRecipeActivity extends AppCompatActivity {
         ingredientsID = new ArrayList<String>();
         ingredientsAmount = new ArrayList<Integer>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
-        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientsAmount) ;
+        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientsAmount) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                textView.setTextColor(getResources().getColor(R.color.myBlue));
+                textView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+
+                final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+                SharedPreferences myPref = app.getMyPref();
+
+                final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+                textView.setTypeface(font);
+
+                final Integer fontSize = myPref.getInt("fontSize", 16);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+                    SparseBooleanArray checked = ingredientList.getCheckedItemPositions();
+                    for(int i = 0; i < checked.size(); i++) {
+                        int key = checked.keyAt(i);
+                        boolean value = checked.get(key);
+                        if(value && position == key)
+                            textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                    }
+                }
+
+                return view;
+            }
+        };
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, ingredients) {
             @NonNull
             @Override
@@ -372,6 +407,9 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 editor.putString("id", null);
                 editor.putString("password", null);
                 editor.apply();
+
+                startActivity(new Intent(MakeRecipeActivity.this, LoginActivity.class));
+                finish();
             }
         });
 
