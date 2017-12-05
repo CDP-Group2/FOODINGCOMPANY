@@ -1,5 +1,6 @@
 package com.fooding.companyapp.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -7,6 +8,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.SparseBooleanArray;
@@ -26,6 +28,7 @@ import com.fooding.companyapp.data.Food;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
@@ -126,11 +129,33 @@ public class ViewRecipeActivity extends AppCompatActivity {
         toSendOutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
-                intent.putExtra("Code","http://google.co.kr");
-                Log.i("intent to qr",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
-                startActivity(intent);
-                finish();
+                final List<String> ListItems = new ArrayList<>();
+                ListItems.add("QR code");
+                ListItems.add("NFC tag");
+                final CharSequence[] items =  ListItems.toArray(new String[ ListItems.size()]);
+
+                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                builder.setTitle("AlertDialog Title");
+                builder.setItems(items, new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int pos) {
+                        switch (pos){
+                            case 0:
+                                Intent QRintent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
+                                Log.i("intent to qr",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
+                                startActivity(QRintent);
+                                finish();
+                                break;
+                            case 1:
+                                Intent NFCintent = new Intent(ViewRecipeActivity.this, SendOutNFCActivity.class);
+                                Log.i("intent to nfc",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
+                                startActivity(NFCintent);
+                                finish();
+                                break;
+                        }
+
+                    }
+                });
+                builder.show();
             }
         });
         /*toHomeBtn.setOnClickListener(new View.OnClickListener() {
