@@ -147,7 +147,8 @@ public class SendOutQRActivity extends AppCompatActivity {
 
         //intent로 원문 받아오기 - food로 받아와도 됨
         String codeString = getIntent().getStringExtra("Code");
-        codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getName();
+        codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getID();
+        codeString = "R"+codeString;
         /////////
         //writer 셋업
         QRCodeWriter barcodeWriter = new QRCodeWriter();

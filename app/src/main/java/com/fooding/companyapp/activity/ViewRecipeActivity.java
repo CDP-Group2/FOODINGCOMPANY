@@ -160,6 +160,16 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 builder.show();
             }
         });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewRecipeActivity.this, MakeRecipeActivity.class);
+                intent.putExtra("editRecipe","true");
+                startActivity(intent);
+                finish();
+            }
+        });
         /*toHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

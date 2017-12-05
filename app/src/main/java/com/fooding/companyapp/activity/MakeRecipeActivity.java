@@ -215,7 +215,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
         }
 
 
-        
+
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
