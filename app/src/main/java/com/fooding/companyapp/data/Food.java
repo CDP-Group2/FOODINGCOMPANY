@@ -8,18 +8,19 @@ import java.util.Map;
 
 public class Food {
     private String name="";
+    private String id="";
     private Map<String, String> ingredient=new LinkedHashMap<String, String>();
     private Map<String, Integer> ingredientAmount=new LinkedHashMap<String, Integer>();
 
     public String getName() {
         return name;
     }
-
+    public String getID() {return id;}
     public void setName(String name) {
         this.name = name;
         Log.i("setName",name);
     }
-
+    public void setId(String id) {this.id =id;}
     public Map<String, String> getIngredient(){ return ingredient; }
     public Map<String, Integer> getIngredientAmount(){ return ingredientAmount; }
 

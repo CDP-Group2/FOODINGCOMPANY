@@ -16,6 +16,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 
 import java.io.IOException;
@@ -39,29 +40,14 @@ public class SendOutNFCActivity extends AppCompatActivity {
     TextView title;
     NfcAdapter mNfc;
     PendingIntent pIntent;
-    String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_out_nfc);
         ButterKnife.bind(this);
-        code = getIntent().getStringExtra("code");
-        /****************
-         *******************************
-         ********************/
-        //camera 찍어서 아래처럼 Food 저장 data-Food dir 참고
 
-        /*FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
-        Food food=new Food();
-        String temp="오뚜기 케챱";
-        food.setName(temp);
-        app.setCurrentFood(food);*/
-        //위처럼 food 정보 저장한다음 서버로 ㄲ 하는 작업 시
-        //Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-        //처럼 food 정보 가져올 수 있다
-
-        mNfc.getDefaultAdapter(this) ;
+        mNfc=NfcAdapter.getDefaultAdapter(this) ;
         if (mNfc == null) {
             // NFC 미지원단말
             Toast.makeText(getApplicationContext(), "No NFC on your Device", Toast.LENGTH_SHORT).show();
@@ -112,9 +98,10 @@ public class SendOutNFCActivity extends AppCompatActivity {
         super.onNewIntent(intent);
         if (intent == null)
             return;
+        String codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getID();
         Tag mTag = intent.getParcelableExtra(NfcAdapter.EXTRA_TAG);
         NdefRecord textRecord = new NdefRecord(NdefRecord.TNF_MIME_MEDIA,
-                "text/plain".getBytes(), null, code.getBytes());
+                "text/plain".getBytes(), null, codeString.getBytes());
         NdefMessage textMessage = new NdefMessage(new NdefRecord[]{textRecord});
         Ndef ndef = Ndef.get(mTag);
         try {

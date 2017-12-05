@@ -134,7 +134,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 ListItems.add("NFC tag");
                 final CharSequence[] items =  ListItems.toArray(new String[ ListItems.size()]);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewRecipeActivity.this);
                 builder.setTitle("AlertDialog Title");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int pos) {
@@ -143,19 +143,27 @@ public class ViewRecipeActivity extends AppCompatActivity {
                                 Intent QRintent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
                                 Log.i("intent to qr",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
                                 startActivity(QRintent);
-                                finish();
                                 break;
                             case 1:
                                 Intent NFCintent = new Intent(ViewRecipeActivity.this, SendOutNFCActivity.class);
                                 Log.i("intent to nfc",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
                                 startActivity(NFCintent);
-                                finish();
                                 break;
                         }
 
                     }
                 });
                 builder.show();
+            }
+        });
+
+        editBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ViewRecipeActivity.this, MakeRecipeActivity.class);
+                intent.putExtra("editRecipe","true");
+                startActivity(intent);
+                finish();
             }
         });
         /*toHomeBtn.setOnClickListener(new View.OnClickListener() {
