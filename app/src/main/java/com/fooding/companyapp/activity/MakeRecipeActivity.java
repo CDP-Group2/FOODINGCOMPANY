@@ -42,6 +42,7 @@ public class MakeRecipeActivity extends AppCompatActivity{
     @BindView(R.id.deleteButton) Button deleteBtn;
     @BindView(R.id.makeButton) Button makeBtn;
     @BindView(R.id.ingredientList) ListView ingredientList;
+    @BindView(R.id.ingredientAmountList) ListView ingredientAmountList;
     @BindView(R.id.recipeName) EditText recipeNameText;
     final Integer ADD_INGREDIENT = 1;
     final Integer SET_AMOUNT = 2;
@@ -49,6 +50,7 @@ public class MakeRecipeActivity extends AppCompatActivity{
     public ArrayList<String> ingredientsID;
     public ArrayList<Integer> ingredientsAmount;
     public ArrayAdapter adapter;
+    public ArrayAdapter adapter2;
     private Food food;
     private FoodingCompanyApplication app;
     private Boolean amountFlag=false;
@@ -65,8 +67,10 @@ public class MakeRecipeActivity extends AppCompatActivity{
         ingredients = new ArrayList<String>();
         ingredientsID = new ArrayList<String>();
         ingredientsAmount = new ArrayList<Integer>();
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, ingredients) ;
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
+        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, ingredientsAmount) ;
         ingredientList.setAdapter(adapter);
+        ingredientAmountList.setAdapter(adapter2);
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -79,22 +83,26 @@ public class MakeRecipeActivity extends AppCompatActivity{
         deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                int count, checked ;
-                count = adapter.getCount() ;
-                if (count > 0) {
-                    checked = ingredientList.getCheckedItemPosition();
-                    if (checked > -1 && checked < count) {
-                        ingredients.remove(checked) ;
-                        ingredientList.clearChoices();
-                        adapter.notifyDataSetChanged();
-                    }
+            int count, checked ;
+            count = adapter2.getCount() ;
+            if (count > 0) {
+                checked = ingredientAmountList.getCheckedItemPosition();
+                if (checked > -1 && checked < count) {
+                    ingredients.remove(checked) ;
+                    ingredientAmountList.clearChoices();
+                    ingredientsAmount.remove(checked);
+                    adapter.notifyDataSetChanged();
+                    adapter2.notifyDataSetChanged();
                 }
+            }
             }
         });
 
         ingredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                ingredientAmountList.setItemChecked(position,true);
+
                 if(amountFlag){
                     Intent intent = new Intent(MakeRecipeActivity.this, amountPopupActivity.class);
                     intent.putExtra("ingredientName",ingredients.get(position).toString());
@@ -107,6 +115,26 @@ public class MakeRecipeActivity extends AppCompatActivity{
 
                     startActivityForResult(intent,SET_AMOUNT);
                 }
+                else{
+                }
+            }
+        });
+
+        ingredientAmountList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if(amountFlag){
+                Intent intent = new Intent(MakeRecipeActivity.this, amountPopupActivity.class);
+                intent.putExtra("ingredientName",ingredients.get(position).toString());
+                intent.putExtra("ingredientPS",Integer.toString(position));
+                intent.putExtra("ingredientAmount",ingredientsAmount.get(position).toString());
+
+                Log.i("name",ingredients.get(position).toString());
+                Log.i("id",ingredientsID.get(position).toString());
+                Log.i("amoutn",ingredientsAmount.get(position).toString());
+
+                startActivityForResult(intent,SET_AMOUNT);
+            }
             }
         });
 
@@ -117,13 +145,25 @@ public class MakeRecipeActivity extends AppCompatActivity{
                 food=new Food();
                 food.setName(recipeNameText.getText().toString());
                 Map<String, String> ttt=new LinkedHashMap<String, String>();
+                Map<String, Integer> ttta=new LinkedHashMap<String, Integer>();
                 int count;
-                count=adapter.getCount();
+                count=adapter2.getCount();
+                int flag=0,flag2=0;
+                for(int i=0;i<count;i++){
+                    if(ingredientsAmount.get(i)!=0) flag=1;
+                    if(ingredientsAmount.get(i)==0) flag2=1;
+                }
+                if(flag==0 && flag2==0) {
+                    Toast.makeText(MakeRecipeActivity.this, "모든 재료의 함량을 기입해주세요", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 for(int i=0;i<count;i++){
                     ttt.put(ingredientsID.get(i),ingredients.get(i));
+                    ttta.put(ingredientsID.get(i),ingredientsAmount.get(i));
                 }
 
-                food.setIngredient(ttt);
+                if(flag==1)food.setIngredient(ttt,ttta);
+                else food.setIngredient(ttt);
 
                 app.setCurrentFood(food);
 
@@ -140,6 +180,7 @@ public class MakeRecipeActivity extends AppCompatActivity{
                 }
 
                 Log.i("lenof tmp", Integer.toString(tmp.size()));
+                /*
                 AlertDialog.Builder builder = new AlertDialog.Builder(MakeRecipeActivity.this);
                 builder.setCancelable(true);
                 builder.setMessage("영양정보를 추가하시겠습니까?");
@@ -184,43 +225,38 @@ public class MakeRecipeActivity extends AppCompatActivity{
                         amountFlag=true;
                     }
                 });
+                */
 
-                if(amountFlag){
-                    Retrofit retrofit;
-                    APIService apiService;
+                Retrofit retrofit;
+                APIService apiService;
 
-                    retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
-                    apiService = retrofit.create(APIService.class);
-                    Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
-                    comment.enqueue(new Callback<ResponseBody>() {
-                        @Override
-                        public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                            try{
-                                String temp = response.body().string();
-                                Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-                                Log.i("string temp",temp);
-                                food.setName(temp);
-                                FoodingCompanyApplication.getInstance().setCurrentFood(food);
-                            } catch(IOException e){
-                                Log.i("Test1", "fail");
-                                e.printStackTrace();
-                            }
+                retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
+                apiService = retrofit.create(APIService.class);
+                Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
+                comment.enqueue(new Callback<ResponseBody>() {
+                    @Override
+                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try{
+                            String temp = response.body().string();
+                            Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
+                            Log.i("string temp",temp);
+                            food.setName(temp);
+                            FoodingCompanyApplication.getInstance().setCurrentFood(food);
+                        } catch(IOException e){
+                            Log.i("Test1", "fail");
+                            e.printStackTrace();
                         }
+                    }
 
-                        @Override
-                        public void onFailure(Call<ResponseBody> call, Throwable t) {
-                            Log.i("Test1", "onfailure");
-                            t.printStackTrace();
-                        }
-                    });
+                    @Override
+                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                        Log.i("Test1", "onfailure");
+                        t.printStackTrace();
+                    }
+                });
 
-                    startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
-                    finish();
-                }
-                else{
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
-                }
+                startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
+                finish();
             }
         });
     }
@@ -234,8 +270,9 @@ public class MakeRecipeActivity extends AppCompatActivity{
                 String addIngredientID=data.getStringExtra("addIngredientID");
                 ingredients.add(addIngredient);
                 ingredientsID.add(addIngredientID);
-                ingredientsAmount.add(10);
+                ingredientsAmount.add(0);
                 adapter.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 //만약 반환값이 없을 경우의 코드를 여기에 작성하세요.
@@ -247,6 +284,7 @@ public class MakeRecipeActivity extends AppCompatActivity{
                 Integer setIngredient = Integer.parseInt(data.getStringExtra("setIngredient"));
                 Integer setIngredientAmount = Integer.parseInt(data.getStringExtra("setIngredientAmount"));
                 ingredientsAmount.set(setIngredient,setIngredientAmount);
+                adapter2.notifyDataSetChanged();
             }
         }
     }//onActivityResult

@@ -78,14 +78,32 @@
         android:backgroundTint="@color/colorPrimary"
         android:text="MAKE" />
 
-    <ListView
-        android:id="@+id/ingredientList"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/deleteButton"
-        android:layout_below="@+id/name"
+        android:layout_above="@id/deleteButton"
+        android:layout_below="@id/name"
         android:layout_centerHorizontal="true"
-        android:choiceMode="singleChoice"
-        android:scrollbars="vertical" />
+        android:orientation="horizontal">
+
+        <ListView
+            android:id="@+id/ingredientList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="2"
+            android:layout_centerHorizontal="true"
+            android:choiceMode="singleChoice"
+            android:scrollbars="vertical" />
+        <ListView
+            android:id="@+id/ingredientAmountList"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_centerHorizontal="true"
+            android:choiceMode="singleChoice"
+            android:scrollbars="vertical" />
+
+    </LinearLayout>
+
 
 </RelativeLayout>
