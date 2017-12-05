@@ -147,7 +147,40 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
         ingredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
+        Intent intent = getIntent();
+        String booedit = intent.getStringExtra("editRecipe");
+        if(booedit!=null){
+            if(booedit.equals("true")){
+                recipeNameText.setText(app.getCurrentFood().getName());
+                Map<String, String> temp = app.getCurrentFood().getIngredient();
+                Map<String, Integer> temp2 = app.getCurrentFood().getIngredientAmount();
 
+                Integer flag=0;
+                Iterator<String> iterator2 = temp2.keySet().iterator();
+                while(iterator2.hasNext()){
+                    String key=iterator2.next();
+                    Log.i("key",key);
+                    ingredientsAmount.add(temp2.get(key));
+                    flag=1;
+                }
+
+
+                Iterator<String> iterator = temp.keySet().iterator();
+                while(iterator.hasNext()){
+                    String key=iterator.next();
+                    ingredients.add(temp.get(key));
+                    ingredientsID.add(key);
+                    if(flag==0) ingredientsAmount.add(0);
+                }
+
+
+                adapter.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
+            }
+        }
+
+
+        
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -282,13 +315,20 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 Retrofit retrofit;
                 APIService apiService;
 
-                
+
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
                 Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        try{
+                            Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
+                            food.setId(response.body().string());
+                            FoodingCompanyApplication.getInstance().setCurrentFood(food);
+                        }
+                        catch (IOException e) {}
+
                     }
 
                     @Override
