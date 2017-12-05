@@ -164,10 +164,18 @@ public class MyPageActivity extends AppCompatActivity {
         recipeList.setAdapter(adapter);
 
 //        companyNameText.setText(user.getName());
-        text1_2.setText(user.getName());
+        text1_2.setText(user.getName());        // 사업자명
 
         myPref = getSharedPreferences("settings", MODE_PRIVATE);
-        text2_2.setText(myPref.getString("id", null));
+        text2_2.setText(myPref.getString("id", null));  // 아이디
+        if(myPref.getString("email", null) != null) {   // 이메일
+            text3_2.setText(myPref.getString("email", null));
+            text3_2.setTextColor(getResources().getColor(R.color.myBlack));
+        }
+        if(myPref.getString("address", null) != null) {   // 주소
+            text4_2.setText(myPref.getString("address", null));
+            text4_2.setTextColor(getResources().getColor(R.color.myBlack));
+        }
 
         Map<String, String> ttt= user.getRecipe();
 

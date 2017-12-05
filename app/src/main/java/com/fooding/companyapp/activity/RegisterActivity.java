@@ -97,22 +97,35 @@ public class RegisterActivity extends Activity {
                 id = id_text.getText().toString();
                 pw = pw_text.getText().toString();
                 //로그인 체크
-                submitCheck(cname,id,pw);
-                startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                if(submitCheck(cname,id,pw) == 0)
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
             }
         });
     }
-    private void submitCheck(String cname, String id, String pw) {
+
+    private int submitCheck(String cname, String id, String pw) {
         if(id.trim().length() == 0) {
             Toast.makeText(this, R.string.need_id, Toast.LENGTH_SHORT).show();
-            return;
+            return -1;
         } else if(pw.trim().length() == 0) {
             Toast.makeText(this, R.string.need_password, Toast.LENGTH_SHORT).show();
-            return;
+            return -1;
         } else if(cname.trim().length() == 0) {
             Toast.makeText(this, R.string.need_cname, Toast.LENGTH_SHORT).show();
-            return;
+            return -1;
+        } else if(!pw_text.getText().toString().equals(pw_check_text.getText().toString())) {
+            Toast.makeText(RegisterActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();
+            return -1;
         }
+
+        SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+        SharedPreferences.Editor editor = myPref.edit();
+
+        editor.putString("companyName", cName_text.getText().toString());
+        editor.putString("companyEnglishName", cName_english_text.getText().toString());
+        editor.putString("email", email_text.getText().toString());
+        editor.putString("address", address_text.getText().toString());
+        editor.apply();
 
         Retrofit retrofit;
         APIService apiService;
@@ -150,6 +163,7 @@ public class RegisterActivity extends Activity {
             }
         });
 
+        return 0;
 
     }
 }
