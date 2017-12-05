@@ -77,9 +77,9 @@ public class MyPageActivity extends AppCompatActivity {
         final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
         SharedPreferences myPref = app.getMyPref();
 
-        final String pathT = myPref.getString("titleFont", "none");
-        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
-        title.setTypeface(font);
+  //      final String pathT = myPref.getString("titleFont", "none");
+  //      Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+  //      title.setTypeface(font);
 
         final String pathK = myPref.getString("koreanFont", "none");
         Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
@@ -316,12 +316,15 @@ public class MyPageActivity extends AppCompatActivity {
                 apiService = retrofit.create(APIService.class);
 
                 Call<List<Ingredient>> comment = apiService.getIngredient(foodID);
+                final String finalFoodID = foodID;
                 comment.enqueue(new Callback<List<Ingredient>>() {
                     @Override
                     public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
                         Food food=new Food();
                         String temp=foodName;
                         food.setName(temp);
+                        temp= finalFoodID;
+                        food.setID(temp);
                         Map<String, String> ttt=new LinkedHashMap<String, String>();
                         for(int i=0; i< response.body().size();i++){
                             Log.i("put :",response.body().get(i).getId()+","+response.body().get(i).getName());

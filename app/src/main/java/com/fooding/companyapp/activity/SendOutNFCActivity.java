@@ -61,7 +61,7 @@ public class SendOutNFCActivity extends AppCompatActivity {
         //Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
         //처럼 food 정보 가져올 수 있다
 
-        mNfc.getDefaultAdapter(this) ;
+        mNfc=NfcAdapter.getDefaultAdapter(this) ;
         if (mNfc == null) {
             // NFC 미지원단말
             Toast.makeText(getApplicationContext(), "No NFC on your Device", Toast.LENGTH_SHORT).show();

@@ -134,22 +134,24 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 ListItems.add("NFC tag");
                 final CharSequence[] items =  ListItems.toArray(new String[ ListItems.size()]);
 
-                AlertDialog.Builder builder = new AlertDialog.Builder(getApplicationContext());
+                AlertDialog.Builder builder = new AlertDialog.Builder(ViewRecipeActivity.this);
                 builder.setTitle("AlertDialog Title");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int pos) {
+                        Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
                         switch (pos){
                             case 0:
                                 Intent QRintent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
+
                                 Log.i("intent to qr",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
+                                QRintent.putExtra("code",food.getID());
                                 startActivity(QRintent);
-                                finish();
                                 break;
                             case 1:
                                 Intent NFCintent = new Intent(ViewRecipeActivity.this, SendOutNFCActivity.class);
                                 Log.i("intent to nfc",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
+                                NFCintent.putExtra("code",food.getID());
                                 startActivity(NFCintent);
-                                finish();
                                 break;
                         }
 
