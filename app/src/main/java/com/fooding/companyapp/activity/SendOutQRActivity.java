@@ -3,8 +3,10 @@ package com.fooding.companyapp.activity;
 import android.content.Intent;
 import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,7 +17,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -48,8 +52,16 @@ public class SendOutQRActivity extends AppCompatActivity {
     private HttpConnection httpConn = HttpConnection.getInstance();
     public String responseString="";
     private Bitmap bitmap=null;
+    @BindView(R.id.setting) ImageButton settingBtn;
+    @BindView(R.id.makeMenu) ImageButton makeMenuBtn;
+    @BindView(R.id.logout) ImageButton logoutBtn;
+    @BindView(R.id.myPage) ImageButton myPageBtn;
     @BindView(R.id.QRView) ImageView QRimage;
-    @BindView(R.id.toHomeButton) Button toHomeBtn;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.downloadCaption) TextView downloadCaption;
+    @BindView(R.id.shareCaption) TextView shareCaption;
+    @BindView(R.id.recipeName) TextView recipeName;
+//    @BindView(R.id.toHomeButton) Button toHomeBtn;
     @OnClick(R.id.share_button) void QRcode_Share() {
         if(bitmap!=null) {
             try {
@@ -110,6 +122,29 @@ public class SendOutQRActivity extends AppCompatActivity {
         setContentView(R.layout.activity_send_out_qr);
         setContentView(R.layout.activity_send_out_qr);
         ButterKnife.bind(this);
+
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences myPref = app.getMyPref();
+
+        final String pathT = myPref.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        title.setTypeface(font);
+
+        final String pathK = myPref.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        final String pathKB = myPref.getString("boldKoreanFont", "none");
+        Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
+
+        recipeName.setTypeface(fontKB);
+        downloadCaption.setTypeface(fontK);
+        shareCaption.setTypeface(fontK);
+        /*************************************************************************************************************/
+
+        String recipeNameText= getIntent().getStringExtra("recipeName");
+        recipeName.setText(recipeNameText);
+
         //intent로 원문 받아오기 - food로 받아와도 됨
         String codeString = getIntent().getStringExtra("Code");
         codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getName();
@@ -143,11 +178,52 @@ public class SendOutQRActivity extends AppCompatActivity {
                 }
             }
         }
-        toHomeBtn.setOnClickListener(new View.OnClickListener() {
+        /*toHomeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SendOutQRActivity.this, MainActivity.class));
                 finish();
+            }
+        });*/
+
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendOutQRActivity.this, SettingsActivity.class));
+                finish();
+            }
+        });
+
+        makeMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendOutQRActivity.this, MakeRecipeActivity.class));
+                finish();
+            }
+        });
+
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendOutQRActivity.this, MyPageActivity.class));
+                finish();
+            }
+        });
+
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                /*startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
+                finish();*/
+                Toast.makeText(SendOutQRActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("auto_login", false);
+                editor.putString("id", null);
+                editor.putString("password", null);
+                editor.apply();
             }
         });
     }

@@ -74,7 +74,7 @@
                 android:layout_marginBottom="-2dp"
                 android:layout_weight="1"
                 android:background="@null"
-                android:text="최근 생성 레시피"
+                android:text="나의 레시피"
                 android:textAlignment="center"
                 android:textColor="#5c5c5c"
                 android:textSize="16dp" />
@@ -307,14 +307,15 @@
         <ImageButton
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
-            android:id="@+id/viewRecipe"
-            android:src="@mipmap/recipe" />
+            android:id="@+id/myPage"
+            android:src="@mipmap/user_color" />
 
         <ImageButton
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
-            android:id="@+id/myPage"
-            android:src="@mipmap/user_color" />
+            android:id="@+id/logout"
+            android:src="@mipmap/exit" />
+
     </LinearLayout>
 
 </RelativeLayout>

@@ -39,14 +39,14 @@ public class SettingsActivity extends AppCompatActivity {
     private RangeSliderView textSize;
     private LinearLayout textBoldnessCaption;
     private LinearLayout textSizeCaption;
-    @BindView(R.id.translationCaption) TextView translationCaption;
+    @BindView(R.id.autoLoginCaption) TextView autoLoginCaption;
     @BindView(R.id.themeCaption) TextView themeCaption;
     @BindView(R.id.title) TextView title;
     @BindView(R.id.textBoldnessTitle) TextView textBoldnessTitle;
     @BindView(R.id.textSizeTitle) TextView textSizeTitle;
     @BindView(R.id.etcTitle) TextView etcTitle;
     @BindView(R.id.makeMenu) ImageButton makeMenuBtn;
-    @BindView(R.id.viewRecipe) ImageButton viewRecipeBtn;
+    @BindView(R.id.logout) ImageButton logoutBtn;
     @BindView(R.id.myPage) ImageButton myPageBtn;
 
     @Override
@@ -86,7 +86,7 @@ public class SettingsActivity extends AppCompatActivity {
                 tv.setTypeface(fontK);
             }
         }
-        translationCaption.setTypeface(fontK);
+        autoLoginCaption.setTypeface(fontK);
         themeCaption.setTypeface(fontK);
 
         final String pathKB = myPref.getString("boldKoreanFont", "none");
@@ -120,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
                     tv.setTextColor(Color.parseColor("#ffffff"));
                 }
             }
-            translationCaption.setTextColor(Color.parseColor("#ffffff"));
+            autoLoginCaption.setTextColor(Color.parseColor("#ffffff"));
             themeCaption.setTextColor(Color.parseColor("#ffffff"));
             textBoldnessTitle.setTextColor(Color.parseColor("#ffffff"));
             textSizeTitle.setTextColor(Color.parseColor("#ffffff"));
@@ -128,7 +128,7 @@ public class SettingsActivity extends AppCompatActivity {
 
             // change buttons
             makeMenuBtn.setImageResource(R.mipmap.compose_white);
-            viewRecipeBtn.setImageResource(R.mipmap.recipe_white);
+            logoutBtn.setImageResource(R.mipmap.exit_white);
             myPageBtn.setImageResource(R.mipmap.user_white);
 
             // change dividing lines
@@ -223,16 +223,16 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        final SwitchCompat translationSwitch = (SwitchCompat) findViewById(R.id.translationSwitch);
-        translationSwitch.setChecked(myPref.getBoolean("translation", false));
-        translationSwitch.setTrackTintList(new ColorStateList(states, trackColors));
+        final SwitchCompat autoLoginSwitch = (SwitchCompat) findViewById(R.id.autoLoginSwitch);
+        autoLoginSwitch.setChecked(myPref.getBoolean("auto_login", false));
+        autoLoginSwitch.setTrackTintList(new ColorStateList(states, trackColors));
 
-        translationSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
+        autoLoginSwitch.setOnCheckedChangeListener(new Switch.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
                 SharedPreferences.Editor editor = myPref.edit();
 
-                editor.putBoolean("translation", b);
+                editor.putBoolean("auto_login", b);
                 editor.apply();
             }
         });
@@ -245,11 +245,20 @@ public class SettingsActivity extends AppCompatActivity {
             }
         });
 
-        viewRecipeBtn.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SettingsActivity.this, ViewRecipeActivity.class));
-                finish();
+                /*startActivity(new Intent(SettingsActivity.this, ViewRecipeActivity.class));
+                finish();*/
+                Toast.makeText(SettingsActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("auto_login", false);
+                /*editor.putString("id", null);
+                editor.putString("password", null);*/
+                editor.apply();
             }
         });
 

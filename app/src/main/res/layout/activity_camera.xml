@@ -56,26 +56,23 @@
         <ImageButton
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
-            android:id="@+id/setting"
-            android:src="@mipmap/settings" />
-
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/menu_icon_size"
             android:id="@+id/search"
-            android:src="@mipmap/search" />
+            android:layout_marginLeft="50dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/search_color" />
 
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/menu_icon_size"
-            android:id="@+id/camera"
-            android:src="@mipmap/camera_color" />
-
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/menu_icon_size"
-            android:id="@+id/recentlyViewed"
-            android:src="@mipmap/list" />
+        <Button
+            android:id="@+id/btn1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:text="검색해서 추가하기"
+            android:background="@null"
+            android:textSize="20dp"
+            android:paddingLeft="0dp"
+            android:textAlignment="textStart"
+            android:textColor="@color/myBlack"
+            android:layout_gravity="center_vertical"/>
     </LinearLayout>
 
 </RelativeLayout>

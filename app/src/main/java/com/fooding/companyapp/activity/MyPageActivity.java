@@ -61,7 +61,7 @@ public class MyPageActivity extends AppCompatActivity {
     @BindView(R.id.text4_2) TextView text4_2;
     @BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.makeMenu) ImageButton makeMenuBtn;
-    @BindView(R.id.viewRecipe) ImageButton viewRecipeBtn;
+    @BindView(R.id.logout) ImageButton logoutBtn;
     private User user;
 
     @Override
@@ -166,6 +166,9 @@ public class MyPageActivity extends AppCompatActivity {
 //        companyNameText.setText(user.getName());
         text1_2.setText(user.getName());
 
+        myPref = getSharedPreferences("settings", MODE_PRIVATE);
+        text2_2.setText(myPref.getString("id", null));
+
         Map<String, String> ttt= user.getRecipe();
 
         recipeList.setAdapter(adapter);
@@ -219,11 +222,20 @@ public class MyPageActivity extends AppCompatActivity {
             }
         });
 
-        viewRecipeBtn.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
-                finish();
+                /*startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
+                finish();*/
+                Toast.makeText(MyPageActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("auto_login", false);
+                editor.putString("id", null);
+                editor.putString("password", null);
+                editor.apply();
             }
         });
     }

@@ -71,11 +71,27 @@ public class LoginActivity extends Activity {
         register_button.setTypeface(fontKB);
         /*************************************************************************************************************/
 
+        SharedPreferences loginPref = getSharedPreferences("settings", MODE_PRIVATE);
+        if(loginPref.getBoolean("auto_login", false)) {
+            id = loginPref.getString("id", null);
+            pw = loginPref.getString("password", null);
+
+            loginCheck(id, pw);
+        }
+
         login_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 id = id_text.getText().toString();
                 pw = pw_text.getText().toString();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putString("id", id);
+                editor.putString("password", pw);
+                editor.apply();
+
                 //로그인 체크
                 loginCheck(id, pw);
             }
