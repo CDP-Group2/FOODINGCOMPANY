@@ -1,6 +1,8 @@
 package com.fooding.companyapp.data;
 
 
+import android.util.Log;
+
 import java.util.LinkedHashMap;
 import java.util.Map;
 
@@ -15,6 +17,7 @@ public class Food {
 
     public void setName(String name) {
         this.name = name;
+        Log.i("setName",name);
     }
 
     public Map<String, String> getIngredient(){ return ingredient; }

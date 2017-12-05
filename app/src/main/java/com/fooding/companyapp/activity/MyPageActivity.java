@@ -48,7 +48,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MyPageActivity extends AppCompatActivity {
     @BindView(R.id.title) TextView title;
-//    @BindView(R.id.companyName) TextView companyNameText;
+    //    @BindView(R.id.companyName) TextView companyNameText;
     @BindView(R.id.recipeList) ListView recipeList;
     @BindView(R.id.myInfoTitle) Button infoTitle;
     @BindView(R.id.recentRecipeTitle) Button recentTitle;
@@ -130,6 +130,27 @@ public class MyPageActivity extends AppCompatActivity {
                 final ArrayList<String> recipes = new ArrayList<String>();
                 final ArrayAdapter adapter = new ArrayAdapter(MyPageActivity.this, android.R.layout.simple_list_item_1, recipes) ;
                 recipeList.setAdapter(adapter);
+
+                text1_2.setText(user.getName());
+
+                Iterator<String> iterator = CompanyRecipes.keySet().iterator();
+                while(iterator.hasNext()){
+                    String key=iterator.next();
+                    recipes.add(CompanyRecipes.get(key));
+                }
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<Recipe>> call, Throwable t) {
+                Log.i("Test1", "onfailure");
+                t.printStackTrace();
+            }
+        });
+
+
+        Map<String, String> CompanyRecipes = user.getRecipe();
+
         final ArrayList<String> recipes = new ArrayList<String>();
         final ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, recipes) {
             @NonNull
@@ -159,7 +180,6 @@ public class MyPageActivity extends AppCompatActivity {
         };
         recipeList.setAdapter(adapter);
 
-                companyNameText.setText(user.getName());
 //        companyNameText.setText(user.getName());
         text1_2.setText(user.getName());        // 사업자명
 
@@ -174,75 +194,16 @@ public class MyPageActivity extends AppCompatActivity {
             text4_2.setTextColor(getResources().getColor(R.color.myBlack));
         }
 
-                Iterator<String> iterator = CompanyRecipes.keySet().iterator();
-                while(iterator.hasNext()){
-                    String key=iterator.next();
-                    recipes.add(CompanyRecipes.get(key));
-                }
-                adapter.notifyDataSetChanged();
-            }
+        Map<String, String> ttt= user.getRecipe();
 
-            @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.i("Test1", "onfailure");
-                t.printStackTrace();
-            }
-        });
+        recipeList.setAdapter(adapter);
 
-
-
-        recipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-                Map<String, String> tempRecipe = user.getRecipe();
-                Iterator<String> iterator = tempRecipe.keySet().iterator();
-                Integer i=0;
-                String foodID="";
-                while(iterator.hasNext()){
-                    foodID = iterator.next();
-                    if(i==position) break;
-                    i++;
-                }
-                final String foodName=tempRecipe.get(foodID);
-                Log.i("foodid",foodID);
-
-
-                Retrofit retrofit;
-                APIService apiService;
-                retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
-                apiService = retrofit.create(APIService.class);
-
-                Call<List<Ingredient>> comment = apiService.getIngredient(foodID);
-                comment.enqueue(new Callback<List<Ingredient>>() {
-                    @Override
-                    public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
-                        Food food=new Food();
-                        String temp=foodName;
-                        food.setName(temp);
-                        Map<String, String> ttt=new LinkedHashMap<String, String>();
-                        for(int i=0; i< response.body().size();i++){
-                            Log.i("put :",response.body().get(i).getId()+","+response.body().get(i).getName());
-                            ttt.put(response.body().get(i).getId(),response.body().get(i).getName());
-                        }
-                        food.setIngredient(ttt);
-                        FoodingCompanyApplication.getInstance().setCurrentFood(food);
-                        Intent intent = new Intent(MyPageActivity.this, ViewRecipeActivity.class);
-                        startActivity(intent);
-                    }
-
-                    @Override
-                    public void onFailure(Call<List<Ingredient>> call, Throwable t) {
-                        Log.i("Test1", "onfailure");
-                        t.printStackTrace();
-                    }
-                });
-//                FoodingCompanyApplication.getInstance().setCurrentFood(food);
-
-
-            }
-        });
+        Iterator<String> iterator = CompanyRecipes.keySet().iterator();
+        while(iterator.hasNext()){
+            String key=iterator.next();
+            recipes.add(CompanyRecipes.get(key));
+        }
+        adapter.notifyDataSetChanged();
 
         infoTitle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,6 +261,59 @@ public class MyPageActivity extends AppCompatActivity {
                 editor.putString("id", null);
                 editor.putString("password", null);
                 editor.apply();
+            }
+        });
+
+        recipeList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
+                Map<String, String> tempRecipe = user.getRecipe();
+                Iterator<String> iterator = tempRecipe.keySet().iterator();
+                Integer i=0;
+                String foodID="";
+                while(iterator.hasNext()){
+                    foodID = iterator.next();
+                    if(i==position) break;
+                    i++;
+                }
+                final String foodName=tempRecipe.get(foodID);
+                Log.i("foodid",foodID);
+
+
+                Retrofit retrofit;
+                APIService apiService;
+                retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                apiService = retrofit.create(APIService.class);
+
+                Call<List<Ingredient>> comment = apiService.getIngredient(foodID);
+                comment.enqueue(new Callback<List<Ingredient>>() {
+                    @Override
+                    public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
+                        Food food=new Food();
+                        String temp=foodName;
+                        food.setName(temp);
+                        Map<String, String> ttt=new LinkedHashMap<String, String>();
+                        for(int i=0; i< response.body().size();i++){
+                            Log.i("put :",response.body().get(i).getId()+","+response.body().get(i).getName());
+                            ttt.put(response.body().get(i).getId(),response.body().get(i).getName());
+                        }
+                        food.setIngredient(ttt);
+                        FoodingCompanyApplication.getInstance().setCurrentFood(food);
+                        Intent intent = new Intent(MyPageActivity.this, ViewRecipeActivity.class);
+                        startActivity(intent);
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Ingredient>> call, Throwable t) {
+                        Log.i("Test1", "onfailure");
+                        t.printStackTrace();
+                    }
+                });
+//                FoodingCompanyApplication.getInstance().setCurrentFood(food);
+
+
             }
         });
     }

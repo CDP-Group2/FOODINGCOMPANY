@@ -51,9 +51,10 @@ import retrofit2.Retrofit;
 import com.travijuu.numberpicker.library.NumberPicker;
 
 public class MakeRecipeActivity extends AppCompatActivity {
-    @BindView(R.id.addButton) Button addBtn;
-    @BindView(R.id.deleteButton) Button deleteBtn;
-    @BindView(R.id.makeButton) Button makeBtn;
+    @BindView(R.id.title) TextView title;
+    @BindView(R.id.addButton) ImageButton addBtn;
+    @BindView(R.id.deleteButton) ImageButton deleteBtn;
+    @BindView(R.id.makeButton) ImageButton makeBtn;
     @BindView(R.id.ingredientList) ListView ingredientList;
     @BindView(R.id.ingredientAmountList) ListView ingredientAmountList;
     @BindView(R.id.recipeName) EditText recipeNameText;
@@ -105,7 +106,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
         ingredientsID = new ArrayList<String>();
         ingredientsAmount = new ArrayList<Integer>();
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
-        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, ingredientsAmount) ;
+        adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientsAmount) ;
         adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_multiple_choice, ingredients) {
             @NonNull
             @Override
@@ -145,26 +146,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
         ingredientAmountList.setAdapter(adapter2);
 
         ingredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
-        ingredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                int selectedCount = 0;
-//                SparseBooleanArray sparse = ingredientList.getCheckedItemPositions();
-//                final int length = filter.getUserListName().size();
 
-                /*for(int j = 0; j < length; j++) {
-                    if(sparse.valueAt(j)) {
-                        Log.i("Selected Item", filter.getUserListName().get(i));
-
-                        selectedCount++;
-                    }
-                }
-
-                Log.i("# of Selected Items", Integer.toString(selectedCount));*/
-
-                adapter.notifyDataSetChanged();
-            }
-        });
 
         addBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -174,23 +156,6 @@ public class MakeRecipeActivity extends AppCompatActivity {
             }
         });
 
-        /*deleteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-            int count, checked ;
-            count = adapter2.getCount() ;
-            if (count > 0) {
-                checked = ingredientAmountList.getCheckedItemPosition();
-                if (checked > -1 && checked < count) {
-                    ingredients.remove(checked) ;
-                    ingredientAmountList.clearChoices();
-                    ingredientsAmount.remove(checked);
-                    adapter.notifyDataSetChanged();
-                    adapter2.notifyDataSetChanged();
-                }
-            }
-            }
-        });
 
         ingredientList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -217,7 +182,6 @@ public class MakeRecipeActivity extends AppCompatActivity {
         ingredientAmountList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            if(amountFlag){
                 Intent intent = new Intent(MakeRecipeActivity.this, amountPopupActivity.class);
                 intent.putExtra("ingredientName",ingredients.get(position).toString());
                 intent.putExtra("ingredientPS",Integer.toString(position));
@@ -229,8 +193,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
                 startActivityForResult(intent,SET_AMOUNT);
             }
-            }
-        });*/
+        });
         deleteBtn.setOnClickListener(new Button.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -242,6 +205,8 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 for(int i = count - 1; i >= 0; i--) {
                     if(checkedItems.get(i)) {
                         ingredients.remove(i);
+                        ingredientAmountList.clearChoices();
+                        ingredientsAmount.remove(i);
                         selectedCount++;
                     }
                 }
@@ -251,13 +216,13 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
                 ingredientList.clearChoices();
                 adapter.notifyDataSetChanged();
+                adapter2.notifyDataSetChanged();
             }
         });
 
         makeBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                app = FoodingCompanyApplication.getInstance();
                 food=new Food();
                 food.setName(recipeNameText.getText().toString());
                 Map<String, String> ttt=new LinkedHashMap<String, String>();
@@ -269,7 +234,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     if(ingredientsAmount.get(i)!=0) flag=1;
                     if(ingredientsAmount.get(i)==0) flag2=1;
                 }
-                if(flag==0 && flag2==0) {
+                if(flag==1 && flag2==1) {
                     Toast.makeText(MakeRecipeActivity.this, "모든 재료의 함량을 기입해주세요", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -278,8 +243,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     ttta.put(ingredientsID.get(i),ingredientsAmount.get(i));
                 }
 
-                if(flag==1)food.setIngredient(ttt,ttta);
-                else food.setIngredient(ttt);
+
                 if(count == 0 && recipeNameText.getText().length() == 0) {
                     Toast.makeText(MakeRecipeActivity.this, "레시피를 작성해주세요.", Toast.LENGTH_SHORT).show();
                     return;
@@ -295,7 +259,9 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     return;
                 }
 
-                food.setIngredient(ttt);
+
+                if(flag==1)food.setIngredient(ttt,ttta);
+                else food.setIngredient(ttt);
 
                 app.setCurrentFood(food);
 
@@ -312,72 +278,17 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 }
 
                 Log.i("lenof tmp", Integer.toString(tmp.size()));
-                /*
-                AlertDialog.Builder builder = new AlertDialog.Builder(MakeRecipeActivity.this);
-                builder.setCancelable(true);
-                builder.setMessage("영양정보를 추가하시겠습니까?");
-                builder.setPositiveButton("NO", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        Retrofit retrofit;
-                        APIService apiService;
-
-                        retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
-                        apiService = retrofit.create(APIService.class);
-                        Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
-                        comment.enqueue(new Callback<ResponseBody>() {
-                            @Override
-                            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                try{
-                                    String temp = response.body().string();
-                                    Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-                                    Log.i("string temp",temp);
-                                    food.setName(temp);
-                                    FoodingCompanyApplication.getInstance().setCurrentFood(food);
-                                } catch(IOException e){
-                                    Log.i("Test1", "fail");
-                                    e.printStackTrace();
-                                }
-                            }
-
-                            @Override
-                            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                Log.i("Test1", "onfailure");
-                                t.printStackTrace();
-                            }
-                        });
-
-                        startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
-                        finish();
-                    }
-                });
-                builder.setNegativeButton("YES", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        amountFlag=true;
-                    }
-                });
-                */
 
                 Retrofit retrofit;
                 APIService apiService;
 
+                
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
                 Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        try{
-                            String temp = response.body().string();
-                            Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-                            Log.i("string temp",temp);
-                            food.setName(temp);
-                            FoodingCompanyApplication.getInstance().setCurrentFood(food);
-                        } catch(IOException e){
-                            Log.i("Test1", "fail");
-                            e.printStackTrace();
-                        }
                     }
 
                     @Override
@@ -387,15 +298,11 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     }
                 });
 
+                Log.i("intent to viewrecipe",app.getCurrentFood().getName());
                 startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
-//                startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
-                Intent intent = new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class);
-                intent.putExtra("recipeName", recipeNameText.getText().toString());
-                startActivity(intent);
                 finish();
             }
         });
-
         settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

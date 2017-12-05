@@ -120,7 +120,6 @@ public class SendOutQRActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_out_qr);
-        setContentView(R.layout.activity_send_out_qr);
         ButterKnife.bind(this);
 
         /*************************************************************************************************************/
@@ -142,8 +141,9 @@ public class SendOutQRActivity extends AppCompatActivity {
         shareCaption.setTypeface(fontK);
         /*************************************************************************************************************/
 
-        String recipeNameText= getIntent().getStringExtra("recipeName");
+        String recipeNameText= app.getCurrentFood().getName();
         recipeName.setText(recipeNameText);
+
 
         //intent로 원문 받아오기 - food로 받아와도 됨
         String codeString = getIntent().getStringExtra("Code");

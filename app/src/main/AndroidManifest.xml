@@ -93,8 +93,7 @@
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity android:name=".MyRecipeActivity"></activity>
-        <activity android:name=".activity.SettingsActivity" />
-        <activity android:name=".activity.RegisterActivity" />
+
         <activity
             android:name=".activity.amountPopupActivity"
             android:theme="@style/ThemeWithCorners">

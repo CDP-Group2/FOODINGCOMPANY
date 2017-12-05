@@ -3,6 +3,7 @@ package com.fooding.companyapp.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -44,7 +45,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
         ingredientList.setAdapter(adapter);
 
 //        recipeNameText.setText(rName);
+        Log.i("beforeSetText",app.getCurrentFood().getName());
         titleText.setText(rName);
+        Log.i("afterSetText",app.getCurrentFood().getName());
 
         Iterator<String> iterator = FoodIngredients.keySet().iterator();
         while(iterator.hasNext()){
@@ -58,6 +61,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(ViewRecipeActivity.this, SendOutQRActivity.class);
                 intent.putExtra("Code","http://google.co.kr");
+                Log.i("intent to qr",FoodingCompanyApplication.getInstance().getCurrentFood().getName());
                 startActivity(intent);
                 finish();
             }
