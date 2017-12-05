@@ -50,6 +50,11 @@ public class SendOutQRActivity extends AppCompatActivity {
     private Bitmap bitmap=null;
     @BindView(R.id.QRView) ImageView QRimage;
     @BindView(R.id.toHomeButton) Button toHomeBtn;
+    @OnClick(R.id.NFC2) void to_NFC(){
+        startActivity(new Intent(SendOutQRActivity.this,
+                SendOutNFCActivity.class));
+        finish();
+    }
     @OnClick(R.id.share_button) void QRcode_Share() {
         if(bitmap!=null) {
             try {
@@ -108,11 +113,11 @@ public class SendOutQRActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_send_out_qr);
-        setContentView(R.layout.activity_send_out_qr);
         ButterKnife.bind(this);
         //intent로 원문 받아오기 - food로 받아와도 됨
         String codeString = getIntent().getStringExtra("Code");
-        codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getName();
+        codeString = FoodingCompanyApplication.getInstance().getCurrentFood().getID();
+        codeString = "R"+codeString;
         /////////
         //writer 셋업
         QRCodeWriter barcodeWriter = new QRCodeWriter();

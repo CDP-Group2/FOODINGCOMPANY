@@ -159,7 +159,7 @@ public class MakeRecipeActivity extends AppCompatActivity{
                                     String temp = response.body().string();
                                     Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
                                     Log.i("string temp",temp);
-                                    food.setName(temp);
+                                    food.setId(temp);
                                     FoodingCompanyApplication.getInstance().setCurrentFood(food);
                                 } catch(IOException e){
                                     Log.i("Test1", "fail");
@@ -199,7 +199,7 @@ public class MakeRecipeActivity extends AppCompatActivity{
                                 String temp = response.body().string();
                                 Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
                                 Log.i("string temp",temp);
-                                food.setName(temp);
+                                food.setId(temp);
                                 FoodingCompanyApplication.getInstance().setCurrentFood(food);
                             } catch(IOException e){
                                 Log.i("Test1", "fail");

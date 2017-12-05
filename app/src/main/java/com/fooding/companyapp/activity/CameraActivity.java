@@ -134,7 +134,8 @@ public class CameraActivity extends AppCompatActivity {
         nfcbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(CameraActivity.this, NFCActivity.class));
+                startActivity(new Intent(CameraActivity.this,
+                        NFCActivity.class).addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT));
                 finish();
             }
         });
