@@ -16,7 +16,7 @@
         android:textColor="#111"
         android:textAllCaps="true"
         android:textSize="30dp"
-        android:text="send out" />
+        android:text="qr code" />
 
     <View
         android:id="@+id/title_bar"
@@ -38,10 +38,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:textSize="20dp"
+            android:textSize="30dp"
             android:textColor="@color/myBlue"
             android:textAllCaps="true"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="0dp"
             android:text="recipe name"/>
 
         <ImageView
@@ -68,20 +68,22 @@
                 android:orientation="vertical">
 
                 <ImageButton
-                    style="@style/icons"
                     android:id="@+id/save_button"
+                    style="@style/icons"
                     android:layout_height="40dp"
                     android:layout_gravity="center_horizontal"
-                    android:src="@mipmap/download"/>
+                    android:src="@mipmap/download" />
 
-                <TextView
+                <Button
                     android:id="@+id/downloadCaption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
-                    android:textColor="@color/myBlack"
-                    android:text="다운로드"/>
+                    android:layout_marginTop="-9dp"
+                    android:layout_marginBottom="-15dp"
+                    android:background="@null"
+                    android:text="다운로드"
+                    android:textColor="@color/myBlack" />
 
             </LinearLayout>
 
@@ -98,12 +100,14 @@
                     android:layout_gravity="center_horizontal"
                     android:src="@mipmap/next"/>
 
-                <TextView
+                <Button
                     android:id="@+id/shareCaption"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="-9dp"
+                    android:layout_marginBottom="-15dp"
+                    android:background="@null"
                     android:textColor="@color/myBlack"
                     android:text="공유하기" />
 

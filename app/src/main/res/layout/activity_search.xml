@@ -23,7 +23,7 @@
         android:id="@+id/title_bar"
         style="@style/title_bar" />
 
-    <View
+    <!--<View
         android:id="@+id/menu_bar"
         style="@style/menu_bar" />
 
@@ -62,7 +62,7 @@
             android:id="@+id/recentlyViewed"
             android:src="@mipmap/list" />
 
-    </LinearLayout>
+    </LinearLayout>-->
 
     <LinearLayout
         android:id="@+id/Lsearch"

@@ -52,10 +52,10 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.searchText) EditText searchText;
     @BindView(R.id.addButton) ImageButton addBtn;
     @BindView(R.id.title) TextView title;
-    @BindView(R.id.setting) ImageButton settingBtn;
+    /*@BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.search) ImageButton searchBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
-    @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;
+    @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;*/
     @BindView(R.id.JsonTextview) TextView debuggingView; //debugging purpose
 
     public ArrayList<String> results;
@@ -99,10 +99,10 @@ public class SearchActivity extends AppCompatActivity {
             debuggingView.setTextColor(Color.parseColor("#ffffff"));
 
             // change buttons
-            searchBtn.setImageResource(R.mipmap.search_white);
+            /*searchBtn.setImageResource(R.mipmap.search_white);
             cameraBtn.setImageResource(R.mipmap.camera_white);
             settingBtn.setImageResource(R.mipmap.settings_white);
-            recentlyViewedBtn.setImageResource(R.mipmap.list_white);
+            recentlyViewedBtn.setImageResource(R.mipmap.list_white);*/
             addBtn.setImageResource(R.mipmap.add_white);
 
             // change dividing lines
@@ -232,12 +232,12 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
-        settingBtn.setOnClickListener(new View.OnClickListener() {
+        /*settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(SearchActivity.this, SettingsActivity.class));
                 finish();
             }
-        });
+        });*/
     }
 }

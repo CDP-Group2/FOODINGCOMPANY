@@ -78,9 +78,9 @@ public class MyPageActivity extends AppCompatActivity {
         final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
         SharedPreferences myPref = app.getMyPref();
 
-  //      final String pathT = myPref.getString("titleFont", "none");
-  //      Typeface font = Typeface.createFromAsset(getAssets(), pathT);
-  //      title.setTypeface(font);
+        final String pathT = myPref.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        title.setTypeface(font);
 
         final String pathK = myPref.getString("koreanFont", "none");
         Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);

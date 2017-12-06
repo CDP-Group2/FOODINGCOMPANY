@@ -34,6 +34,7 @@ public class SplashActivity extends Activity {
 //            Toast.makeText(getApplicationContext(), "최초 실행", Toast.LENGTH_SHORT).show();
 
             editor.putString("titleFont", "fonts/BukhariScript-Regular.otf");
+            editor.putString("titleFontk", "fonts/NanumSquareRoundOTFEB.otf");
             editor.putString("koreanFont", "fonts/NanumSquareRoundOTFR.otf");
             editor.putString("boldKoreanFont", "fonts/NanumSquareRoundOTFB.otf");
             editor.putString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");

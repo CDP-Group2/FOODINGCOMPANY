@@ -58,8 +58,8 @@ public class SendOutQRActivity extends AppCompatActivity {
     @BindView(R.id.myPage) ImageButton myPageBtn;
     @BindView(R.id.QRView) ImageView QRimage;
     @BindView(R.id.title) TextView title;
-    @BindView(R.id.downloadCaption) TextView downloadCaption;
-    @BindView(R.id.shareCaption) TextView shareCaption;
+    @BindView(R.id.downloadCaption) Button downloadCaption;
+    @BindView(R.id.shareCaption) Button shareCaption;
     @BindView(R.id.recipeName) TextView recipeName;
 //    @BindView(R.id.toHomeButton) Button toHomeBtn;
     @OnClick(R.id.share_button) void QRcode_Share() {
@@ -109,7 +109,7 @@ public class SendOutQRActivity extends AppCompatActivity {
                 bitmap.compress(Bitmap.CompressFormat.PNG,100,stream);
                 stream.close();
                 sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"+path)));
-                Toast.makeText(this,"Saved.",Toast.LENGTH_LONG).show();
+                Toast.makeText(this,"갤러리에 저장되었습니다.",Toast.LENGTH_LONG).show();
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -228,6 +228,20 @@ public class SendOutQRActivity extends AppCompatActivity {
 
                 startActivity(new Intent(SendOutQRActivity.this, LoginActivity.class));
                 finish();
+            }
+        });
+
+        downloadCaption.setOnClickListener(new View.OnClickListener()  {
+            @Override
+            public void onClick(View view) {
+                QRcode_Save();
+            }
+        });
+
+        shareCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                QRcode_Share();
             }
         });
     }

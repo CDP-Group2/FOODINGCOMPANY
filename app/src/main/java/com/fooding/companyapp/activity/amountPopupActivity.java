@@ -3,7 +3,9 @@ package com.fooding.companyapp.activity;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -42,8 +44,9 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class amountPopupActivity extends Activity {
     @BindView(R.id.okay) Button ok;
-    @BindView(R.id.minus) Button minus;
-    @BindView(R.id.plus) Button plus;
+    @BindView(R.id.cancel) Button cancel;
+    @BindView(R.id.minus) ImageButton minus;
+    @BindView(R.id.plus) ImageButton plus;
     @BindView(R.id.amountGram) EditText amountGram;
     @BindView(R.id.ingredientName) TextView ingreName;
 
@@ -57,6 +60,25 @@ public class amountPopupActivity extends Activity {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_amount_popup);
         ButterKnife.bind(this);
+
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences myPref = app.getMyPref();
+
+        /*final String pathT = myPref.getString("titleFont", "none");
+        Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        title.setTypeface(font);*/
+
+        final String pathK = myPref.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        final String pathKB = myPref.getString("boldKoreanFont", "none");
+        Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
+
+        amountGram.setTypeface(fontKB);
+        ok.setTypeface(fontK);
+        cancel.setTypeface(fontK);
+        /*************************************************************************************************************/
 
         Intent intent = getIntent();
         ingredientName = intent.getStringExtra("ingredientName");
@@ -98,6 +120,12 @@ public class amountPopupActivity extends Activity {
             }
         });
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                amountGram.setText(Integer.toString(ingredientAmount));
+            }
+        });
 
     }
 }

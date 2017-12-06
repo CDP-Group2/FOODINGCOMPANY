@@ -25,11 +25,13 @@ import android.widget.Toast;
 import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 import com.fooding.companyapp.data.Food;
+import com.google.zxing.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +61,9 @@ public class ViewRecipeActivity extends AppCompatActivity {
 
         final String pathT = myPref.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+        final String pathTK = myPref.getString("titleFontk", "none");
+        Log.i("pathTK path", pathTK);
+        Typeface fontTK = Typeface.createFromAsset(getAssets(), pathTK);
         titleText.setTypeface(font);
 
         final String pathK = myPref.getString("koreanFont", "none");
@@ -117,6 +122,12 @@ public class ViewRecipeActivity extends AppCompatActivity {
 //        recipeNameText.setText(rName);
         Log.i("beforeSetText",app.getCurrentFood().getName());
         titleText.setText(rName);
+        Pattern p = Pattern.compile("[^a-zA-Z0-9]");
+        boolean hasSpecialChar = p.matcher(rName).find();
+        if(hasSpecialChar) {
+            Log.i("title korean", "true");
+            titleText.setTypeface(fontTK);
+        }
         Log.i("afterSetText",app.getCurrentFood().getName());
 
         Iterator<String> iterator = FoodIngredients.keySet().iterator();
