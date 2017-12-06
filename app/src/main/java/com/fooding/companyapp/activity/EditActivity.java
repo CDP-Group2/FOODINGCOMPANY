@@ -119,10 +119,10 @@ public class EditActivity extends Activity {
         if(id.trim().length() == 0) {
             Toast.makeText(this, R.string.need_id, Toast.LENGTH_SHORT).show();
             return -1;
-        } else if(pw.trim().length() == 0) {
+        } /*else if(pw.trim().length() == 0) {
             Toast.makeText(this, R.string.need_password, Toast.LENGTH_SHORT).show();
             return -1;
-        } else if(cname.trim().length() == 0) {
+        }*/ else if(cname.trim().length() == 0) {
             Toast.makeText(this, R.string.need_cname, Toast.LENGTH_SHORT).show();
             return -1;
         } else if(!pw_text.getText().toString().equals(pw_check_text.getText().toString())) {

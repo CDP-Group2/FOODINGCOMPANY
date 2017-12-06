@@ -222,7 +222,7 @@ public class SendOutQRActivity extends AppCompatActivity {
                 SharedPreferences.Editor editor = myPref.edit();
 
                 editor.putBoolean("auto_login", false);
-                editor.putString("id", null);
+//                editor.putString("id", null);
                 editor.putString("password", null);
                 editor.apply();
 

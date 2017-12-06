@@ -11,6 +11,8 @@ import android.support.design.widget.TextInputLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +44,8 @@ public class LoginActivity extends Activity {
     @BindView(R.id.login_id_edittext) EditText id_text;
     @BindView(R.id.login_pw_edittext) EditText pw_text;
     @BindView(R.id.title) TextView title;
+    @BindView(R.id.save_id) CheckBox save_id;
+    @BindView(R.id.auto_login) CheckBox auto_login;
     private String id;
     private String pw;
 
@@ -67,6 +71,8 @@ public class LoginActivity extends Activity {
         pw_text.setTypeface(fontK);
         ((TextInputLayout) findViewById(R.id.login_id)).setTypeface(fontK);
         ((TextInputLayout) findViewById(R.id.login_pw)).setTypeface(fontK);
+        save_id.setTypeface(fontK);
+        auto_login.setTypeface(fontK);
         login_button.setTypeface(fontKB);
         register_button.setTypeface(fontKB);
         /*************************************************************************************************************/
@@ -77,6 +83,11 @@ public class LoginActivity extends Activity {
             pw = loginPref.getString("password", null);
 
             loginCheck(id, pw);
+        }
+
+        if(loginPref.getBoolean("save_id_login", false)) {
+            id_text.setText(loginPref.getString("id", null));
+            save_id.setChecked(true);
         }
 
         login_button.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +112,32 @@ public class LoginActivity extends Activity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
+
+        save_id.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("auto_login", b);
+                editor.apply();
+
+                Log.i("save_id", "true");
+            }
+        });
+
+        auto_login.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("save_id_login", b);
+                editor.apply();
+
+                save_id.setChecked(b);
             }
         });
     }

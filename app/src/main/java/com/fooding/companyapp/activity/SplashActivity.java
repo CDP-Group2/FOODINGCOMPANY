@@ -42,6 +42,7 @@ public class SplashActivity extends Activity {
             editor.putInt("fontSize", 16);
             editor.putBoolean("theme", false);
             editor.putBoolean("auto_login", false);
+            editor.putBoolean("save_id_login", false);
             editor.putString("id", null);
             editor.putString("password", null);
             editor.apply();

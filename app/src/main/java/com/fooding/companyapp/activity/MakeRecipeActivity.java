@@ -397,14 +397,15 @@ public class MakeRecipeActivity extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
+                /*startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
+                finish();*/
                 Toast.makeText(MakeRecipeActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();
 
                 editor.putBoolean("auto_login", false);
-                editor.putString("id", null);
+//                editor.putString("id", null);
                 editor.putString("password", null);
                 editor.apply();
 
