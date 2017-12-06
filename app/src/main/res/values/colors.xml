@@ -17,5 +17,8 @@
     <color name="myBlueAlpha">#65ABF2</color>
     <color name="gray">#5c5c5c</color>
     <color name="myBlack">#111</color>
+    <color name="darkThemeGray">#ECECEC</color>
+    <color name="darkThemeBrightGray">#AAAAAA</color>
+    <color name="myWhite">#FFFFFF</color>
 
 </resources>

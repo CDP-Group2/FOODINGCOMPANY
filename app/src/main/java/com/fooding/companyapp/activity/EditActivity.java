@@ -3,6 +3,7 @@ package com.fooding.companyapp.activity;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
@@ -48,6 +49,7 @@ public class EditActivity extends Activity {
     @BindView(R.id.text4) TextView text4;
     @BindView(R.id.text5) TextView text5;
     @BindView(R.id.text6) TextView text6;
+    @BindView(R.id.text7) TextView text7;
 
 
     private String id;
@@ -80,6 +82,7 @@ public class EditActivity extends Activity {
         text4.setTypeface(fontK);
         text5.setTypeface(fontK);
         text6.setTypeface(fontK);
+        text7.setTypeface(fontK);
 
         id_text.setTypeface(fontK);
         pw_text.setTypeface(fontK);
@@ -100,6 +103,37 @@ public class EditActivity extends Activity {
 
         submit_button.setTypeface(fontKB);
         submit_button.setText("정 보 수 정");
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.registerActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+            text1.setTextColor(Color.parseColor("#ffffff"));
+            text2.setTextColor(Color.parseColor("#ffffff"));
+            text3.setTextColor(Color.parseColor("#ffffff"));
+            text4.setTextColor(Color.parseColor("#ffffff"));
+            text5.setTextColor(Color.parseColor("#ffffff"));
+            text6.setTextColor(Color.parseColor("#ffffff"));
+            text7.setTextColor(Color.parseColor("#ffffff"));
+            id_text.setTextColor(Color.parseColor("#ffffff"));
+            pw_text.setTextColor(Color.parseColor("#ffffff"));
+            cName_text.setTextColor(Color.parseColor("#ffffff"));
+            cName_english_text.setTextColor(Color.parseColor("#ffffff"));
+            pw_check_text.setTextColor(Color.parseColor("#ffffff"));
+            email_text.setTextColor(Color.parseColor("#ffffff"));
+            address_text.setTextColor(Color.parseColor("#ffffff"));
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
         /*************************************************************************************************************/
 
         submit_button.setOnClickListener(new View.OnClickListener() {

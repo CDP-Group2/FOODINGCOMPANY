@@ -75,6 +75,31 @@ public class ViewRecipeActivity extends AppCompatActivity {
         editBtn.setTypeface(fontKB);
         /*************************************************************************************************************/
 
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.viewRecipeActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            titleText.setTextColor(Color.parseColor("#ffffff"));
+            editBtn.setTextColor(getResources().getColor(R.color.myBlack));
+
+            // change buttons
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            myPageBtn.setImageResource(R.mipmap.user_white);
+            logoutBtn.setImageResource(R.mipmap.exit_white);
+            makeMenuBtn.setImageResource(R.mipmap.compose_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+        /*************************************************************************************************************/
+
 //        FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
         Food food = app.getCurrentFood();
         String rName=food.getName();
@@ -101,7 +126,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
 
-                if(myPref.getBoolean("theme", false)) { // dark theme
+                /*if(myPref.getBoolean("theme", false)) { // dark theme
                     textView.setTextColor(Color.parseColor("#ffffff"));
 
                     // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
@@ -110,8 +135,17 @@ public class ViewRecipeActivity extends AppCompatActivity {
                         int key = checked.keyAt(i);
                         boolean value = checked.get(key);
                         if(value && position == key)
-                            textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                            textView.setTextColor(getResources().getColor(R.color.myBlue));
                     }
+                }*/
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+//                    Toast.makeText(getApplicationContext(), Integer.toString(position) + " / " + Integer.toString(mSelectedItem), Toast.LENGTH_SHORT).show();
+                    if(position == ingredientList.getCheckedItemPosition())
+                        textView.setTextColor(getResources().getColor(R.color.myBlue));
                 }
 
                 return view;
@@ -146,7 +180,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 final CharSequence[] items =  ListItems.toArray(new String[ ListItems.size()]);
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(ViewRecipeActivity.this);
-                builder.setTitle("AlertDialog Title");
+                builder.setTitle("레시피 내보내기");
                 builder.setItems(items, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int pos) {
                         Food food = FoodingCompanyApplication.getInstance().getCurrentFood();

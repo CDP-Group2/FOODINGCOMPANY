@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Typeface;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -46,6 +48,9 @@ public class LoginActivity extends Activity {
     @BindView(R.id.title) TextView title;
     @BindView(R.id.save_id) CheckBox save_id;
     @BindView(R.id.auto_login) CheckBox auto_login;
+    @BindView(R.id.tmp1) ImageView tmp1;
+    @BindView(R.id.tmp2) ImageView tmp2;
+    @BindView(R.id.tmp3) TextView tmp3;
     private String id;
     private String pw;
 
@@ -69,13 +74,52 @@ public class LoginActivity extends Activity {
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
         id_text.setTypeface(fontK);
         pw_text.setTypeface(fontK);
-        ((TextInputLayout) findViewById(R.id.login_id)).setTypeface(fontK);
-        ((TextInputLayout) findViewById(R.id.login_pw)).setTypeface(fontK);
+        tmp3.setTypeface(fontK);
+        /*((TextInputLayout) findViewById(R.id.login_id)).setTypeface(fontK);
+        ((TextInputLayout) findViewById(R.id.login_pw)).setTypeface(fontK);*/
         save_id.setTypeface(fontK);
         auto_login.setTypeface(fontK);
         login_button.setTypeface(fontKB);
         register_button.setTypeface(fontKB);
         /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.loginActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            title.setTextColor(Color.parseColor("#ffffff"));
+            login_button.setTextColor(getResources().getColor(R.color.myBlack));
+            id_text.setTextColor(getResources().getColor(R.color.myWhite));
+            pw_text.setTextColor(getResources().getColor(R.color.myWhite));
+            save_id.setTextColor(getResources().getColor(R.color.myWhite));
+            auto_login.setTextColor(getResources().getColor(R.color.myWhite));
+            tmp3.setTextColor(getResources().getColor(R.color.myWhite));
+
+            tmp1.setImageResource(R.mipmap.user_2_white);
+            tmp2.setImageResource(R.mipmap.password_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+
+            if(myPref.getBoolean("save_id_login", false))
+                save_id.setTextColor(getResources().getColor(R.color.myBlue));
+            else
+                save_id.setTextColor(getResources().getColor(R.color.myWhite));
+
+            if(myPref.getBoolean("auto_login", false))
+                auto_login.setTextColor(getResources().getColor(R.color.myBlue));
+            else
+                auto_login.setTextColor(getResources().getColor(R.color.myWhite));
+        }
+        /*************************************************************************************************************/
+
+        save_id.setChecked(myPref.getBoolean("save_id_login", false));
+        auto_login.setChecked(myPref.getBoolean("auto_login", false));
 
         SharedPreferences loginPref = getSharedPreferences("settings", MODE_PRIVATE);
         if(loginPref.getBoolean("auto_login", false)) {
@@ -121,10 +165,17 @@ public class LoginActivity extends Activity {
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();
 
-                editor.putBoolean("auto_login", b);
-                editor.apply();
+                /*editor.putBoolean("save_id_login", b);
+                editor.apply();*/
 
-                Log.i("save_id", "true");
+                Log.i("save_id", Boolean.toString(b));
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    if(b)
+                        save_id.setTextColor(getResources().getColor(R.color.myBlue));
+                    else
+                        save_id.setTextColor(getResources().getColor(R.color.myWhite));
+                }
             }
         });
 
@@ -134,10 +185,17 @@ public class LoginActivity extends Activity {
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();
 
-                editor.putBoolean("save_id_login", b);
-                editor.apply();
+                /*editor.putBoolean("auto_login", b);
+                editor.apply();*/
 
                 save_id.setChecked(b);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    if(b)
+                        auto_login.setTextColor(getResources().getColor(R.color.myBlue));
+                    else
+                        auto_login.setTextColor(getResources().getColor(R.color.myWhite));
+                }
             }
         });
     }
@@ -179,6 +237,15 @@ public class LoginActivity extends Activity {
                         user.setRecipe(recipeList);
                         FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
                         app.setUser(user);
+
+
+                        // set preferences for auto-login or id save
+                        SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                        SharedPreferences.Editor editor = myPref.edit();
+
+                        editor.putBoolean("save_id_login", save_id.isChecked());
+                        editor.putBoolean("auto_login", auto_login.isChecked());
+                        editor.apply();
 
 //                        startActivity(new Intent(LoginActivity.this, MainActivity.class));
                         startActivity(new Intent(LoginActivity.this, MyPageActivity.class));

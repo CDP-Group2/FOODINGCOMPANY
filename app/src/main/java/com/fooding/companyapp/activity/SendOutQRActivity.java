@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
 import android.os.Build;
@@ -61,6 +62,8 @@ public class SendOutQRActivity extends AppCompatActivity {
     @BindView(R.id.downloadCaption) Button downloadCaption;
     @BindView(R.id.shareCaption) Button shareCaption;
     @BindView(R.id.recipeName) TextView recipeName;
+    @BindView(R.id.share_button) ImageButton shareBtn;
+    @BindView(R.id.save_button) ImageButton saveBtn;
 //    @BindView(R.id.toHomeButton) Button toHomeBtn;
     @OnClick(R.id.share_button) void QRcode_Share() {
         if(bitmap!=null) {
@@ -139,6 +142,34 @@ public class SendOutQRActivity extends AppCompatActivity {
         recipeName.setTypeface(fontKB);
         downloadCaption.setTypeface(fontK);
         shareCaption.setTypeface(fontK);
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.sendOutQrActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            title.setTextColor(Color.parseColor("#ffffff"));
+            downloadCaption.setTextColor(getResources().getColor(R.color.myWhite));
+            shareCaption.setTextColor(getResources().getColor(R.color.myWhite));
+
+            // change buttons
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            myPageBtn.setImageResource(R.mipmap.user_white);
+            logoutBtn.setImageResource(R.mipmap.exit_white);
+            makeMenuBtn.setImageResource(R.mipmap.compose_white);
+            shareBtn.setImageResource(R.mipmap.next_white);
+            saveBtn.setImageResource(R.mipmap.download_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
         /*************************************************************************************************************/
 
         String recipeNameText= app.getCurrentFood().getName();

@@ -102,6 +102,39 @@ public class MyPageActivity extends AppCompatActivity {
         editBtn.setTypeface(fontK);
         /*************************************************************************************************************/
 
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.myPageActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            title.setTextColor(getResources().getColor(R.color.myWhite));
+            recentTitle.setTextColor(getResources().getColor(R.color.darkThemeBrightGray));
+            ((View)findViewById(R.id.recentRecipeView)).setBackgroundColor(getResources().getColor(R.color.darkThemeBrightGray));
+            text1_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text1_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text2_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text2_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text3_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text3_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text4_1.setTextColor(getResources().getColor(R.color.myWhite));
+            text4_2.setTextColor(getResources().getColor(R.color.myWhite));
+
+            // change buttons
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            makeMenuBtn.setImageResource(R.mipmap.compose_white);
+            logoutBtn.setImageResource(R.mipmap.exit_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+        /*************************************************************************************************************/
+
         Retrofit retrofit;
         APIService apiService;
         final Map<String, String> tempRecipes = new LinkedHashMap<String, String>();
@@ -214,10 +247,14 @@ public class MyPageActivity extends AppCompatActivity {
         if(myPref.getString("email", null) != null) {   // 이메일
             text3_2.setText(myPref.getString("email", null));
             text3_2.setTextColor(getResources().getColor(R.color.myBlack));
+            if(myPref.getBoolean("theme", false))   // dark theme
+                text3_2.setTextColor(getResources().getColor(R.color.myWhite));
         }
         if(myPref.getString("address", null) != null) {   // 주소
             text4_2.setText(myPref.getString("address", null));
             text4_2.setTextColor(getResources().getColor(R.color.myBlack));
+            if(myPref.getBoolean("theme", false))   // dark theme
+                text4_2.setTextColor(getResources().getColor(R.color.myWhite));
         }
 
         Map<String, String> ttt= user.getRecipe();
@@ -241,6 +278,14 @@ public class MyPageActivity extends AppCompatActivity {
                 ((View)findViewById(R.id.myInfoView)).setBackgroundColor(getResources().getColor(R.color.myBlue));
                 recentTitle.setTextColor(getResources().getColor(R.color.gray));
                 ((View)findViewById(R.id.recentRecipeView)).setBackgroundColor(getResources().getColor(R.color.gray));
+
+                final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+                SharedPreferences myPref = app.getMyPref();
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    recentTitle.setTextColor(getResources().getColor(R.color.darkThemeBrightGray));
+                    ((View)findViewById(R.id.recentRecipeView)).setBackgroundColor(getResources().getColor(R.color.darkThemeBrightGray));
+                }
             }
         });
 
@@ -256,6 +301,14 @@ public class MyPageActivity extends AppCompatActivity {
                 ((View)findViewById(R.id.myInfoView)).setBackgroundColor(getResources().getColor(R.color.gray));
                 recentTitle.setTextColor(getResources().getColor(R.color.myBlue));
                 ((View)findViewById(R.id.recentRecipeView)).setBackgroundColor(getResources().getColor(R.color.myBlue));
+
+                final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+                SharedPreferences myPref = app.getMyPref();
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    infoTitle.setTextColor(getResources().getColor(R.color.darkThemeBrightGray));
+                    ((View)findViewById(R.id.myInfoView)).setBackgroundColor(getResources().getColor(R.color.darkThemeBrightGray));
+                }
             }
         });
 
@@ -270,7 +323,7 @@ public class MyPageActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MyPageActivity.this, EditActivity.class));
-                finish();
+//                finish();
             }
         });
         makeMenuBtn.setOnClickListener(new View.OnClickListener() {

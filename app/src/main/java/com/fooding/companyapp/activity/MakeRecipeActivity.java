@@ -98,14 +98,44 @@ public class MakeRecipeActivity extends AppCompatActivity {
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
 
         text1.setTypeface(fontK);
-        recipeNameText.setTypeface(fontK);
+        recipeNameText.setTypeface(fontKB);
         clearBtn.setTypeface(fontK);
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.makeRecipeActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            title.setTextColor(Color.parseColor("#ffffff"));
+
+            text1.setTextColor(Color.parseColor("#ffffff"));
+//            recipeNameText.setTextColor(Color.parseColor("#ffffff"));
+            clearBtn.setTextColor(Color.parseColor("#ececec"));
+
+            // change buttons
+            addBtn.setImageResource(R.mipmap.camera_white);
+            deleteBtn.setImageResource(R.mipmap.dustbin_white);
+            makeBtn.setImageResource(R.mipmap.upload_white);
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            myPageBtn.setImageResource(R.mipmap.user_white);
+            logoutBtn.setImageResource(R.mipmap.exit_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
         /*************************************************************************************************************/
 
         ingredients = new ArrayList<String>();
         ingredientsID = new ArrayList<String>();
         ingredientsAmount = new ArrayList<Integer>();
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
+//        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredients) ;
         adapter2 = new ArrayAdapter(this, android.R.layout.simple_list_item_1, ingredientsAmount) {
             @NonNull
             @Override
@@ -126,7 +156,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 final Integer fontSize = myPref.getInt("fontSize", 16);
                 textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
 
-                if(myPref.getBoolean("theme", false)) { // dark theme
+                /*if(myPref.getBoolean("theme", false)) { // dark theme
                     textView.setTextColor(Color.parseColor("#ffffff"));
 
                     // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
@@ -135,9 +165,9 @@ public class MakeRecipeActivity extends AppCompatActivity {
                         int key = checked.keyAt(i);
                         boolean value = checked.get(key);
                         if(value && position == key)
-                            textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                            textView.setTextColor(getResources().getColor(R.color.myBlue));
                     }
-                }
+                }*/
 
                 return view;
             }
@@ -170,7 +200,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                         int key = checked.keyAt(i);
                         boolean value = checked.get(key);
                         if(value && position == key)
-                            textView.setTextColor(getResources().getColor(R.color.yellowAccent));
+                            textView.setTextColor(getResources().getColor(R.color.myBlue));
                     }
                 }
 
@@ -244,6 +274,8 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 }
                 else{
                 }
+
+                adapter.notifyDataSetChanged();
             }
         });
 

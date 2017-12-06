@@ -7,13 +7,18 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -24,6 +29,7 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.fooding.companyapp.APIService;
 import com.fooding.companyapp.FoodingCompanyApplication;
@@ -108,8 +114,6 @@ public class SearchActivity extends AppCompatActivity {
             // change dividing lines
             View tmp = findViewById(R.id.title_bar);
             tmp.setBackgroundColor(Color.parseColor("#ffffff"));
-            tmp = findViewById(R.id.menu_bar);
-            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
 
             // listview divider/separator
             /*resultListView.setDivider(new ColorDrawable(0xF0ECECEC));
@@ -119,8 +123,42 @@ public class SearchActivity extends AppCompatActivity {
 
         results = new ArrayList<String>();
         resultsID = new ArrayList<String>();
-        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, results) ;
+        adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_single_choice, results) {
+            @NonNull
+            @Override
+            public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+                View view = super.getView(position, convertView, parent);
+                TextView textView = (TextView) view.findViewById(android.R.id.text1);
+
+                final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+                SharedPreferences myPref = app.getMyPref();
+
+                final String pathT = myPref.getString("listViewFont", "fonts/NanumSquareRoundOTFR.otf");
+                Typeface font = Typeface.createFromAsset(getAssets(), pathT);
+                textView.setTypeface(font);
+
+                final Integer fontSize = myPref.getInt("fontSize", 16);
+                textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP, fontSize);
+
+                if(myPref.getBoolean("theme", false)) { // dark theme
+                    textView.setTextColor(Color.parseColor("#ffffff"));
+
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+                    if(position == resultList.getCheckedItemPosition())
+                        textView.setTextColor(getResources().getColor(R.color.myBlue));
+                }
+
+                return view;
+            }
+        };
         resultList.setAdapter(adapter);
+
+        resultList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         TextWatcher watcher = new TextWatcher()
         {

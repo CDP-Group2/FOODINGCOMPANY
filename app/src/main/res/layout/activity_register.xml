@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/registerActivity" >
 
     <TextView
         android:id="@+id/title"
@@ -109,6 +110,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/tmp1"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#c5c5c5"
@@ -167,6 +169,7 @@
         </LinearLayout>
 
         <View
+            android:id="@+id/tmp2"
             android:layout_width="match_parent"
             android:layout_height="20dp"
             android:background="#c5c5c5"

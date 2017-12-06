@@ -259,6 +259,9 @@ public class SettingsActivity extends AppCompatActivity {
                 /*editor.putString("id", null);
                 editor.putString("password", null);*/
                 editor.apply();
+
+                startActivity(new Intent(SettingsActivity.this, LoginActivity.class));
+                finish();
             }
         });
 

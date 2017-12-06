@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:id="@+id/loginActivity" >
 
     <TextView
         android:id="@+id/title"
@@ -55,6 +56,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/tmp1"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -65,7 +67,7 @@
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/user_2" />
 
-                <android.support.design.widget.TextInputLayout
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/login_id"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -80,7 +82,20 @@
                         android:inputType="textPersonName"
                         android:hint="@string/hint_id" />
 
-                </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>-->
+
+                <EditText
+                    android:id="@+id/login_id_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:background="@drawable/login_box"
+                    android:padding="12dp"
+                    android:layout_marginBottom="10dp"
+                    android:textCursorDrawable="@null"
+                    android:inputType="textPersonName"
+                    android:textColorHint="#bbbbbb"
+                    android:hint="@string/hint_id" />
 
             </LinearLayout>
 
@@ -90,6 +105,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/tmp2"
                     android:layout_width="wrap_content"
                     android:layout_height="30dp"
                     android:layout_gravity="center_vertical"
@@ -100,7 +116,7 @@
                     android:layout_marginRight="10dp"
                     android:src="@mipmap/password" />
 
-                <android.support.design.widget.TextInputLayout
+                <!--<android.support.design.widget.TextInputLayout
                     android:id="@+id/login_pw"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -114,7 +130,19 @@
                         android:hint="@string/hint_pw"
                         android:inputType="textPassword" />
 
-                </android.support.design.widget.TextInputLayout>
+                </android.support.design.widget.TextInputLayout>-->
+
+                <EditText
+                    android:id="@+id/login_pw_edittext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/login_box"
+                    android:padding="12dp"
+                    android:hint="@string/hint_pw"
+                    android:textColorHint="#bbbbbb"
+                    android:inputType="textPassword" />
 
             </LinearLayout>
 
@@ -188,6 +216,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/tmp3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
