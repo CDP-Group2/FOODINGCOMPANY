@@ -58,12 +58,14 @@ public class SearchActivity extends AppCompatActivity {
     @BindView(R.id.searchText) EditText searchText;
     @BindView(R.id.addButton) ImageButton addBtn;
     @BindView(R.id.title) TextView title;
+    @BindView(R.id.btn1) TextView btn1;
     /*@BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.search) ImageButton searchBtn;
     @BindView(R.id.camera) ImageButton cameraBtn;
     @BindView(R.id.recentlyViewed) ImageButton recentlyViewedBtn;*/
     @BindView(R.id.JsonTextview) TextView debuggingView; //debugging purpose
 
+    final Integer PLUS_INGREDIENT = 1;
     public ArrayList<String> results;
     public ArrayList<String> resultsID;
     public ArrayAdapter adapter;
@@ -272,6 +274,14 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
 
+        btn1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivityForResult(new Intent(SearchActivity.this,
+                        plusPopupActivity.class),PLUS_INGREDIENT);
+            }
+        });
+
         /*settingBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,4 +290,23 @@ public class SearchActivity extends AppCompatActivity {
             }
         });*/
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+
+        if (requestCode == PLUS_INGREDIENT) {
+            if(resultCode == Activity.RESULT_OK){
+                String name = data.getStringExtra("Ingredient");
+
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("addIngredient",name);
+                returnIntent.putExtra("addIngredientID","0");
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
+            }
+            if (resultCode == Activity.RESULT_CANCELED) {
+                //만약 반환값이 없을 경우의 코드를 여기에 작성하세요.
+            }
+        }
+
+    }//onActivityResult
 }
