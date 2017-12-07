@@ -245,6 +245,10 @@ public class LoginActivity extends Activity {
 
                         editor.putBoolean("save_id_login", save_id.isChecked());
                         editor.putBoolean("auto_login", auto_login.isChecked());
+                        editor.putString("companyName", res.getCompanyName());
+                        editor.putString("email", res.getEmail());
+                        editor.putString("address", res.getAddress());
+
                         editor.apply();
 
 //                        startActivity(new Intent(LoginActivity.this, MainActivity.class));

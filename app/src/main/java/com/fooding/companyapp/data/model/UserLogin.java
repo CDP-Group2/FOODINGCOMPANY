@@ -15,9 +15,31 @@ public class UserLogin {
     @SerializedName("CNAME")
     @Expose
     private String companyName;
+    @SerializedName("Email")
+    @Expose
+    private String email;
+    @SerializedName("Location")
+    @Expose
+    private String address;
     @SerializedName("SUCCESS")
     @Expose
     private String loginSuccess;
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     public String getCompanyID() {
         return companyID;
