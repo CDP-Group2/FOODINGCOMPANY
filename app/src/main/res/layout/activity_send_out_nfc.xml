@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/sendOutNFCActivity"
-    tools:context=".activity.NFCActivity">
+    tools:context=".activity.SendOutNFCActivity">
 
     <TextView
         android:id="@+id/title"
