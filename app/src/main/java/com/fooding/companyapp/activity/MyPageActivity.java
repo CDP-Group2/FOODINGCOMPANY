@@ -243,6 +243,11 @@ public class MyPageActivity extends AppCompatActivity {
         text1_2.setText(user.getName());        // 사업자명
 
         myPref = getSharedPreferences("settings", MODE_PRIVATE);
+
+        SharedPreferences.Editor editor = myPref.edit();
+        editor.putString("companyName", text1_2.getText().toString());
+        editor.apply();
+
         text2_2.setText(myPref.getString("id", null));  // 아이디
         if(myPref.getString("email", null) != null) {   // 이메일
             text3_2.setText(myPref.getString("email", null));
