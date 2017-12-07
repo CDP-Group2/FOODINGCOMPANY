@@ -187,7 +187,7 @@ public class SearchActivity extends AppCompatActivity {
                 apiService = retrofit.create(APIService.class);
 
                 String text = searchText.getText().toString();
-                Call<List<Ingredient>> comment = apiService.searchIngredient(text,Boolean.toString(fontSP.getBoolean("translate",false)));
+                Call<List<Ingredient>> comment = apiService.searchIngredient(text,Boolean.toString(fontSP.getBoolean("translation",false)));
                 comment.enqueue(new Callback<List<Ingredient>>() {
                     @Override
                     public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
