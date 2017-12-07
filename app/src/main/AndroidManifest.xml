@@ -98,12 +98,13 @@
         <activity
             android:name=".activity.RegisterActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".MyRecipeActivity"></activity>
-
+        <activity android:name=".MyRecipeActivity" />
         <activity
             android:name=".activity.amountPopupActivity"
-            android:theme="@style/ThemeWithCorners">
-        </activity>
+            android:theme="@style/ThemeWithCorners" />
+        <activity
+            android:name=".activity.plusPopupActivity"
+            android:theme="@style/ThemeWithCorners" />
     </application>
 
 </manifest>
