@@ -128,23 +128,84 @@
         android:layout_above="@id/menu_bar"
         android:layout_height="wrap_content">
 
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/addButton"
-            android:src="@mipmap/camera" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
 
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/deleteButton"
-            android:src="@mipmap/dustbin2"  />
+            <ImageButton
+                style="@style/icons"
+                android:layout_height="35dp"
+                android:id="@+id/addButton"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/camera" />
 
-        <ImageButton
-            style="@style/icons"
-            android:layout_height="@dimen/filter_menu_icon_size"
-            android:id="@+id/makeButton"
-            android:src="@mipmap/upload_2" />
+            <Button
+                android:id="@+id/addButtonCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-15dp"
+                android:background="@null"
+                android:text="추가하기"
+                android:textColor="@color/myBlack" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ImageButton
+                style="@style/icons"
+                android:layout_height="35dp"
+                android:id="@+id/deleteButton"
+                android:layout_gravity="center_horizontal"
+                android:src="@mipmap/dustbin2"  />
+
+            <Button
+                android:id="@+id/deleteButtonCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-15dp"
+                android:background="@null"
+                android:text="지우기"
+                android:textColor="@color/myBlack" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+
+            <ImageButton
+                style="@style/icons"
+                android:layout_height="35dp"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/makeButton"
+                android:src="@mipmap/upload_2" />
+
+            <Button
+                android:id="@+id/makeButtonCaption"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="-9dp"
+                android:layout_marginBottom="-15dp"
+                android:background="@null"
+                android:text="저장하기"
+                android:textColor="@color/myBlack" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -165,8 +226,8 @@
             android:layout_height="wrap_content"
             android:background="@null"
             android:layout_marginTop="-15dp"
-            android:layout_marginBottom="-10dp"
-            android:layout_marginRight="-10dp"
+            android:layout_marginBottom="-5dp"
+            android:layout_marginRight="-18dp"
             android:textSize="12dp"
             android:textColor="#5c5c5c"
             android:textAllCaps="true"
@@ -177,21 +238,66 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal">
-            <ListView
-                android:id="@+id/ingredientList"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:choiceMode="multipleChoice"
-                android:scrollbars="vertical" />
-            <ListView
-                android:id="@+id/ingredientAmountList"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_weight="0.75"
-                android:textAlignment="center"
-                android:choiceMode="multipleChoice"
-                android:scrollbars="vertical" />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ingredientCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="재료명"
+                    android:textColor="@color/myBlack"
+                    android:layout_marginLeft="10dp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/gray" />
+
+                <ListView
+                    android:id="@+id/ingredientList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:choiceMode="multipleChoice"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="3"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/ingredientAmountCaption"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textAlignment="center"
+                    android:text="양 (g)"
+                    android:textColor="@color/myBlack" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/gray" />
+
+                <ListView
+                    android:id="@+id/ingredientAmountList"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:choiceMode="multipleChoice"
+                    android:scrollbars="vertical" />
+
+            </LinearLayout>
+
         </LinearLayout>
 
 

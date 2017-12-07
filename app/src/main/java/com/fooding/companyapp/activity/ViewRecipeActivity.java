@@ -62,7 +62,6 @@ public class ViewRecipeActivity extends AppCompatActivity {
         final String pathT = myPref.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
         final String pathTK = myPref.getString("titleFontk", "none");
-        Log.i("pathTK path", pathTK);
         Typeface fontTK = Typeface.createFromAsset(getAssets(), pathTK);
         titleText.setTypeface(font);
 

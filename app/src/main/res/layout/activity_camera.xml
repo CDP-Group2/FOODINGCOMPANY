@@ -57,7 +57,7 @@
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
             android:id="@+id/search"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="40dp"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/search_color" />
 
@@ -72,7 +72,8 @@
             android:paddingLeft="0dp"
             android:textAlignment="textStart"
             android:textColor="@color/myBlack"
-            android:layout_gravity="center_vertical"/>
+            android:layout_gravity="center_vertical"
+            tools:ignore="RtlCompat" />
     </LinearLayout>
 
 </RelativeLayout>

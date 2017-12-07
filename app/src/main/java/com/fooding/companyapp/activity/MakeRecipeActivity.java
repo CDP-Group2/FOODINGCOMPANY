@@ -63,6 +63,11 @@ public class MakeRecipeActivity extends AppCompatActivity {
     @BindView(R.id.setting) ImageButton settingBtn;
     @BindView(R.id.myPage) ImageButton myPageBtn;
     @BindView(R.id.logout) ImageButton logoutBtn;
+    @BindView(R.id.addButtonCaption) TextView addButtonCaption;
+    @BindView(R.id.deleteButtonCaption) TextView deleteButtonCaption;
+    @BindView(R.id.makeButtonCaption) TextView makeButtonCaption;
+    @BindView(R.id.ingredientCaption) TextView ingredientCaption;
+    @BindView(R.id.ingredientAmountCaption) TextView ingredientAmountCaption;
     final Integer ADD_INGREDIENT = 1;
     final Integer SET_AMOUNT = 2;
     public ArrayList<String> ingredients;
@@ -98,6 +103,11 @@ public class MakeRecipeActivity extends AppCompatActivity {
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
 
         text1.setTypeface(fontK);
+        addButtonCaption.setTypeface(fontK);
+        deleteButtonCaption.setTypeface(fontK);
+        makeButtonCaption.setTypeface(fontK);
+        ingredientCaption.setTypeface(fontK);
+        ingredientAmountCaption.setTypeface(fontK);
         recipeNameText.setTypeface(fontKB);
         clearBtn.setTypeface(fontK);
         /*************************************************************************************************************/
@@ -115,6 +125,11 @@ public class MakeRecipeActivity extends AppCompatActivity {
             text1.setTextColor(Color.parseColor("#ffffff"));
 //            recipeNameText.setTextColor(Color.parseColor("#ffffff"));
             clearBtn.setTextColor(Color.parseColor("#ececec"));
+            addButtonCaption.setTextColor(getResources().getColor(R.color.myWhite));
+            deleteButtonCaption.setTextColor(getResources().getColor(R.color.myWhite));
+            makeButtonCaption.setTextColor(getResources().getColor(R.color.myWhite));
+            ingredientCaption.setTextColor(getResources().getColor(R.color.myWhite));
+            ingredientAmountCaption.setTextColor(getResources().getColor(R.color.myWhite));
 
             // change buttons
             addBtn.setImageResource(R.mipmap.camera_white);
@@ -311,8 +326,10 @@ public class MakeRecipeActivity extends AppCompatActivity {
                     }
                 }
 
-                if(selectedCount == 0)
-                    Toast.makeText(MakeRecipeActivity.this, "0 Items Selected", Toast.LENGTH_SHORT).show();
+                if(count < 1)
+                    Toast.makeText(MakeRecipeActivity.this, "지울 항목이 없습니다.", Toast.LENGTH_SHORT).show();
+                else if(selectedCount == 0)
+                    Toast.makeText(MakeRecipeActivity.this, "지울 항목을 선택해주세요.", Toast.LENGTH_SHORT).show();
 
                 ingredientList.clearChoices();
                 adapter.notifyDataSetChanged();
@@ -451,6 +468,27 @@ public class MakeRecipeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 ingredientList.clearChoices();
                 adapter.notifyDataSetChanged();
+            }
+        });
+
+        addButtonCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addBtn.performClick();
+            }
+        });
+
+        deleteButtonCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                deleteBtn.performClick();
+            }
+        });
+
+        makeButtonCaption.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                makeBtn.performClick();
             }
         });
     }

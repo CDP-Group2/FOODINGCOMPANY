@@ -118,9 +118,9 @@ public class MyPageActivity extends AppCompatActivity {
             text2_1.setTextColor(getResources().getColor(R.color.myWhite));
             text2_2.setTextColor(getResources().getColor(R.color.myWhite));
             text3_1.setTextColor(getResources().getColor(R.color.myWhite));
-            text3_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text3_2.setTextColor(getResources().getColor(R.color.darkThemeBrightGray));
             text4_1.setTextColor(getResources().getColor(R.color.myWhite));
-            text4_2.setTextColor(getResources().getColor(R.color.myWhite));
+            text4_2.setTextColor(getResources().getColor(R.color.darkThemeBrightGray));
 
             // change buttons
             settingBtn.setImageResource(R.mipmap.settings_white);

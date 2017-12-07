@@ -2,6 +2,9 @@ package com.fooding.companyapp.activity;
 
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.nfc.FormatException;
 import android.nfc.NdefMessage;
 import android.nfc.NdefRecord;
@@ -12,10 +15,15 @@ import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 
 import java.io.IOException;
@@ -29,14 +37,20 @@ import butterknife.ButterKnife;
  */
 
 public class SendOutNFCActivity extends AppCompatActivity {
-    @BindView(R.id.my_page)
-    Button my_pagebutton;
-    @BindView(R.id.filter)
-    Button filterbutton;
-    @BindView(R.id.viewrecipe)
-    Button viewrecipebutton;
     @BindView(R.id.title)
     TextView title;
+    @BindView(R.id.setting)
+    ImageButton settingBtn;
+    @BindView(R.id.myPage)
+    ImageButton myPageBtn;
+    @BindView(R.id.logout)
+    ImageButton logoutBtn;
+    @BindView(R.id.makeMenu)
+    ImageButton makeMenuBtn;
+    @BindView(R.id.msg)
+    TextView msg;
+    @BindView(R.id.nfc)
+    ImageView nfc;
     NfcAdapter mNfc;
     PendingIntent pIntent;
     String code;
@@ -48,6 +62,56 @@ public class SendOutNFCActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         code = getIntent().getStringExtra("code");
         code = "R"+code;
+
+        /*************************************************************************************************************/
+        // font setting
+        final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
+        SharedPreferences myPref = app.getMyPref();
+        // Toast.makeText(getApplicationContext(), fontSP.getString("titleFont", "none"), Toast.LENGTH_SHORT).show();
+        final String path = myPref.getString("titleFont", "none");
+        // Toast.makeText(getApplicationContext(), path, Toast.LENGTH_SHORT).show();
+
+        Typeface font = Typeface.createFromAsset(getAssets(), path);
+        title.setTypeface(font);
+        final String pathK = myPref.getString("koreanFont", "none");
+        Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
+        msg.setTypeface(fontK);
+        /*************************************************************************************************************/
+
+        /*************************************************************************************************************/
+        // theme setting
+        if(myPref.getBoolean("theme", false)) { // dark theme
+            // change background
+            final View root = findViewById(R.id.sendOutNFCActivity).getRootView();
+//            root.setBackgroundColor(Color.parseColor("#000000"));
+            root.setBackgroundResource(R.drawable.dark_theme_background);
+
+            // change text color
+            title.setTextColor(Color.parseColor("#ffffff"));
+            msg.setTextColor(getResources().getColor(R.color.myWhite));
+
+            // change buttons
+            settingBtn.setImageResource(R.mipmap.settings_white);
+            myPageBtn.setImageResource(R.mipmap.user_white);
+            logoutBtn.setImageResource(R.mipmap.exit_white);
+            makeMenuBtn.setImageResource(R.mipmap.compose_white);
+
+            // change image
+            nfc.setImageResource(R.mipmap.noun_white);
+
+            // change dividing lines
+            View tmp = findViewById(R.id.title_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+        }
+        /*************************************************************************************************************/
+
+        final ImageView nfc_iv = (ImageView)findViewById(R.id.nfc);
+        Animation anim = AnimationUtils.loadAnimation(this, R.anim.alpha_anim);
+        anim.setRepeatMode(Animation.REVERSE);
+        anim.setRepeatCount(Animation.INFINITE);
+        nfc_iv.startAnimation(anim);
         /****************
          *******************************
          ********************/
@@ -71,26 +135,43 @@ public class SendOutNFCActivity extends AppCompatActivity {
         Intent intent =new Intent(this,getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
         pIntent = PendingIntent.getActivity(this,0,intent,0);
 
-
-        my_pagebutton.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View v){
-                Intent intent=new Intent(SendOutNFCActivity.this, MyPageActivity.class);
-                //intent.putExtra("date",Integer.parseInt(date.getText().toString().replaceAll("[^0-9]", "")));
-                startActivity(intent);
+        settingBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendOutNFCActivity.this, SettingsActivity.class));
+//                finish();
             }
         });
 
-        filterbutton.setOnClickListener(new View.OnClickListener() {
+        myPageBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SendOutNFCActivity.this, FilterActivity.class));
+                startActivity(new Intent(SendOutNFCActivity.this, MyPageActivity.class));
+//                finish();
             }
         });
 
-        viewrecipebutton.setOnClickListener(new View.OnClickListener() {
+        logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(SendOutNFCActivity.this, ViewRecipeActivity.class));
+                Toast.makeText(SendOutNFCActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+
+                SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
+                SharedPreferences.Editor editor = myPref.edit();
+
+                editor.putBoolean("auto_login", false);
+                editor.putString("password", null);
+                editor.apply();
+
+                startActivity(new Intent(SendOutNFCActivity.this, LoginActivity.class));
+                finish();
+            }
+        });
+
+        makeMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(SendOutNFCActivity.this, MakeRecipeActivity.class));
                 finish();
             }
         });
