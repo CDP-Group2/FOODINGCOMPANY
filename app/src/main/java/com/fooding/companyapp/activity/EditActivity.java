@@ -173,8 +173,14 @@ public class EditActivity extends Activity {
 
         editor.putString("companyName", cName_text.getText().toString());
         editor.putString("companyEnglishName", cName_english_text.getText().toString());
-        editor.putString("email", email_text.getText().toString());
-        editor.putString("address", address_text.getText().toString());
+        if(email_text.getText().toString().length() == 0)
+            editor.putString("email", null);
+        else
+            editor.putString("email", email_text.getText().toString());
+        if(address_text.getText().toString().length() == 0)
+            editor.putString("address", null);
+        else
+            editor.putString("address", address_text.getText().toString());
         editor.apply();
 
         Retrofit retrofit;
