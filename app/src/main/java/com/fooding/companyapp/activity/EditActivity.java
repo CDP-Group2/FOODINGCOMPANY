@@ -55,6 +55,8 @@ public class EditActivity extends Activity {
     private String id;
     private String pw;
     private String cname;
+    private String email;
+    private String address;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -142,14 +144,16 @@ public class EditActivity extends Activity {
                 cname = cName_text.getText().toString();
                 id = id_text.getText().toString();
                 pw = pw_text.getText().toString();
+                email = email_text.getText().toString();
+                address = address_text.getText().toString();
                 //로그인 체크
-                if(submitCheck(cname,id,pw) == 0)
+                if(submitCheck(cname,id,pw,email,address) == 0)
                     finish();
             }
         });
 
     }
-    private int submitCheck(final String cname, String id, String pw) {
+    private int submitCheck(final String cname, String id, String pw, String email, String address) {
         if(id.trim().length() == 0) {
             Toast.makeText(this, R.string.need_id, Toast.LENGTH_SHORT).show();
             return -1;
@@ -179,7 +183,7 @@ public class EditActivity extends Activity {
         retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
         apiService = retrofit.create(APIService.class);
 
-        Call<ResponseBody> comment = apiService.doRegister(cname,id,pw);
+        Call<ResponseBody> comment = apiService.doRegister(cname,id,pw,email,address);
         Log.i("id/pw : ",id+"  "+pw);
         comment.enqueue(new Callback<ResponseBody>() {
             @Override
