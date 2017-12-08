@@ -185,6 +185,8 @@ public class NFCActivity extends AppCompatActivity {
                         // results = "";
                         Log.i("foo","foo");
                         Ingredient temp = response.body();
+                        if(temp==null)
+                            return;
                         String results = temp.getName();
                         String resultsID = temp.getId();
 

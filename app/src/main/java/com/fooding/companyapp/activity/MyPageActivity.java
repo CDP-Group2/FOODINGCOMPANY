@@ -390,7 +390,7 @@ public class MyPageActivity extends AppCompatActivity {
                         Food food=new Food();
                         String temp=foodName;
                         food.setName(temp);
-                        temp= finalFoodID;
+                        temp= "R"+finalFoodID;
                         food.setID(temp);
                         Map<String, String> ttt=new LinkedHashMap<String, String>();
                         for(int i=0; i< response.body().size();i++){
