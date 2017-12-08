@@ -42,5 +42,5 @@ public interface APIService {
 
     //auto complete search
     @GET("searchIngredient.php")
-    Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText);
+    Call<List<Ingredient>>searchIngredient(@Query("searchText") String searchText, @Query("translate") String translate);
 }

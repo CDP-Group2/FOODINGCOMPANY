@@ -79,7 +79,7 @@ public class SearchActivity extends AppCompatActivity {
         /*************************************************************************************************************/
         // font setting
         final FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
-        SharedPreferences fontSP = app.getMyPref();
+        final SharedPreferences fontSP = app.getMyPref();
 
         final String pathT = fontSP.getString("titleFont", "none");
         Typeface font = Typeface.createFromAsset(getAssets(), pathT);
@@ -187,7 +187,7 @@ public class SearchActivity extends AppCompatActivity {
                 apiService = retrofit.create(APIService.class);
 
                 String text = searchText.getText().toString();
-                Call<List<Ingredient>> comment = apiService.searchIngredient(text);
+                Call<List<Ingredient>> comment = apiService.searchIngredient(text,Boolean.toString(fontSP.getBoolean("translation",false)));
                 comment.enqueue(new Callback<List<Ingredient>>() {
                     @Override
                     public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
