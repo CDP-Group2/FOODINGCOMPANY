@@ -320,6 +320,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 for(int i = count - 1; i >= 0; i--) {
                     if(checkedItems.get(i)) {
                         ingredients.remove(i);
+                        ingredientsID.remove(i);
                         ingredientAmountList.clearChoices();
                         ingredientsAmount.remove(i);
                         selectedCount++;
