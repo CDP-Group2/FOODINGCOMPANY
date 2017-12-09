@@ -385,12 +385,16 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
 
                 final ArrayList<String> tmp = new ArrayList<String>();
+                final ArrayList<Integer> tmp2 = new ArrayList<Integer>();
                 food = app.getCurrentFood();
                 Map<String, String> ingredients= food.getIngredient();
+                Map<String, Integer> ingredientsAmount = food.getIngredientAmount();
+
                 Iterator<String> iterator = ingredients.keySet().iterator();
                 while(iterator.hasNext()){
                     String key=iterator.next();
                     tmp.add(key);
+                    tmp2.add(ingredientsAmount.get(key));
                     Log.i("key",ingredients.get(key));
                 }
 
@@ -402,7 +406,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
-                Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
+                Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp, tmp2);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
