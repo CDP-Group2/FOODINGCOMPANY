@@ -22,19 +22,27 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.fooding.companyapp.APIService;
 import com.fooding.companyapp.FoodingCompanyApplication;
 import com.fooding.companyapp.R;
 import com.fooding.companyapp.data.Food;
+import com.fooding.companyapp.data.model.Ingredient;
 import com.google.zxing.common.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ViewRecipeActivity extends AppCompatActivity {
     @BindView(R.id.toSendOutButton) Button toSendOutBtn;
@@ -208,10 +216,43 @@ public class ViewRecipeActivity extends AppCompatActivity {
         editBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(ViewRecipeActivity.this, MakeRecipeActivity.class);
-                intent.putExtra("editRecipe","true");
-                startActivity(intent);
-                finish();
+                Retrofit retrofit;
+                APIService apiService;
+                retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
+                apiService = retrofit.create(APIService.class);
+
+                String foodID = app.getCurrentFood().getID();
+
+                Call<List<Ingredient>> comment = apiService.getOwnIngredient(foodID);
+                final String finalFoodID = foodID;
+                comment.enqueue(new Callback<List<Ingredient>>() {
+                    @Override
+                    public void onResponse(Call<List<Ingredient>> call, Response<List<Ingredient>> response) {
+                        Food food=new Food();
+                        String temp=app.getCurrentFood().getName();
+                        food.setName(temp);
+                        temp= "R"+finalFoodID;
+                        food.setID(temp);
+                        Map<String, String> ttt=new LinkedHashMap<String, String>();
+                        for(int i=0; i< response.body().size();i++){
+                            Log.i("put :",response.body().get(i).getId()+","+response.body().get(i).getName());
+                            ttt.put(response.body().get(i).getId(),response.body().get(i).getName());
+                        }
+                        food.setIngredient(ttt);
+                        FoodingCompanyApplication.getInstance().setCurrentFood(food);
+                        Intent intent = new Intent(ViewRecipeActivity.this, MakeRecipeActivity.class);
+                        intent.putExtra("editRecipe","true");
+                        startActivity(intent);
+                        finish();
+                    }
+
+                    @Override
+                    public void onFailure(Call<List<Ingredient>> call, Throwable t) {
+                        Log.i("Test1", "onfailure");
+                        t.printStackTrace();
+                    }
+                });
+
             }
         });
         /*toHomeBtn.setOnClickListener(new View.OnClickListener() {

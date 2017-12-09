@@ -21,6 +21,9 @@ public interface APIService {
     @GET("getIngredient.php")
     Call<List<Ingredient>>getIngredient(@Query("key") String key);
 
+    @GET("getOwnIngredient.php")
+    Call<List<Ingredient>>getOwnIngredient(@Query("key") String key);
+
     @GET("Ingredientsid.php")
     Call<Ingredient>getIngredientInfo(@Query("key") String key);
 
