@@ -78,6 +78,10 @@ public class plusPopupActivity extends Activity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(ingredientN.getText().toString().length() < 1) {
+                    Toast.makeText(plusPopupActivity.this, "재료명을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent returnIntent = new Intent();
 
                 returnIntent.putExtra("Ingredient",ingredientN.getText().toString());
