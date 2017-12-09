@@ -73,9 +73,6 @@
             android:name=".activity.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".activity.TempActivity"
-            android:screenOrientation="portrait" />
-        <activity
             android:name=".activity.SearchActivity"
             android:windowSoftInputMode="adjustPan"
             android:screenOrientation="portrait" />

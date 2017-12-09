@@ -14,6 +14,7 @@ import android.nfc.tech.Ndef;
 import android.nfc.tech.NdefFormatable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -61,7 +62,8 @@ public class SendOutNFCActivity extends AppCompatActivity {
         setContentView(R.layout.activity_send_out_nfc);
         ButterKnife.bind(this);
         code = getIntent().getStringExtra("code");
-        code = "R"+code;
+//        code = "R"+code;
+        Log.i("codeString(NFC)", code);
 
         /*************************************************************************************************************/
         // font setting

@@ -374,6 +374,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 for(int i = count - 1; i >= 0; i--) {
                     if(checkedItems.get(i)) {
                         ingredients.remove(i);
+                        ingredientsID.remove(i);
                         ingredientAmountList.clearChoices();
                         ingredientsAmount.remove(i);
                         selectedCount++;
@@ -439,16 +440,31 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
 
                 final ArrayList<String> tmp = new ArrayList<String>();
+                final ArrayList<Integer> tmp2 = new ArrayList<Integer>();
                 food = app.getCurrentFood();
                 Map<String, String> ingredients= food.getIngredient();
+                Map<String, Integer> ingredientsAmount = food.getIngredientAmount();
+
                 Iterator<String> iterator = ingredients.keySet().iterator();
                 while(iterator.hasNext()){
                     String key=iterator.next();
                     tmp.add(key);
-                    Log.i("key",ingredients.get(key));
+                    Log.i("key",key);
+                    if(ingredientsAmount.get(key)==null){
+                        tmp2.add(0);
+                        Log.i("keyAmount",Integer.toString(0));
+                    }
+                    else{
+                        tmp2.add(ingredientsAmount.get(key));
+                        Log.i("keyAmount",Integer.toString(ingredientsAmount.get(key)));
+                    }
                 }
 
                 Log.i("lenof tmp", Integer.toString(tmp.size()));
+
+                SharedPreferences myPref = app.getMyPref();
+
+                final String CID = myPref.getString("CID", "1");
 
                 Retrofit retrofit;
                 APIService apiService;
@@ -456,7 +472,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
-                Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp);
+                Call<ResponseBody> comment = apiService.makeRecipe(CID, recipeNameText.getText().toString(), tmp, tmp2);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
