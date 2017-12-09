@@ -394,11 +394,22 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 while(iterator.hasNext()){
                     String key=iterator.next();
                     tmp.add(key);
-                    tmp2.add(ingredientsAmount.get(key));
-                    Log.i("key",ingredients.get(key));
+                    Log.i("key",key);
+                    if(ingredientsAmount.get(key)==null){
+                        tmp2.add(0);
+                        Log.i("keyAmount",Integer.toString(0));
+                    }
+                    else{
+                        tmp2.add(ingredientsAmount.get(key));
+                        Log.i("keyAmount",Integer.toString(ingredientsAmount.get(key)));
+                    }
                 }
 
                 Log.i("lenof tmp", Integer.toString(tmp.size()));
+
+                SharedPreferences myPref = app.getMyPref();
+
+                final String CID = myPref.getString("CID", "1");
 
                 Retrofit retrofit;
                 APIService apiService;
@@ -406,7 +417,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
 
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
-                Call<ResponseBody> comment = apiService.makeRecipe("1", recipeNameText.getText().toString(), tmp, tmp2);
+                Call<ResponseBody> comment = apiService.makeRecipe(CID, recipeNameText.getText().toString(), tmp, tmp2);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
