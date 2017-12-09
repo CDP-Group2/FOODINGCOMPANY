@@ -234,69 +234,38 @@ public class MakeRecipeActivity extends AppCompatActivity {
         ingredientList.setAdapter(adapter);
         ingredientAmountList.setAdapter(adapter2);
 
-        ingredientList.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(touchSource == null)
-                    touchSource = view;
-
-                if(view == touchSource) {
-                    ingredientAmountList.dispatchTouchEvent(motionEvent);
-                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        clickSource = view;
-                        touchSource = null;
-                    }
-                }
-
-                return false;
-            }
-        });
-        ingredientAmountList.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if(touchSource == null)
-                    touchSource = view;
-
-                if(view == touchSource) {
-                    ingredientList.dispatchTouchEvent(motionEvent);
-                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                        clickSource = view;
-                        touchSource = null;
-                    }
-                }
-
-                return false;
-            }
-        });
-
-
         ingredientList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView absListView, int i) {
+
             }
 
             @Override
             public void onScroll(AbsListView absListView, int i, int i1, int i2) {
-                if(absListView == clickSource)
-                    ingredientAmountList.setSelectionFromTop(i, absListView.getChildAt(0).getTop() + offset);
+                View v=absListView.getChildAt(0);
+                if(v != null)
+                    ingredientAmountList.setSelectionFromTop(i, v.getTop());
             }
         });
 
-        Handler handler = new Handler() {
+        ingredientList.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void handleMessage(Message msg) {
-                // Set listView's x, y coordinates in loc[0], loc[1]
-                int[] loc = new int[2];
-                ingredientList.getLocationInWindow(loc);
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                ingredientAmountList.dispatchTouchEvent(motionEvent);
 
-                // Save listView's y and get listView2's coordinates
-                int firstY = loc[1];
-                ingredientAmountList.getLocationInWindow(loc);
-
-                offset = firstY - loc[1];
-                //Log.v("Example", "offset: " + offset + " = " + firstY + " + " + loc[1]);
+                return false;
             }
-        };
+        });
+
+        ingredientAmountList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(motionEvent.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true;
+                }
+                return false;
+            }
+        });
 
         ingredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
