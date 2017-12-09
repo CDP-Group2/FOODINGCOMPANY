@@ -129,7 +129,7 @@ public class SendOutNFCActivity extends AppCompatActivity {
         mNfc=NfcAdapter.getDefaultAdapter(this) ;
         if (mNfc == null) {
             // NFC 미지원단말
-            Toast.makeText(getApplicationContext(), "No NFC on your Device", Toast.LENGTH_SHORT).show();
+            Toast.makeText(SendOutNFCActivity.this, "No NFC on your Device", Toast.LENGTH_SHORT).show();
             finish();
         }
         Intent intent =new Intent(this,getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -154,7 +154,7 @@ public class SendOutNFCActivity extends AppCompatActivity {
         logoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SendOutNFCActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendOutNFCActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();
@@ -203,26 +203,26 @@ public class SendOutNFCActivity extends AppCompatActivity {
             if (ndef != null) {
                 ndef.connect();
                 if (!ndef.isWritable()) {
-                    Toast.makeText(getApplicationContext(),"that tag is read_only!",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendOutNFCActivity.this,"This Tag is READ_ONLY",Toast.LENGTH_SHORT).show();
                 }
                 if (ndef.getMaxSize()<textMessage.toByteArray().length) {
-                    Toast.makeText(getApplicationContext(),"oversize message",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendOutNFCActivity.this,"Oversize Message",Toast.LENGTH_SHORT).show();
                 }
                 ndef.writeNdefMessage(textMessage);
-                Toast.makeText(getApplicationContext(),"write done.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendOutNFCActivity.this,"태그에 기록되었습니다.",Toast.LENGTH_SHORT).show();
             } else {
                 NdefFormatable format = NdefFormatable.get(mTag);
                 if (format != null) {
                     try {
                         format.connect();
                         format.format(textMessage);
-                        Toast.makeText(getApplicationContext(),"overwrite done.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SendOutNFCActivity.this,"overwrite done.",Toast.LENGTH_SHORT).show();
                         return;
                     } catch (IOException e) {
-                        Toast.makeText(getApplicationContext(),"overwrite failed.",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(SendOutNFCActivity.this,"overwrite failed.",Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(),"tag doesn't support NDEF.",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(SendOutNFCActivity.this,"tag doesn't support NDEF.",Toast.LENGTH_SHORT).show();
                 }
             }
         } catch (IOException e) {

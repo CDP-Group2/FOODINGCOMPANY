@@ -19,7 +19,7 @@ public class FilterActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         Food food = FoodingCompanyApplication.getInstance().getCurrentFood();
-        Toast.makeText(this, food.getName().toString(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(FilterActivity.this, food.getName().toString(), Toast.LENGTH_SHORT).show();
         //사용방법은 카메라 액티비티 참고
     }
 }

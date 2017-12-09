@@ -203,10 +203,10 @@ public class LoginActivity extends Activity {
     //인터넷 연결해서 로그인 체크
     private void loginCheck(String id, String pw) {
         if(id.trim().length() == 0) {
-            Toast.makeText(this, R.string.need_id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, R.string.need_id, Toast.LENGTH_SHORT).show();
             return;
         } else if(pw.trim().length() == 0) {
-            Toast.makeText(this, R.string.need_password, Toast.LENGTH_SHORT).show();
+            Toast.makeText(LoginActivity.this, R.string.need_password, Toast.LENGTH_SHORT).show();
             return;
         }
 

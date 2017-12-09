@@ -118,6 +118,8 @@ public class SearchActivity extends AppCompatActivity {
             // change dividing lines
             View tmp = findViewById(R.id.title_bar);
             tmp.setBackgroundColor(Color.parseColor("#ffffff"));
+            tmp = findViewById(R.id.menu_bar);
+            tmp.setBackgroundColor(Color.parseColor("#ffffff"));
 
             // listview divider/separator
             /*resultListView.setDivider(new ColorDrawable(0xF0ECECEC));
@@ -182,6 +184,8 @@ public class SearchActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count)
             {
+                resultList.clearChoices();
+
                 Retrofit retrofit;
                 APIService apiService;
 

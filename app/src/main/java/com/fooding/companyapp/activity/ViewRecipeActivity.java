@@ -242,7 +242,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 //                startActivity(new Intent(MakeRecipeActivity.this, ViewRecipeActivity.class));
-                Toast.makeText(ViewRecipeActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewRecipeActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();

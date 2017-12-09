@@ -147,13 +147,13 @@ public class RegisterActivity extends Activity {
 
     private int submitCheck(String cname, String id, String pw, String email, String address) {
         if(id.trim().length() == 0) {
-            Toast.makeText(this, R.string.need_id, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, R.string.need_id, Toast.LENGTH_SHORT).show();
             return -1;
         } else if(pw.trim().length() == 0) {
-            Toast.makeText(this, R.string.need_password, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, R.string.need_password, Toast.LENGTH_SHORT).show();
             return -1;
         } else if(cname.trim().length() == 0) {
-            Toast.makeText(this, R.string.need_cname, Toast.LENGTH_SHORT).show();
+            Toast.makeText(RegisterActivity.this, R.string.need_cname, Toast.LENGTH_SHORT).show();
             return -1;
         } else if(!pw_text.getText().toString().equals(pw_check_text.getText().toString())) {
             Toast.makeText(RegisterActivity.this, "비밀번호가 다릅니다.", Toast.LENGTH_SHORT).show();

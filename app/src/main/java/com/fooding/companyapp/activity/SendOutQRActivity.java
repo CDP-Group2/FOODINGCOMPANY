@@ -247,7 +247,7 @@ public class SendOutQRActivity extends AppCompatActivity {
             public void onClick(View view) {
                 /*startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
                 finish();*/
-                Toast.makeText(SendOutQRActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(SendOutQRActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();

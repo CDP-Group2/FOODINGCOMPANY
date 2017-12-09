@@ -114,7 +114,7 @@ public class NFCActivity extends AppCompatActivity {
         mNfc=NfcAdapter.getDefaultAdapter(this);
         if (mNfc == null) {
             // NFC 미지원단말
-            Toast.makeText(getApplicationContext(), "No NFC on your Device", Toast.LENGTH_SHORT).show();
+            Toast.makeText(NFCActivity.this, "No NFC on your Device", Toast.LENGTH_SHORT).show();
             finish();
         }
         Intent intent =new Intent(this,getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
@@ -169,7 +169,7 @@ public class NFCActivity extends AppCompatActivity {
         if (msg != null) {
             Log.d("d", "hi");
             String dMsg = setReadTagData((NdefMessage) msg[0]);
-            Toast.makeText(this, dMsg, Toast.LENGTH_SHORT).show();
+            Toast.makeText(NFCActivity.this, dMsg, Toast.LENGTH_SHORT).show();
 
             Retrofit retrofit;
             APIService apiService;

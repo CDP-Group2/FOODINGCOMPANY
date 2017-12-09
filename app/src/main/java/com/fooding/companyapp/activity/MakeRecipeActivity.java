@@ -8,6 +8,8 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -15,8 +17,10 @@ import android.util.Log;
 import android.util.SparseBooleanArray;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -78,6 +82,10 @@ public class MakeRecipeActivity extends AppCompatActivity {
     private Food food;
     private FoodingCompanyApplication app;
     private Boolean amountFlag=false;
+
+    View clickSource;
+    View touchSource;
+    int offset = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,6 +232,52 @@ public class MakeRecipeActivity extends AppCompatActivity {
         };
         ingredientList.setAdapter(adapter);
         ingredientAmountList.setAdapter(adapter2);
+
+        ingredientList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(touchSource == null)
+                    touchSource = view;
+
+                if(view == touchSource) {
+                    ingredientAmountList.dispatchTouchEvent(motionEvent);
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        clickSource = view;
+                        touchSource = null;
+                    }
+                }
+
+                return false;
+            }
+        });
+
+        ingredientList.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView absListView, int i) {
+            }
+
+            @Override
+            public void onScroll(AbsListView absListView, int i, int i1, int i2) {
+                if(absListView == clickSource)
+                    ingredientAmountList.setSelectionFromTop(i, absListView.getChildAt(0).getTop() + offset);
+            }
+        });
+
+        Handler handler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                // Set listView's x, y coordinates in loc[0], loc[1]
+                int[] loc = new int[2];
+                ingredientList.getLocationInWindow(loc);
+
+                // Save listView's y and get listView2's coordinates
+                int firstY = loc[1];
+                ingredientAmountList.getLocationInWindow(loc);
+
+                offset = firstY - loc[1];
+                //Log.v("Example", "offset: " + offset + " = " + firstY + " + " + loc[1]);
+            }
+        };
 
         ingredientList.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE);
 
@@ -448,7 +502,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
             public void onClick(View view) {
                 /*startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
                 finish();*/
-                Toast.makeText(MakeRecipeActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MakeRecipeActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();

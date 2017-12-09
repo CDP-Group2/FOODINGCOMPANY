@@ -344,7 +344,7 @@ public class MyPageActivity extends AppCompatActivity {
             public void onClick(View view) {
                 /*startActivity(new Intent(MyPageActivity.this, ViewRecipeActivity.class));
                 finish();*/
-                Toast.makeText(MyPageActivity.this, "LOGOUT", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MyPageActivity.this, "로그아웃", Toast.LENGTH_SHORT).show();
 
                 SharedPreferences myPref = getSharedPreferences("settings", MODE_PRIVATE);
                 SharedPreferences.Editor editor = myPref.edit();
