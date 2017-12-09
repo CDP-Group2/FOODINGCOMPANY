@@ -250,6 +250,24 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 return false;
             }
         });
+        ingredientAmountList.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if(touchSource == null)
+                    touchSource = view;
+
+                if(view == touchSource) {
+                    ingredientList.dispatchTouchEvent(motionEvent);
+                    if(motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                        clickSource = view;
+                        touchSource = null;
+                    }
+                }
+
+                return false;
+            }
+        });
+
 
         ingredientList.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
