@@ -82,6 +82,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
     private Food food;
     private FoodingCompanyApplication app;
     private Boolean amountFlag=false;
+    private String ownName="";
 
     View clickSource;
     View touchSource;
@@ -303,6 +304,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
         String booedit = intent.getStringExtra("editRecipe");
         if(booedit!=null){
             if(booedit.equals("true")){
+                ownName = app.getCurrentFood().getName();
                 recipeNameText.setText(app.getCurrentFood().getName());
                 Map<String, String> temp = app.getCurrentFood().getIngredient();
                 Map<String, Integer> temp2 = app.getCurrentFood().getIngredientAmount();
@@ -488,9 +490,10 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 APIService apiService;
 
 
+                Log.i("ownName:",ownName);
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
-                Call<ResponseBody> comment = apiService.makeRecipe(CID, recipeNameText.getText().toString(), tmp, tmp2);
+                Call<ResponseBody> comment = apiService.makeRecipe(CID, recipeNameText.getText().toString(), tmp, tmp2,ownName);
                 comment.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
