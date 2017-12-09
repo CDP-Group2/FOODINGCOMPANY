@@ -71,8 +71,8 @@ public class plusPopupActivity extends Activity {
         final String pathKB = myPref.getString("boldKoreanFont", "none");
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
 
-        ingredientN.setTypeface(fontKB);
-        ok.setTypeface(fontK);
+        ingredientN.setTypeface(fontK);
+        ok.setTypeface(fontKB);
         /*************************************************************************************************************/
 
         ok.setOnClickListener(new View.OnClickListener() {

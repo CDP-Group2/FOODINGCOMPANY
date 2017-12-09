@@ -89,6 +89,7 @@ public class SearchActivity extends AppCompatActivity {
         final String pathK = fontSP.getString("koreanFont", "none");
         Typeface fontK = Typeface.createFromAsset(getAssets(), pathK);
         searchText.setTypeface(fontK);
+        btn1.setTypeface(fontK);
         /*************************************************************************************************************/
 
         /*************************************************************************************************************/
@@ -105,6 +106,7 @@ public class SearchActivity extends AppCompatActivity {
             searchText.setHintTextColor(Color.parseColor("#ececec"));
             searchText.setTextColor(Color.parseColor("#ffffff"));
             debuggingView.setTextColor(Color.parseColor("#ffffff"));
+            btn1.setTextColor(Color.parseColor("#ffffff"));
 
             // change buttons
             /*searchBtn.setImageResource(R.mipmap.search_white);

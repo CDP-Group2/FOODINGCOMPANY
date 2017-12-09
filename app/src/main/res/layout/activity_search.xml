@@ -106,7 +106,7 @@
         android:id="@+id/JsonTextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/Lsearch"
+        android:layout_below="@id/Lsearch"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
         android:gravity="center"
@@ -121,10 +121,14 @@
         android:choiceMode="singleChoice"
         android:layout_marginLeft="60dp"
         android:layout_centerHorizontal="true"
-        android:layout_below="@+id/Lsearch"
-        android:layout_above="@+id/menu"
+        android:layout_below="@id/Lsearch"
+        android:layout_above="@id/menu_bar"
         android:layout_marginBottom="20dp"
         android:layout_marginTop="20dp" />
+
+    <View
+        android:id="@+id/menu_bar"
+        style="@style/menu_bar" />
 
     <LinearLayout
         android:id="@+id/menu"
@@ -133,14 +137,14 @@
         android:orientation="horizontal"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="20dp"
-        android:layout_marginBottom="@dimen/menu_bar_margin"
+        android:layout_marginBottom="10dp"
         android:layout_alignParentBottom="true">
 
         <ImageButton
             style="@style/icons"
             android:layout_height="@dimen/menu_icon_size"
             android:id="@+id/search"
-            android:layout_marginLeft="40dp"
+            android:layout_marginLeft="30dp"
             android:layout_gravity="center_vertical"
             android:src="@mipmap/search_color" />
 

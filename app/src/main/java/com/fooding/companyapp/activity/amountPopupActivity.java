@@ -76,8 +76,8 @@ public class amountPopupActivity extends Activity {
         Typeface fontKB = Typeface.createFromAsset(getAssets(), pathKB);
 
         amountGram.setTypeface(fontKB);
-        ok.setTypeface(fontK);
-        cancel.setTypeface(fontK);
+        ok.setTypeface(fontKB);
+        cancel.setTypeface(fontKB);
         /*************************************************************************************************************/
 
         Intent intent = getIntent();
