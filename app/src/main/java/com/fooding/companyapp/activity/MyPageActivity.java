@@ -382,7 +382,7 @@ public class MyPageActivity extends AppCompatActivity {
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).addConverterFactory(GsonConverterFactory.create()).build();
                 apiService = retrofit.create(APIService.class);
 
-                Call<List<Ingredient>> comment = apiService.getIngredient("R"+foodID);
+                Call<List<Ingredient>> comment = apiService.getOwnIngredient("R"+foodID);
                 final String finalFoodID = foodID;
                 comment.enqueue(new Callback<List<Ingredient>>() {
                     @Override
