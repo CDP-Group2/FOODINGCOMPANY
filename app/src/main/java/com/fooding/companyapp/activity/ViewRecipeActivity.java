@@ -136,7 +136,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
                 /*if(myPref.getBoolean("theme", false)) { // dark theme
                     textView.setTextColor(Color.parseColor("#ffffff"));
 
-                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)
+                    // 선택된 항목 텍스트 색 변화 (바탕이 검은색이라 체크 항목이 안 보임)®
                     SparseBooleanArray checked = ingredientList.getCheckedItemPositions();
                     for(int i = 0; i < checked.size(); i++) {
                         int key = checked.keyAt(i);

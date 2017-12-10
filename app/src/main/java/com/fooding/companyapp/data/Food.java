@@ -12,6 +12,7 @@ public class Food {
 
     private Map<String, String> ingredient=new LinkedHashMap<String, String>();
     private Map<String, Integer> ingredientAmount=new LinkedHashMap<String, Integer>();
+    private Map<String, String> ingredientName = new LinkedHashMap<String, String>();
 
     public String getName() {
         return name;
@@ -32,6 +33,15 @@ public class Food {
     public void setIngredient(Map<String, String> nIngredient){
         this.ingredient=new LinkedHashMap<String,String>();
         this.ingredient.putAll(nIngredient);
+    }
+
+    public void setIngredientName(Map<String, String> nIngredient){
+        this.ingredientName=new LinkedHashMap<String,String>();
+        this.ingredientName.putAll(nIngredient);
+    }
+
+    public Map<String, String> getIngredientName() {
+        return ingredientName;
     }
 
     public void setIngredient(Map<String, String> nIngredient, Map<String, Integer> nIngredientAmount){
