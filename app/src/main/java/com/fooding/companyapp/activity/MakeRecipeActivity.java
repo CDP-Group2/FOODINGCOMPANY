@@ -469,7 +469,7 @@ public class MakeRecipeActivity extends AppCompatActivity {
                 APIService apiService;
 
 
-                Log.i("ownName:",ownName);
+                Log.i("send :","CID:"+CID+",recipeName:"+recipeNameText.getText().toString()+",ownName:"+ownName);
                 retrofit = new Retrofit.Builder().baseUrl(APIService.API_URL).build();
                 apiService = retrofit.create(APIService.class);
                 Call<ResponseBody> comment = apiService.makeRecipe(CID, recipeNameText.getText().toString(), tmp, tmp2, tmp3, ownName);

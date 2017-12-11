@@ -232,8 +232,6 @@ public class LoginActivity extends Activity {
                         user.setKey(res.getCompanyID());
                         user.setName(res.getCompanyName());
                         Map<String, String> recipeList= new LinkedHashMap<String, String>();
-                        recipeList.put("d23","ketchap");
-                        recipeList.put("d11","hamburger");
                         user.setRecipe(recipeList);
                         FoodingCompanyApplication app = FoodingCompanyApplication.getInstance();
                         app.setUser(user);

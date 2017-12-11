@@ -163,6 +163,7 @@ public class ViewRecipeActivity extends AppCompatActivity {
 //        recipeNameText.setText(rName);
         Log.i("beforeSetText",app.getCurrentFood().getName());
         titleText.setText(rName);
+        titleText.setSelected(true);
         Pattern p = Pattern.compile("[^a-zA-Z0-9]");
         boolean hasSpecialChar = p.matcher(rName).find();
         if(hasSpecialChar) {

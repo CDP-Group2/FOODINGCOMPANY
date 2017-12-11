@@ -14,10 +14,12 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="14dp"
-        android:textColor="#111"
+        android:text="recipe name"
         android:textAllCaps="true"
-        android:textSize="30dp"
-        android:text="recipe name" />
+        android:textColor="#111"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:textSize="30dp" />
 
     <View
         android:id="@+id/title_bar"
@@ -81,7 +83,7 @@
 
     <LinearLayout
         android:id="@+id/menu"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:layout_marginRight="20dp"
